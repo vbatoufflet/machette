@@ -1,0 +1,225 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Regex Tool\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-05-15 17:05+0200\n"
+"PO-Revision-Date: 2010-05-12\n"
+"Last-Translator: Vincent Batoufflet <vincent@batoufflet.info>\n"
+"Language-Team: Vincent Batoufflet <vincent@batoufflet.info>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#
+#, python-format
+msgid "Error: %s\n"
+msgstr "Erreur : %s\n"
+
+#
+#, python-format
+msgid "Error: %s"
+msgstr "Erreur : %s"
+
+#
+#, python-format
+msgid "Usage: %s [OPTION]..."
+msgstr "Usage: %s [OPTION]..."
+
+#
+msgid "Options:"
+msgstr "Options :"
+
+#
+msgid "display this help and exit"
+msgstr "afficher l'aide et quitter"
+
+#
+msgid "display program version and exit"
+msgstr "afficher les informations de version et quitter"
+
+#
+msgid "Error: unable to load LICENSE file"
+msgstr "Erreur : impossible de lire le fichier LICENSE"
+
+#
+msgid "Error: unable to load AUTHORS file"
+msgstr "Erreur : impossible de lire le fichier AUTHORS"
+
+#
+msgid "Error: unable to load TRANSLATORS file"
+msgstr "Erreur : impossible de lire le fichier TRANSLATORS"
+
+#
+#, python-format
+msgid "%d match found"
+msgid_plural "%d matches found"
+msgstr[0] "%d correspondance trouvée"
+msgstr[1] "%d correspondances trouvées"
+
+#
+msgid "_File"
+msgstr "_Fichier"
+
+#
+msgid "_Edit"
+msgstr "Édit_er"
+
+#
+msgid "_View"
+msgstr "_Vue"
+
+#
+msgid "View advanced panel"
+msgstr "Afficher le panneau avancé"
+
+#
+msgid "View status bar"
+msgstr "Afficher la barre d'état"
+
+#
+msgid "_Help"
+msgstr "_Aide"
+
+#
+msgid "Regular expression:"
+msgstr "Expression rationnelle :"
+
+#
+msgid "g"
+msgstr "g"
+
+#
+msgid "Search for matches globally"
+msgstr "Rechercher de manière globale"
+
+#
+msgid "i"
+msgstr "i"
+
+#
+msgid "Perform case-insensitive matching"
+msgstr "Effectuer une recherche insensible à la casse"
+
+#
+msgid "m"
+msgstr "m"
+
+#
+msgid "Treat string as multiple lines"
+msgstr "Traiter la chaîne comme étant multi-lignes"
+
+#
+msgid "s"
+msgstr "s"
+
+#
+msgid "Treat string as single line"
+msgstr "Traiter la chaîne comme étant sur une seule ligne"
+
+#
+msgid "x"
+msgstr "x"
+
+#
+msgid "Permit whitespaces and comments"
+msgstr "Permettre les espaces et les commentaires"
+
+#
+msgid "l"
+msgstr "l"
+
+#
+msgid "Make \\w, \\W, \\b, \\B, \\s and \\S depends on locale"
+msgstr "Rendre \\w, \\W, \\b, \\B, \\s et \\S dépendant paramètres régionaux"
+
+#
+msgid "u"
+msgstr "u"
+
+#
+msgid ""
+"Make \\w, \\W, \\b, \\B, \\d, \\D, \\s and \\S depends on Unicode character "
+"properties"
+msgstr ""
+"Rendre \\w, \\W, \\b, \\B, \\d, \\D, \\s et \\S dépendant des propriétés "
+"Unicode"
+
+#
+msgid "Target string:"
+msgstr "Chaîne cible :"
+
+#
+msgid "Id"
+msgstr "Id"
+
+#
+msgid "Group name"
+msgstr "Nom du groupe"
+
+#
+msgid "Match"
+msgstr "Correspondance"
+
+#
+msgid "Group:"
+msgstr "Groupe :"
+
+#
+msgid "Group"
+msgstr "Groupe"
+
+#
+msgid "Replacement string:"
+msgstr "Chaîne de remplacement :"
+
+#
+msgid "Replacement result:"
+msgstr "Résultat du remplacement :"
+
+#
+msgid "Replace"
+msgstr "Remplacer"
+
+#
+msgid "Delimiter:"
+msgstr "Délimiteur :"
+
+#
+msgid "Split"
+msgstr "Découper"
+
+#
+msgid "Preferences"
+msgstr "Préférences"
+
+#
+msgid "Window settings:"
+msgstr "Paramètres de fenêtre :"
+
+#
+msgid "Save window state on exit"
+msgstr "Sauvergarder l'état de la fenêtre à la fermeture"
+
+#
+msgid "Color settings:"
+msgstr "Paramètres de couleur :"
+
+#
+msgid "First match:"
+msgstr "Première correspondance :"
+
+#
+msgid "Next matches:"
+msgstr "Correspondances suivantes :"
+
+#
+msgid "Reset to defaults"
+msgstr "Valeurs par défaut"
+
+#
+#~ msgid "No message"
+#~ msgstr "Pas de message"
+
+#
+#~ msgid "Selection:"
+#~ msgstr "Sélection :"

@@ -1,0 +1,9 @@
+global-include *.po *.py *.ui *.po *.rst
+graft debian
+include AUTHORS
+include ChangeLog
+include LICENSE
+include MANIFEST.in
+include README
+include TRANSLATORS
+include update-po

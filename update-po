@@ -1,0 +1,39 @@
+#!/bin/bash
+# $Id$
+
+set -e
+
+BASE_DIR=$(dirname $0)
+
+echo -n >$BASE_DIR/messages.po
+
+for file in $BASE_DIR/regextool/*.py $BASE_DIR/ui/*.ui; do
+	case "$file" in
+		*.py)
+			language='Python'
+			;;
+		*.ui)
+			language='Glade'
+			;;
+		*)
+			echo "Error: unsupported extension for file $file"
+			continue
+			;;
+	esac
+
+	xgettext \
+		--join-existing \
+		--language=$language \
+		--no-location \
+		--output=$BASE_DIR/messages.po \
+		--strict \
+		$file
+done
+
+for file in $BASE_DIR/po/*.po; do
+	msgmerge --update $file $BASE_DIR/messages.po
+done
+
+rm -f $BASE_DIR/messages.po
+
+exit

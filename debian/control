@@ -1,0 +1,15 @@
+Source: regextool
+Section: devel
+Priority: optional
+Maintainer: Vincent Batoufflet <vincent@batoufflet.info>
+Build-Depends: cdbs, debhelper (>= 7.0.50~), python-docutils (>= 0.6), python-gtk2, python-support (>= 0.8.4)
+Standards-Version: 3.8.4
+Homepage: http://thonpy.com/regextool/
+Vcs-Hg: https://hg.thonpy.com/regextool/
+Vcs-Browser: https://hg.thonpy.com/regextool/
+
+Package: regextool
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-gtk2
+Description: interactive regular expression tester
+ Regex Tool is an interactive tool for testing Perl-style regular expressions.

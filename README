@@ -1,0 +1,53 @@
+Regex Tool, an interactive regular expression tester.
+Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
+
+Introduction
+------------
+
+Regex Tool is an interactive tool for testing Perl-style regular
+expressions written in Python.
+
+It uses Python GTK+ bindings for the GUI. The various .ui files has been
+generated with the Glade interface builder.
+
+Regex Tool is largely inspired by The Regex Coach which has been
+developped by Edi Weitz and discontinued under it's Unices forms.
+
+Features:
+
+ * Interactive regular expression testing
+ * Pattern match highlighting
+ * Matching occurrences replacement and split
+
+Changelog
+---------
+
+See ChangeLog file.
+
+Installation
+------------
+
+Just run the following command:
+
+   python setup.py install [--prefix=...]
+
+License
+-------
+
+This program is free software released under the terms of the GNU General
+Public License (GPL) version 3.
+
+See LICENSE file for further details. If the file is missing, you can get
+a copy at the following address <http://www.gnu.org/licenses/gpl.html>.
+
+Links
+-----
+
+Regex Tool:
+   http://thonpy.com/regextool/
+
+PyGTK:
+   http://www.pygtk.org/
+
+Glade:
+   http://glade.gnome.org/

@@ -1,0 +1,6 @@
+?package(regextool):\
+	needs="X11"\
+	section="Applications/Programming"\
+	title="Regex Tool"\
+	longtitle="Interactive regular expression tester"\
+	command="/usr/bin/regextool"
