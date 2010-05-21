@@ -23,6 +23,8 @@ __OPTIONS__ = {
 		'option-s-active':	( bool, False ),
 		'option-u-active':	( bool, False ),
 		'option-x-active':	( bool, False ),
+		'pane-position1':	( int, -1 ),
+		'pane-position2':	( int, -1 ),
 		'save-state':		( bool, True ),
 		'show-advanced':	( bool, False ),
 		'show-statusbar':	( bool, True ),

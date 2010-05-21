@@ -189,6 +189,8 @@ class RegexTool:
 		self.wtree.get_object('combobox-split-delimiter').set_active(self.config.get('window', 'split-delimiter'))
 		self.wtree.get_object('menuitem-view-advanced').set_active(self.config.get('window', 'show-advanced'))
 		self.wtree.get_object('menuitem-view-statusbar').set_active(self.config.get('window', 'show-statusbar'))
+		self.wtree.get_object('vpaned1').set_position(self.config.get('window', 'pane-position1'))
+		self.wtree.get_object('vpaned2').set_position(self.config.get('window', 'pane-position2'))
 		self.wtree.get_object('window-main').set_default_size(self.config.get('window', 'width'), self.config.get('window', 'height'))
 
 		# Update view states
@@ -237,6 +239,8 @@ class RegexTool:
 			self.config.set('window', 'option-s-active', self.wtree.get_object('checkbutton-option-s').get_active())
 			self.config.set('window', 'option-u-active', self.wtree.get_object('checkbutton-option-u').get_active())
 			self.config.set('window', 'option-x-active', self.wtree.get_object('checkbutton-option-x').get_active())
+			self.config.set('window', 'pane-position1', self.wtree.get_object('vpaned1').get_position())
+			self.config.set('window', 'pane-position2', self.wtree.get_object('vpaned2').get_position())
 			self.config.set('window', 'show-advanced', self.wtree.get_object('menuitem-view-advanced').get_active())
 			self.config.set('window', 'show-statusbar', self.wtree.get_object('menuitem-view-statusbar').get_active())
 			self.config.set('window', 'split-delimiter', self.wtree.get_object('combobox-split-delimiter').get_active())
@@ -397,12 +401,10 @@ class RegexTool:
 			self.wtree.get_object('window-main').resize(
 				self.wtree.get_object('window-main').get_allocation().width,
 				(self.wtree.get_object('window-main').get_allocation().height
-				- self.wtree.get_object('hseparator-advanced').get_allocation().height
 				- self.wtree.get_object('notebook-advanced').get_allocation().height),
 			)
 
 		# Update widgets visibility
-		self.wtree.get_object('hseparator-advanced').set_visible(self.config.get('window', 'show-advanced'))
 		self.wtree.get_object('notebook-advanced').set_visible(self.config.get('window', 'show-advanced'))
 
 	def update_group_tab(self, source=None, event=None):
