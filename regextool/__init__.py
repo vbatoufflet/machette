@@ -84,6 +84,7 @@ class RegexTool:
 		self.wtree.get_object('checkbutton-option-x').connect('toggled', self.check_pattern)
 		self.wtree.get_object('combobox-split-delimiter').connect('changed', self.update_split_tab)
 		self.wtree.get_object('menuitem-edit-pref').connect('activate', self.show_pref_dialog)
+		self.wtree.get_object('menuitem-file-import').connect('activate', self.import_from_file)
 		self.wtree.get_object('menuitem-file-quit').connect('activate', self.quit)
 		self.wtree.get_object('menuitem-help-about').connect('activate', self.show_about_dialog)
 		self.wtree.get_object('menuitem-view-advanced').connect('toggled', self.update_advanced_state)
@@ -154,6 +155,53 @@ class RegexTool:
 		except ( IndexError, re.error ), e:
 			# Display error message in status bar
 			self.wtree.get_object('statusbar').push(1, _('Error: %s') % e.message)
+
+	def import_from_file(self, source=None, event=None):
+		"""
+		Import target string from a file
+			void import_from_file(event source: gtk.Object, event: gtk.gdk.Event)
+		"""
+
+		filepath = None
+
+		# Create GtkFileChooserDialog
+		dialog = gtk.FileChooserDialog(_('Import data from file...'), None, gtk.FILE_CHOOSER_ACTION_OPEN, (
+			gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+			gtk.STOCK_OPEN, gtk.RESPONSE_OK,
+		))
+
+		dialog.set_default_response(gtk.RESPONSE_OK)
+
+		# Create filters
+		filter = gtk.FileFilter()
+		filter.set_name(_('Text files'))
+		filter.add_mime_type('text/plain')
+		dialog.add_filter(filter)
+
+		filter = gtk.FileFilter()
+		filter.set_name(_('All files'))
+		filter.add_pattern('*')
+		dialog.add_filter(filter)
+
+		action = dialog.run()
+		if action == gtk.RESPONSE_OK: filepath = dialog.get_filename()
+		dialog.destroy()
+
+		# Confirm if buffer has data
+		if filepath:
+			if self.tbuffer.get_char_count() != 0:
+				message = gtk.MessageDialog(None, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO)
+				message.set_markup(_('Your are about to replace the existing target string. Are you sure?'))
+
+				action = message.run()
+				if action == gtk.RESPONSE_NO: filepath = None
+				message.destroy()
+
+			if filepath:
+				# Load target string from file
+				fd = open(filepath, 'r')
+				self.tbuffer.set_text(fd.read())
+				fd.close()
 
 	def main(self):
 		"""
@@ -272,9 +320,9 @@ class RegexTool:
 			bool show_about_dialog(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
-		# Create AboutDialog if needed
+		# Create GtkAboutDialog if needed
 		if not hasattr(self, 'about_dialog'):
-			# Create AboutDialog
+			# Create GtkAboutDialog
 			self.about_dialog = gtk.AboutDialog()
 
 			# Set base information

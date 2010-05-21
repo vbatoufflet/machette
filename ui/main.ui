@@ -36,6 +36,19 @@
                   <object class="GtkMenu" id="menu-file">
                     <property name="visible">True</property>
                     <child>
+                      <object class="GtkImageMenuItem" id="menuitem-file-import">
+                        <property name="label" translatable="yes">Import data from file...</property>
+                        <property name="visible">True</property>
+                        <property name="image">image1</property>
+                        <property name="use_stock">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkSeparatorMenuItem" id="separatormenuitem-file1">
+                        <property name="visible">True</property>
+                      </object>
+                    </child>
+                    <child>
                       <object class="GtkImageMenuItem" id="menuitem-file-quit">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
@@ -636,5 +649,9 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkImage" id="image-open">
+    <property name="visible">True</property>
+    <property name="stock">gtk-open</property>
   </object>
 </interface>
