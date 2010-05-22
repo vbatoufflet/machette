@@ -39,7 +39,7 @@
                       <object class="GtkImageMenuItem" id="menuitem-file-import">
                         <property name="label" translatable="yes">Import data from file...</property>
                         <property name="visible">True</property>
-                        <property name="image">image1</property>
+                        <property name="image">image-open</property>
                         <property name="use_stock">False</property>
                       </object>
                     </child>
