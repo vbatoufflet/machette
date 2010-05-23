@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# $Id$
 
 # Append base directory to the PYTHONPATH
 import os, sys
@@ -108,8 +109,8 @@ class genlocale(distutils.cmd.Command):
 		for pofile in os.listdir('po'):
 			lang, ext = os.path.splitext(pofile)
 
-			# Skip non .po files
-			if ext != '.po':
+			# Skip non .po files and English sample file
+			if ext != '.po' or lang == 'en':
 				continue
 
 			# Get .mo file path

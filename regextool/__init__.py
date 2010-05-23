@@ -33,10 +33,9 @@ class RegexTool:
 		"""
 
 		# Initialize i18n support
+		gettext.install(__shortname__, LOCALE_DIR)
 		gettext.bindtextdomain(__shortname__, LOCALE_DIR)
 		locale.bindtextdomain(__shortname__, LOCALE_DIR)
-
-		__builtins__['_'] = gettext.gettext
 
 		# Parse command line arguments
 		try:
