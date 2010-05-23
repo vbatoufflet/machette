@@ -497,14 +497,12 @@ class RegexTool:
 			void update_replace_tab(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
-		cbuffer = self.wtree.get_object('textview-replace-string').get_buffer()
-
-		# Stop if replacement string is empty
-		if cbuffer.get_char_count() == 0:
-			self.wtree.get_object('textview-replace-result').get_buffer().set_text(self.target)
-			return
+		# Hide error message
+		self.wtree.get_object('statusbar').pop(1)
 
 		try:
+			cbuffer = self.wtree.get_object('textview-replace-string').get_buffer()
+
 			self.wtree.get_object('textview-replace-result').get_buffer().set_text(self.regex.sub(
 				cbuffer.get_text(cbuffer.get_start_iter(), cbuffer.get_end_iter()),
 				self.target,
