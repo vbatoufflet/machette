@@ -1,0 +1,9 @@
+[high]
+none
+
+[medium]
+- Add regex storage support
+- Add replacement 'Save as...' support
+
+[low]
+- Add regex parse tree support
