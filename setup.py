@@ -35,6 +35,7 @@ class clean(_clean):
 	"""
 
 	__targets = [
+		'ChangeLog',
 		'doc/%s.1' % __shortname__,
 		'locale',
 		'MANIFEST',

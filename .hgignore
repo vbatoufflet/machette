@@ -1,5 +1,6 @@
 ~$
 ^(build|dist)$
+^ChangeLog$
 ^doc/.*\.[0-9]$
 ^locale$
 ^MANIFEST$
