@@ -1,0 +1,10 @@
+#!/bin/bash
+# $Id$
+
+set -e
+
+BASE_DIR=$(dirname $0)
+
+hg log -M -X .hgtags -P 0 --style changelog >$BASE_DIR/ChangeLog
+
+exit
