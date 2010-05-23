@@ -9,232 +9,245 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Regex Tool\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-23 11:50+0200\n"
+"POT-Creation-Date: 2010-05-23 16:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: regextool/config.py:133 regextool/__init__.py:45
-#, python-format
-msgid "Error: %s\n"
-msgstr ""
-
-#: regextool/__init__.py:157 regextool/__init__.py:515
-#: regextool/__init__.py:531
-#, python-format
-msgid "Error: %s"
-msgstr ""
-
-#: regextool/__init__.py:168 ui/main.ui:40
-msgid "Import data from file..."
-msgstr ""
-
-#: regextool/__init__.py:177
-msgid "Text files"
-msgstr ""
-
-#: regextool/__init__.py:182
-msgid "All files"
-msgstr ""
-
-#: regextool/__init__.py:194
-msgid "Your are about to replace the existing target string. Are you sure?"
-msgstr ""
-
-#: regextool/__init__.py:258
-#, python-format
-msgid "Usage: %s [OPTION]..."
-msgstr ""
-
-#: regextool/__init__.py:260
-msgid "Options:"
-msgstr ""
-
-#: regextool/__init__.py:261
-msgid "display this help and exit"
-msgstr ""
-
-#: regextool/__init__.py:262
-msgid "display program version and exit"
-msgstr ""
-
-#: regextool/__init__.py:341
-msgid "Error: unable to load LICENSE file"
-msgstr ""
-
-#: regextool/__init__.py:348
-msgid "Error: unable to load AUTHORS file"
-msgstr ""
-
-#: regextool/__init__.py:355
-msgid "Error: unable to load TRANSLATORS file"
-msgstr ""
-
-#: regextool/__init__.py:594
+#: regextool/__init__.py:643
 #, python-format
 msgid "%d match found"
 msgid_plural "%d matches found"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ui/main.ui:33
-msgid "_File"
+#: regextool/__init__.py:229
+msgid "All files"
 msgstr ""
 
-#: ui/main.ui:66
-msgid "_Edit"
-msgstr ""
-
-#: ui/main.ui:86
-msgid "_View"
-msgstr ""
-
-#: ui/main.ui:94
-msgid "View advanced panel"
-msgstr ""
-
-#: ui/main.ui:101
-msgid "View status bar"
-msgstr ""
-
-#: ui/main.ui:112
-msgid "_Help"
-msgstr ""
-
-#: ui/main.ui:156
-msgid "Regular expression:"
-msgstr ""
-
-#: ui/main.ui:197
-msgid "g"
-msgstr ""
-
-#: ui/main.ui:201
-msgid "Search for matches globally"
-msgstr ""
-
-#: ui/main.ui:211
-msgid "i"
-msgstr ""
-
-#: ui/main.ui:215
-msgid "Perform case-insensitive matching"
-msgstr ""
-
-#: ui/main.ui:225
-msgid "m"
-msgstr ""
-
-#: ui/main.ui:229
-msgid "Treat string as multiple lines"
-msgstr ""
-
-#: ui/main.ui:239
-msgid "s"
-msgstr ""
-
-#: ui/main.ui:243
-msgid "Treat string as single line"
-msgstr ""
-
-#: ui/main.ui:253
-msgid "x"
-msgstr ""
-
-#: ui/main.ui:257
-msgid "Permit whitespaces and comments"
-msgstr ""
-
-#: ui/main.ui:267
-msgid "l"
-msgstr ""
-
-#: ui/main.ui:271
-msgid "Make \\w, \\W, \\b, \\B, \\s and \\S depends on locale"
-msgstr ""
-
-#: ui/main.ui:281
-msgid "u"
-msgstr ""
-
-#: ui/main.ui:285
-msgid ""
-"Make \\w, \\W, \\b, \\B, \\d, \\D, \\s and \\S depends on Unicode character "
-"properties"
-msgstr ""
-
-#: ui/main.ui:316
-msgid "Target string:"
-msgstr ""
-
-#: ui/main.ui:374
-msgid "Id"
-msgstr ""
-
-#: ui/main.ui:379
-msgid "Group name"
-msgstr ""
-
-#: ui/main.ui:384
-msgid "Match"
-msgstr ""
-
-#: ui/main.ui:401
-msgid "Group:"
-msgstr ""
-
-#: ui/main.ui:442
-msgid "Group"
-msgstr ""
-
-#: ui/main.ui:458 ui/main.ui:547
-msgid "Replacement string:"
-msgstr ""
-
-#: ui/main.ui:496
-msgid "Replacement result:"
-msgstr ""
-
-#: ui/main.ui:530
-msgid "Replace"
-msgstr ""
-
-#: ui/main.ui:581
-msgid "Delimiter:"
-msgstr ""
-
-#: ui/main.ui:629
-msgid "Split"
-msgstr ""
-
-#: ui/pref.ui:7
-msgid "Preferences"
-msgstr ""
-
-#: ui/pref.ui:20
-msgid "Window settings:"
-msgstr ""
-
-#: ui/pref.ui:32
-msgid "Save window state on exit"
+#: ui/main.ui:547
+msgid "Apply to target string"
 msgstr ""
 
 #: ui/pref.ui:48
 msgid "Color settings:"
 msgstr ""
 
+#: ui/main.ui:631
+msgid "Delimiter:"
+msgstr ""
+
+#: regextool/__init__.py:168 regextool/__init__.py:564
+#: regextool/__init__.py:580
+#, python-format
+msgid "Error: %s"
+msgstr ""
+
+#: regextool/config.py:136 regextool/__init__.py:44
+#, python-format
+msgid "Error: %s\n"
+msgstr ""
+
+#: regextool/__init__.py:401
+msgid "Error: unable to load AUTHORS file"
+msgstr ""
+
+#: regextool/__init__.py:394
+msgid "Error: unable to load LICENSE file"
+msgstr ""
+
+#: regextool/__init__.py:408
+msgid "Error: unable to load TRANSLATORS file"
+msgstr ""
+
+#: regextool/__init__.py:179 ui/main.ui:48
+msgid "Export to file..."
+msgstr ""
+
 #: ui/pref.ui:68
 msgid "First match:"
+msgstr ""
+
+#: ui/main.ui:450
+msgid "Group"
+msgstr ""
+
+#: ui/main.ui:387
+msgid "Group name"
+msgstr ""
+
+#: ui/main.ui:409
+msgid "Group:"
+msgstr ""
+
+#: ui/main.ui:382
+msgid "Id"
+msgstr ""
+
+#: regextool/__init__.py:215 ui/main.ui:40
+msgid "Import from file..."
+msgstr ""
+
+#: ui/main.ui:293
+msgid ""
+"Make \\w, \\W, \\b, \\B, \\d, \\D, \\s and \\S depends on Unicode character "
+"properties"
+msgstr ""
+
+#: ui/main.ui:279
+msgid "Make \\w, \\W, \\b, \\B, \\s and \\S depends on locale"
+msgstr ""
+
+#: ui/main.ui:392
+msgid "Match"
 msgstr ""
 
 #: ui/pref.ui:78
 msgid "Next matches:"
 msgstr ""
 
+#: regextool/__init__.py:310
+msgid "Options:"
+msgstr ""
+
+#: ui/main.ui:223
+msgid "Perform case-insensitive matching"
+msgstr ""
+
+#: ui/main.ui:265
+msgid "Permit whitespaces and comments"
+msgstr ""
+
+#: ui/pref.ui:7
+msgid "Preferences"
+msgstr ""
+
+#: ui/main.ui:164
+msgid "Regular expression:"
+msgstr ""
+
+#: ui/main.ui:579
+msgid "Replace"
+msgstr ""
+
+#: ui/main.ui:514
+msgid "Replacement result:"
+msgstr ""
+
+#: ui/main.ui:472 ui/main.ui:597
+msgid "Replacement string:"
+msgstr ""
+
 #: ui/pref.ui:153
 msgid "Reset to defaults"
+msgstr ""
+
+#: ui/pref.ui:32
+msgid "Save window state on exit"
+msgstr ""
+
+#: ui/main.ui:209
+msgid "Search for matches globally"
+msgstr ""
+
+#: ui/main.ui:679
+msgid "Split"
+msgstr ""
+
+#: ui/main.ui:324
+msgid "Target string:"
+msgstr ""
+
+#: regextool/__init__.py:224
+msgid "Text files"
+msgstr ""
+
+#: regextool/__init__.py:194
+msgid "The destination file already exists. Are you sure?"
+msgstr ""
+
+#: ui/main.ui:237
+msgid "Treat string as multiple lines"
+msgstr ""
+
+#: ui/main.ui:251
+msgid "Treat string as single line"
+msgstr ""
+
+#: regextool/__init__.py:308
+#, python-format
+msgid "Usage: %s [OPTION]..."
+msgstr ""
+
+#: ui/main.ui:102
+msgid "View advanced panel"
+msgstr ""
+
+#: ui/main.ui:109
+msgid "View status bar"
+msgstr ""
+
+#: ui/pref.ui:20
+msgid "Window settings:"
+msgstr ""
+
+#: regextool/__init__.py:241
+msgid "Your are about to replace the existing target string. Are you sure?"
+msgstr ""
+
+#: ui/main.ui:74
+msgid "_Edit"
+msgstr ""
+
+#: ui/main.ui:33
+msgid "_File"
+msgstr ""
+
+#: ui/main.ui:120
+msgid "_Help"
+msgstr ""
+
+#: ui/main.ui:94
+msgid "_View"
+msgstr ""
+
+#: regextool/__init__.py:312
+msgid "display program version and exit"
+msgstr ""
+
+#: regextool/__init__.py:311
+msgid "display this help and exit"
+msgstr ""
+
+#: ui/main.ui:205
+msgid "g"
+msgstr ""
+
+#: ui/main.ui:219
+msgid "i"
+msgstr ""
+
+#: ui/main.ui:275
+msgid "l"
+msgstr ""
+
+#: ui/main.ui:233
+msgid "m"
+msgstr ""
+
+#: ui/main.ui:247
+msgid "s"
+msgstr ""
+
+#: ui/main.ui:289
+msgid "u"
+msgstr ""
+
+#: ui/main.ui:261
+msgid "x"
 msgstr ""

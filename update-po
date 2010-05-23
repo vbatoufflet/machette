@@ -29,7 +29,7 @@ for file in $BASE_DIR/regextool/*.py $BASE_DIR/ui/*.ui; do
 done
 
 for file in $BASE_DIR/po/*.po; do
-	msgmerge --update $file $BASE_DIR/messages.po
+	msgmerge --update --sort-output $file $BASE_DIR/messages.po
 done
 
 rm -f $BASE_DIR/messages.po
