@@ -198,6 +198,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Search for matches globally</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -211,6 +212,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Perform case-insensitive matching</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -224,6 +226,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Treat string as multiple lines</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -237,6 +240,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Treat string as single line</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -250,6 +254,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Permit whitespaces and comments</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -263,6 +268,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Make \w, \W, \b, \B, \s and \S depends on locale</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -276,6 +282,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="tooltip_text" translatable="yes">Make \w, \W, \b, \B, \d, \D, \s and \S depends on Unicode character properties</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
