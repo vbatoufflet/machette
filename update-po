@@ -24,9 +24,7 @@ for file in $BASE_DIR/regextool/*.py $BASE_DIR/ui/*.ui; do
 	xgettext \
 		--join-existing \
 		--language=$language \
-		--no-location \
 		--output=$BASE_DIR/messages.po \
-		--strict \
 		$file
 done
 

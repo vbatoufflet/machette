@@ -1,243 +1,240 @@
-# French translation of Regex Tool.
+# SOME DESCRIPTIVE TITLE.
 #
 # Copyright (C) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # This file is distributed under the same license as the Regex Tool package.
 #
-# Vincent Batoufflet <vincent@batoufflet.info>, 2010.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Regex Tool\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-05-23 11:50+0200\n"
-"PO-Revision-Date: 2010-05-23 11:50+0200\n"
-"Last-Translator: Vincent Batoufflet <vincent@batoufflet.info>\n"
-"Language-Team: French <vincent@batoufflet.info>\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n>1;\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: regextool/config.py:133 regextool/__init__.py:45
 #, python-format
 msgid "Error: %s\n"
-msgstr "Erreur : %s\n"
+msgstr ""
 
 #: regextool/__init__.py:157 regextool/__init__.py:515
 #: regextool/__init__.py:531
 #, python-format
 msgid "Error: %s"
-msgstr "Erreur : %s"
+msgstr ""
 
 #: regextool/__init__.py:168 ui/main.ui:40
 msgid "Import data from file..."
-msgstr "Importer depuis un fichier..."
+msgstr ""
 
 #: regextool/__init__.py:177
 msgid "Text files"
-msgstr "Fichiers texte"
+msgstr ""
 
 #: regextool/__init__.py:182
 msgid "All files"
-msgstr "Tous les fichiers"
+msgstr ""
 
 #: regextool/__init__.py:194
 msgid "Your are about to replace the existing target string. Are you sure?"
 msgstr ""
-"Vous êtes sur le point de remplacer la chaîne cible courante. Continuer ?"
 
 #: regextool/__init__.py:258
 #, python-format
 msgid "Usage: %s [OPTION]..."
-msgstr "Usage: %s [OPTION]..."
+msgstr ""
 
 #: regextool/__init__.py:260
 msgid "Options:"
-msgstr "Options :"
+msgstr ""
 
 #: regextool/__init__.py:261
 msgid "display this help and exit"
-msgstr "afficher l'aide et quitter"
+msgstr ""
 
 #: regextool/__init__.py:262
 msgid "display program version and exit"
-msgstr "afficher les informations de version et quitter"
+msgstr ""
 
 #: regextool/__init__.py:341
 msgid "Error: unable to load LICENSE file"
-msgstr "Erreur : impossible de lire le fichier LICENSE"
+msgstr ""
 
 #: regextool/__init__.py:348
 msgid "Error: unable to load AUTHORS file"
-msgstr "Erreur : impossible de lire le fichier AUTHORS"
+msgstr ""
 
 #: regextool/__init__.py:355
 msgid "Error: unable to load TRANSLATORS file"
-msgstr "Erreur : impossible de lire le fichier TRANSLATORS"
+msgstr ""
 
 #: regextool/__init__.py:594
 #, python-format
 msgid "%d match found"
 msgid_plural "%d matches found"
-msgstr[0] "%d correspondance trouvée"
-msgstr[1] "%d correspondances trouvées"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ui/main.ui:33
 msgid "_File"
-msgstr "_Fichier"
+msgstr ""
 
 #: ui/main.ui:66
 msgid "_Edit"
-msgstr "Édit_er"
+msgstr ""
 
 #: ui/main.ui:86
 msgid "_View"
-msgstr "_Vue"
+msgstr ""
 
 #: ui/main.ui:94
 msgid "View advanced panel"
-msgstr "Afficher le panneau avancé"
+msgstr ""
 
 #: ui/main.ui:101
 msgid "View status bar"
-msgstr "Afficher la barre d'état"
+msgstr ""
 
 #: ui/main.ui:112
 msgid "_Help"
-msgstr "_Aide"
+msgstr ""
 
 #: ui/main.ui:156
 msgid "Regular expression:"
-msgstr "Expression rationnelle :"
+msgstr ""
 
 #: ui/main.ui:197
 msgid "g"
-msgstr "g"
+msgstr ""
 
 #: ui/main.ui:201
 msgid "Search for matches globally"
-msgstr "Rechercher de manière globale"
+msgstr ""
 
 #: ui/main.ui:211
 msgid "i"
-msgstr "i"
+msgstr ""
 
 #: ui/main.ui:215
 msgid "Perform case-insensitive matching"
-msgstr "Effectuer une recherche insensible à la casse"
+msgstr ""
 
 #: ui/main.ui:225
 msgid "m"
-msgstr "m"
+msgstr ""
 
 #: ui/main.ui:229
 msgid "Treat string as multiple lines"
-msgstr "Traiter la chaîne comme étant multi-lignes"
+msgstr ""
 
 #: ui/main.ui:239
 msgid "s"
-msgstr "s"
+msgstr ""
 
 #: ui/main.ui:243
 msgid "Treat string as single line"
-msgstr "Traiter la chaîne comme étant sur une seule ligne"
+msgstr ""
 
 #: ui/main.ui:253
 msgid "x"
-msgstr "x"
+msgstr ""
 
 #: ui/main.ui:257
 msgid "Permit whitespaces and comments"
-msgstr "Permettre les espaces et les commentaires"
+msgstr ""
 
 #: ui/main.ui:267
 msgid "l"
-msgstr "l"
+msgstr ""
 
 #: ui/main.ui:271
 msgid "Make \\w, \\W, \\b, \\B, \\s and \\S depends on locale"
-msgstr "Rendre \\w, \\W, \\b, \\B, \\s et \\S dépendant paramètres régionaux"
+msgstr ""
 
 #: ui/main.ui:281
 msgid "u"
-msgstr "u"
+msgstr ""
 
 #: ui/main.ui:285
 msgid ""
 "Make \\w, \\W, \\b, \\B, \\d, \\D, \\s and \\S depends on Unicode character "
 "properties"
 msgstr ""
-"Rendre \\w, \\W, \\b, \\B, \\d, \\D, \\s et \\S dépendant des propriétés "
-"Unicode"
 
 #: ui/main.ui:316
 msgid "Target string:"
-msgstr "Chaîne cible :"
+msgstr ""
 
 #: ui/main.ui:374
 msgid "Id"
-msgstr "Id"
+msgstr ""
 
 #: ui/main.ui:379
 msgid "Group name"
-msgstr "Nom du groupe"
+msgstr ""
 
 #: ui/main.ui:384
 msgid "Match"
-msgstr "Correspondance"
+msgstr ""
 
 #: ui/main.ui:401
 msgid "Group:"
-msgstr "Groupe :"
+msgstr ""
 
 #: ui/main.ui:442
 msgid "Group"
-msgstr "Groupe"
+msgstr ""
 
 #: ui/main.ui:458 ui/main.ui:547
 msgid "Replacement string:"
-msgstr "Chaîne de remplacement :"
+msgstr ""
 
 #: ui/main.ui:496
 msgid "Replacement result:"
-msgstr "Résultat du remplacement :"
+msgstr ""
 
 #: ui/main.ui:530
 msgid "Replace"
-msgstr "Remplacer"
+msgstr ""
 
 #: ui/main.ui:581
 msgid "Delimiter:"
-msgstr "Délimiteur :"
+msgstr ""
 
 #: ui/main.ui:629
 msgid "Split"
-msgstr "Découper"
+msgstr ""
 
 #: ui/pref.ui:7
 msgid "Preferences"
-msgstr "Préférences"
+msgstr ""
 
 #: ui/pref.ui:20
 msgid "Window settings:"
-msgstr "Paramètres de fenêtre :"
+msgstr ""
 
 #: ui/pref.ui:32
 msgid "Save window state on exit"
-msgstr "Sauvergarder l'état de la fenêtre à la fermeture"
+msgstr ""
 
 #: ui/pref.ui:48
 msgid "Color settings:"
-msgstr "Paramètres de couleur :"
+msgstr ""
 
 #: ui/pref.ui:68
 msgid "First match:"
-msgstr "Première correspondance :"
+msgstr ""
 
 #: ui/pref.ui:78
 msgid "Next matches:"
-msgstr "Correspondances suivantes :"
+msgstr ""
 
 #: ui/pref.ui:153
 msgid "Reset to defaults"
-msgstr "Valeurs par défaut"
+msgstr ""

@@ -2,7 +2,7 @@ Source: regextool
 Section: devel
 Priority: optional
 Maintainer: Vincent Batoufflet <vincent@batoufflet.info>
-Build-Depends: debhelper (>= 7.0.50~), python-docutils (>= 0.6), python-gtk2, python-support (>= 0.8.4)
+Build-Depends: debhelper (>= 7.0.50~), gettext, python-docutils (>= 0.6), python-gtk2, python-support (>= 0.8.4)
 Standards-Version: 3.8.4
 Homepage: http://thonpy.com/regextool/
 Vcs-Hg: https://hg.thonpy.com/regextool/
