@@ -74,6 +74,10 @@ class gendoc(distutils.cmd.Command):
 	def run(self):
 		if self and self.dry_run:
 			return
+
+		# Generate ChangeLog file
+		print('generating ChangeLog file')
+		os.system('./update-changelog')
 		
 		# Generate manpage
 		from docutils.core import publish_file
