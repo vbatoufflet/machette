@@ -67,13 +67,15 @@ class RegexTool:
 		self.updating = False
 
 		# Initialize GtkTextBuffer buffers
-		self.rbuffer = self.wtree.get_object('textview-regex').get_buffer()
-		self.tbuffer = self.wtree.get_object('textview-target').get_buffer()
+		self.regex_buffer = self.wtree.get_object('textview-regex').get_buffer()
+		self.replace_buffer = self.wtree.get_object('textview-replace').get_buffer()
+		self.target_buffer = self.wtree.get_object('textview-target').get_buffer()
 		self.set_target_tags()
 
 		# Connect signals
-		self.rbuffer.connect('changed', self.check_pattern)
-		self.tbuffer.connect('changed', self.check_pattern)
+		self.regex_buffer.connect('changed', self.check_pattern)
+		self.replace_buffer.connect('changed', self.update_replace_tab)
+		self.target_buffer.connect('changed', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-g').connect('toggled', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-i').connect('toggled', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-l').connect('toggled', self.check_pattern)
@@ -90,14 +92,13 @@ class RegexTool:
 		self.wtree.get_object('menuitem-view-statusbar').connect('toggled', self.update_statusbar_state)
 		self.wtree.get_object('spinbutton-group-index').connect('value-changed', self.update_group_tab)
 		self.wtree.get_object('textview-regex').connect('key-press-event', self.switch_focus)
-		self.wtree.get_object('textview-replace-string').connect('key-press-event', self.switch_focus)
-		self.wtree.get_object('textview-replace-string').get_buffer().connect('changed', self.update_replace_tab)
+		self.wtree.get_object('textview-replace').connect('key-press-event', self.switch_focus)
 		self.wtree.get_object('textview-target').connect('key-press-event', self.switch_focus)
 		self.wtree.get_object('vbox-group').connect('map', self.check_pattern)
 		self.wtree.get_object('vbox-replace').connect('map', self.check_pattern)
 		self.wtree.get_object('vbox-split').connect('map', self.check_pattern)
 		self.wtree.get_object('window-main').connect('destroy', self.quit)
-	
+
 	def check_pattern(self, source=None, event=None):
 		"""
 		Check for regular expression pattern
@@ -131,8 +132,8 @@ class RegexTool:
 		# Check target string for pattern matching
 		try:
 			# Get regular expression iters
-			self.regex = re.compile(self.rbuffer.get_text(self.rbuffer.get_start_iter(), self.rbuffer.get_end_iter()), self.flags)
-			self.target = self.tbuffer.get_text(self.tbuffer.get_start_iter(), self.tbuffer.get_end_iter())
+			self.regex = re.compile(self.regex_buffer.get_text(self.regex_buffer.get_start_iter(), self.regex_buffer.get_end_iter()), self.flags)
+			self.target = self.target_buffer.get_text(self.target_buffer.get_start_iter(), self.target_buffer.get_end_iter())
 
 			# Get MatchObject list
 			for i in self.regex.finditer(self.target):
@@ -188,7 +189,7 @@ class RegexTool:
 
 		# Confirm if buffer has data
 		if filepath:
-			if self.tbuffer.get_char_count() != 0:
+			if self.target_buffer.get_char_count() != 0:
 				message = gtk.MessageDialog(None, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO)
 				message.set_markup(_('Your are about to replace the existing target string. Are you sure?'))
 
@@ -199,7 +200,7 @@ class RegexTool:
 			if filepath:
 				# Load target string from file
 				fd = open(filepath, 'r')
-				self.tbuffer.set_text(fd.read())
+				self.target_buffer.set_text(fd.read())
 				fd.close()
 
 	def main(self):
@@ -224,8 +225,9 @@ class RegexTool:
 			self.wtree.get_object('combobox-split-delimiter').append_text(delim)
 
 		# Restore last state
-		self.rbuffer.set_text(self.config.get('data', 'textview-regex'))
-		self.tbuffer.set_text(self.config.get('data', 'textview-target'))
+		self.regex_buffer.set_text(self.config.get('data', 'textview-regex'))
+		self.replace_buffer.set_text(self.config.get('data', 'textview-replace'))
+		self.target_buffer.set_text(self.config.get('data', 'textview-target'))
 		self.wtree.get_object('checkbutton-option-g').set_active(self.config.get('window', 'option-g-active'))
 		self.wtree.get_object('checkbutton-option-i').set_active(self.config.get('window', 'option-i-active'))
 		self.wtree.get_object('checkbutton-option-l').set_active(self.config.get('window', 'option-l-active'))
@@ -236,8 +238,10 @@ class RegexTool:
 		self.wtree.get_object('combobox-split-delimiter').set_active(self.config.get('window', 'split-delimiter'))
 		self.wtree.get_object('menuitem-view-advanced').set_active(self.config.get('window', 'show-advanced'))
 		self.wtree.get_object('menuitem-view-statusbar').set_active(self.config.get('window', 'show-statusbar'))
+		self.wtree.get_object('notebook-advanced').set_current_page(self.config.get('window', 'notebook-page'))
 		self.wtree.get_object('vpaned1').set_position(self.config.get('window', 'pane-position1'))
 		self.wtree.get_object('vpaned2').set_position(self.config.get('window', 'pane-position2'))
+		self.wtree.get_object('vpaned3').set_position(self.config.get('window', 'pane-position3'))
 		self.wtree.get_object('window-main').set_default_size(self.config.get('window', 'width'), self.config.get('window', 'height'))
 
 		# Update view states
@@ -276,9 +280,11 @@ class RegexTool:
 
 		# Save state
 		if self.config.get('window', 'save-state'):
-			self.config.set('data', 'textview-regex', self.rbuffer.get_text(self.rbuffer.get_start_iter(), self.rbuffer.get_end_iter()))
-			self.config.set('data', 'textview-target', self.tbuffer.get_text(self.tbuffer.get_start_iter(), self.tbuffer.get_end_iter()))
+			self.config.set('data', 'textview-regex', self.regex_buffer.get_text(self.regex_buffer.get_start_iter(), self.regex_buffer.get_end_iter()))
+			self.config.set('data', 'textview-replace', self.replace_buffer.get_text(self.replace_buffer.get_start_iter(), self.replace_buffer.get_end_iter()))
+			self.config.set('data', 'textview-target', self.target_buffer.get_text(self.target_buffer.get_start_iter(), self.target_buffer.get_end_iter()))
 			self.config.set('window', 'height', self.wtree.get_object('window-main').get_allocation().height)
+			self.config.set('window', 'notebook-page', self.wtree.get_object('notebook-advanced').get_current_page())
 			self.config.set('window', 'option-g-active', self.wtree.get_object('checkbutton-option-g').get_active())
 			self.config.set('window', 'option-i-active', self.wtree.get_object('checkbutton-option-i').get_active())
 			self.config.set('window', 'option-l-active', self.wtree.get_object('checkbutton-option-l').get_active())
@@ -288,6 +294,7 @@ class RegexTool:
 			self.config.set('window', 'option-x-active', self.wtree.get_object('checkbutton-option-x').get_active())
 			self.config.set('window', 'pane-position1', self.wtree.get_object('vpaned1').get_position())
 			self.config.set('window', 'pane-position2', self.wtree.get_object('vpaned2').get_position())
+			self.config.set('window', 'pane-position3', self.wtree.get_object('vpaned3').get_position())
 			self.config.set('window', 'show-advanced', self.wtree.get_object('menuitem-view-advanced').get_active())
 			self.config.set('window', 'show-statusbar', self.wtree.get_object('menuitem-view-statusbar').get_active())
 			self.config.set('window', 'split-delimiter', self.wtree.get_object('combobox-split-delimiter').get_active())
@@ -307,11 +314,11 @@ class RegexTool:
 
 		for name in [ 'match-first', 'match-next' ]:
 			# Create new tag if needed
-			if not self.tbuffer.get_tag_table().lookup(name):
-				self.tbuffer.create_tag(name)
+			if not self.target_buffer.get_tag_table().lookup(name):
+				self.target_buffer.create_tag(name)
 
 			# Set background property
-			self.tbuffer.get_tag_table().lookup(name).set_property('background', gtk.gdk.color_parse(self.config.get('color', name)))
+			self.target_buffer.get_tag_table().lookup(name).set_property('background', gtk.gdk.color_parse(self.config.get('color', name)))
 	
 	def show_about_dialog(self, source=None, event=None):
 		"""
@@ -500,10 +507,8 @@ class RegexTool:
 		self.wtree.get_object('statusbar').pop(1)
 
 		try:
-			cbuffer = self.wtree.get_object('textview-replace-string').get_buffer()
-
 			self.wtree.get_object('textview-replace-result').get_buffer().set_text(self.regex.sub(
-				cbuffer.get_text(cbuffer.get_start_iter(), cbuffer.get_end_iter()),
+				self.replace_buffer.get_text(self.replace_buffer.get_start_iter(), self.replace_buffer.get_end_iter()),
 				self.target,
 				self.limit,
 			))
@@ -521,7 +526,7 @@ class RegexTool:
 
 		try:
 			# Get split chunks
-			regex = re.compile(self.rbuffer.get_text(self.rbuffer.get_start_iter(), self.rbuffer.get_end_iter()), self.flags)
+			regex = re.compile(self.regex_buffer.get_text(self.regex_buffer.get_start_iter(), self.regex_buffer.get_end_iter()), self.flags)
 			self.wtree.get_object('textview-split-result').get_buffer().set_text(delimiter.join(regex.split(self.target, self.limit)))
 		except ( IndexError, re.error ), e:
 			# Display error message in status bar
@@ -537,14 +542,14 @@ class RegexTool:
 		self.updating = True
 
 		# Save selection or cursor position
-		if self.tbuffer.get_has_selection():
-			start, end = self.tbuffer.get_selection_bounds()
+		if self.target_buffer.get_has_selection():
+			start, end = self.target_buffer.get_selection_bounds()
 			saved = ( start.get_offset(), end.get_offset() )
 		else:
-			saved = self.tbuffer.get_iter_at_mark(self.tbuffer.get_insert()).get_offset()
+			saved = self.target_buffer.get_iter_at_mark(self.target_buffer.get_insert()).get_offset()
 
 		# Reset target GtkTextBuffer text
-		self.tbuffer.set_text('')
+		self.target_buffer.set_text('')
 
 		# Check target chunks
 		count = 0
@@ -557,17 +562,17 @@ class RegexTool:
 				continue
 
 			# Append begin chunk if needed
-			if self.tbuffer.get_char_count() == 0 and m.start() != 0:
-				self.tbuffer.insert(self.tbuffer.get_end_iter(), self.target[:m.start()])
+			if self.target_buffer.get_char_count() == 0 and m.start() != 0:
+				self.target_buffer.insert(self.target_buffer.get_end_iter(), self.target[:m.start()])
 
 			# Append chunk present between two matches
 			if m.start() == last:
 				pass
 			elif last:
-				self.tbuffer.insert(self.tbuffer.get_end_iter(), self.target[last:m.start()])
+				self.target_buffer.insert(self.target_buffer.get_end_iter(), self.target[last:m.start()])
 
 			# Append chunk with tags
-			self.tbuffer.insert_with_tags_by_name(self.tbuffer.get_end_iter(), self.target[m.start():m.end()], 'match-first' if first else 'match-next')
+			self.target_buffer.insert_with_tags_by_name(self.target_buffer.get_end_iter(), self.target[m.start():m.end()], 'match-first' if first else 'match-next')
 			if first: first = False
 
 			last = m.end()
@@ -579,13 +584,13 @@ class RegexTool:
 
 		# Append end chunk if needed
 		if last != len(self.target):
-			self.tbuffer.insert(self.tbuffer.get_end_iter(), self.target[last:])
+			self.target_buffer.insert(self.target_buffer.get_end_iter(), self.target[last:])
 
 		# Restore selection or cursor position
 		if type(saved) == tuple:
-			self.tbuffer.select_range(self.tbuffer.get_iter_at_offset(saved[0]), self.tbuffer.get_iter_at_offset(saved[1]))
+			self.target_buffer.select_range(self.target_buffer.get_iter_at_offset(saved[0]), self.target_buffer.get_iter_at_offset(saved[1]))
 		else:
-			self.tbuffer.place_cursor(self.tbuffer.get_iter_at_offset(saved))
+			self.target_buffer.place_cursor(self.target_buffer.get_iter_at_offset(saved))
 
 		# Set statusbar matches count
 		self.wtree.get_object('statusbar').push(0, gettext.dngettext(__shortname__, '%d match found', '%d matches found', count) % count)

@@ -16,6 +16,7 @@ from regextool.path import CONF_DIR
 __OPTIONS__ = {
 	'window': {
 		'height':		( int, 1 ),
+		'notebook-page':	( int, 0 ),
 		'option-g-active':	( bool, False ),
 		'option-i-active':	( bool, False ),
 		'option-l-active':	( bool, False ),
@@ -25,6 +26,7 @@ __OPTIONS__ = {
 		'option-x-active':	( bool, False ),
 		'pane-position1':	( int, -1 ),
 		'pane-position2':	( int, -1 ),
+		'pane-position3':	( int, -1 ),
 		'save-state':		( bool, True ),
 		'show-advanced':	( bool, False ),
 		'show-statusbar':	( bool, True ),
@@ -37,6 +39,7 @@ __OPTIONS__ = {
 	},
 	'data': {
 		'textview-regex':	( str, ''),
+		'textview-replace':	( str, ''),
 		'textview-target':	( str, ''),
 	},
 }
