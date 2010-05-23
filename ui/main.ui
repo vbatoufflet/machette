@@ -37,9 +37,17 @@
                     <property name="visible">True</property>
                     <child>
                       <object class="GtkImageMenuItem" id="menuitem-file-import">
-                        <property name="label" translatable="yes">Import data from file...</property>
+                        <property name="label" translatable="yes">Import from file...</property>
                         <property name="visible">True</property>
                         <property name="image">image-open</property>
+                        <property name="use_stock">False</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkImageMenuItem" id="menuitem-file-export">
+                        <property name="label" translatable="yes">Export to file...</property>
+                        <property name="visible">True</property>
+                        <property name="image">image-save</property>
                         <property name="use_stock">False</property>
                       </object>
                     </child>
@@ -529,6 +537,31 @@
                             <property name="position">1</property>
                           </packing>
                         </child>
+                        <child>
+                          <object class="GtkHButtonBox" id="hbuttonbox-replace-result">
+                            <property name="visible">True</property>
+                            <property name="spacing">4</property>
+                            <property name="layout_style">start</property>
+                            <child>
+                              <object class="GtkButton" id="button-replace-result-apply">
+                                <property name="label" translatable="yes">Apply to target string</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="image">image-apply</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">False</property>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
                         <property name="resize">False</property>
@@ -674,8 +707,16 @@
       </object>
     </child>
   </object>
+  <object class="GtkImage" id="image-apply">
+    <property name="visible">True</property>
+    <property name="stock">gtk-apply</property>
+  </object>
   <object class="GtkImage" id="image-open">
     <property name="visible">True</property>
     <property name="stock">gtk-open</property>
+  </object>
+  <object class="GtkImage" id="image-save">
+    <property name="visible">True</property>
+    <property name="stock">gtk-save</property>
   </object>
 </interface>

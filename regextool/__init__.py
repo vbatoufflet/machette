@@ -76,6 +76,7 @@ class RegexTool:
 		self.regex_buffer.connect('changed', self.check_pattern)
 		self.replace_buffer.connect('changed', self.update_replace_tab)
 		self.target_buffer.connect('changed', self.check_pattern)
+		self.wtree.get_object('button-replace-result-apply').connect('clicked', self.apply_replace)
 		self.wtree.get_object('checkbutton-option-g').connect('toggled', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-i').connect('toggled', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-l').connect('toggled', self.check_pattern)
@@ -85,6 +86,7 @@ class RegexTool:
 		self.wtree.get_object('checkbutton-option-x').connect('toggled', self.check_pattern)
 		self.wtree.get_object('combobox-split-delimiter').connect('changed', self.update_split_tab)
 		self.wtree.get_object('menuitem-edit-pref').connect('activate', self.show_pref_dialog)
+		self.wtree.get_object('menuitem-file-export').connect('activate', self.export_to_file)
 		self.wtree.get_object('menuitem-file-import').connect('activate', self.import_from_file)
 		self.wtree.get_object('menuitem-file-quit').connect('activate', self.quit)
 		self.wtree.get_object('menuitem-help-about').connect('activate', self.show_about_dialog)
@@ -98,6 +100,15 @@ class RegexTool:
 		self.wtree.get_object('vbox-replace').connect('map', self.check_pattern)
 		self.wtree.get_object('vbox-split').connect('map', self.check_pattern)
 		self.wtree.get_object('window-main').connect('destroy', self.quit)
+	
+	def apply_replace(self, source=None, event=None):
+		"""
+		Apply replacement to the target string
+			void apply_replace(event source: gtk.Object, event: gtk.gdk.Event)
+		"""
+
+		result_buffer = self.wtree.get_object('textview-replace-result').get_buffer()
+		self.target_buffer.set_text(result_buffer.get_text(result_buffer.get_start_iter(), result_buffer.get_end_iter()))
 
 	def check_pattern(self, source=None, event=None):
 		"""
@@ -156,6 +167,42 @@ class RegexTool:
 			# Display error message in status bar
 			self.wtree.get_object('statusbar').push(1, _('Error: %s') % e.message)
 
+	def export_to_file(self, source=None, event=None):
+		"""
+		Export target string to a file
+			void export_to_file(event source: gtk.Object, event: gtk.gdk.Event)
+		"""
+
+		filepath = None
+
+		# Create GtkFileChooserDialog
+		dialog = gtk.FileChooserDialog(_('Export to file...'), None, gtk.FILE_CHOOSER_ACTION_SAVE, (
+			gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+			gtk.STOCK_SAVE, gtk.RESPONSE_OK,
+		))
+
+		dialog.set_default_response(gtk.RESPONSE_OK)
+
+		action = dialog.run()
+		if action == gtk.RESPONSE_OK: filepath = dialog.get_filename()
+		dialog.destroy()
+
+		if filepath:
+			# Confirm if file already exists
+			if os.path.exists(filepath):
+				message = gtk.MessageDialog(None, 0, gtk.MESSAGE_WARNING, gtk.BUTTONS_YES_NO)
+				message.set_markup(_('The destination file already exists. Are you sure?'))
+
+				action = message.run()
+				if action == gtk.RESPONSE_NO: filepath = None
+				message.destroy()
+
+			if filepath:
+				# Load target string from file
+				fd = open(filepath, 'w')
+				fd.write(self.target_buffer.get_text(self.target_buffer.get_start_iter(), self.target_buffer.get_end_iter()))
+				fd.close()
+
 	def import_from_file(self, source=None, event=None):
 		"""
 		Import target string from a file
@@ -165,7 +212,7 @@ class RegexTool:
 		filepath = None
 
 		# Create GtkFileChooserDialog
-		dialog = gtk.FileChooserDialog(_('Import data from file...'), None, gtk.FILE_CHOOSER_ACTION_OPEN, (
+		dialog = gtk.FileChooserDialog(_('Import from file...'), None, gtk.FILE_CHOOSER_ACTION_OPEN, (
 			gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 			gtk.STOCK_OPEN, gtk.RESPONSE_OK,
 		))
@@ -187,8 +234,8 @@ class RegexTool:
 		if action == gtk.RESPONSE_OK: filepath = dialog.get_filename()
 		dialog.destroy()
 
-		# Confirm if buffer has data
 		if filepath:
+			# Confirm if buffer has data
 			if self.target_buffer.get_char_count() != 0:
 				message = gtk.MessageDialog(None, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO)
 				message.set_markup(_('Your are about to replace the existing target string. Are you sure?'))
