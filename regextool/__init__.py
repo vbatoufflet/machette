@@ -256,6 +256,9 @@ class RegexTool:
 			void main(void)
 		"""
 
+		# Set updating flag
+		self.updating = True
+
 		# Initialize group GtkTreeView
 		render = gtk.CellRendererText()
 
@@ -294,6 +297,9 @@ class RegexTool:
 		# Update view states
 		self.update_advanced_state()
 		self.update_statusbar_state()
+
+		# Reset updating flag
+		self.updating = False
 
 		# Set main window visible and enter GTK main loop
 		self.wtree.get_object('window-main').show()
@@ -514,6 +520,10 @@ class RegexTool:
 			void update_group_tab(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
+		# Stop if updating is active
+		if self.updating:
+			return
+
 		# Get GtkSpinButton
 		spinbutton = self.wtree.get_object('spinbutton-group-index')
 
@@ -550,6 +560,10 @@ class RegexTool:
 			void update_replace_tab(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
+		# Stop if updating is active
+		if self.updating:
+			return
+
 		# Hide error message
 		self.wtree.get_object('statusbar').pop(1)
 
@@ -568,6 +582,10 @@ class RegexTool:
 		Update split GtkNotebook tab
 			void update_split_tab(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
+
+		# Stop if updating is active
+		if self.updating:
+			return
 
 		delimiter = self.wtree.get_object('combobox-split-delimiter').get_active_text()
 
