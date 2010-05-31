@@ -20,8 +20,9 @@ __website__ = 'http://thonpy.com/regextool/'
 
 import gtk, pygtk
 import getopt, gettext, locale, os, re, sys
-from regextool.path import DATA_DIR, LOCALE_DIR
 from regextool.config import RegexToolConfig
+from regextool.module import *
+from regextool.path import DATA_DIR, LOCALE_DIR
 from regextool.ui.undostack import UndoStack
 
 pygtk.require('2.0')
@@ -60,24 +61,21 @@ class RegexTool:
 		self.wtree.add_from_file(os.path.join(DATA_DIR, 'ui/main.ui'))
 
 		# Set instance attributes
-		self.config = RegexToolConfig()
 		self.flags = 0
 		self.limit = 1
 		self.match = list()
+		self.modules = dict()
+		self.regex = None
 		self.target = ''
 		self.updating = False
 
 		# Initialize GtkTextBuffer buffers
 		self.regex_buffer = self.wtree.get_object('textview-regex').get_buffer()
-		self.replace_buffer = self.wtree.get_object('textview-replace').get_buffer()
 		self.target_buffer = self.wtree.get_object('textview-target').get_buffer()
-		self.set_target_tags()
 
 		# Connect signals
 		self.regex_buffer.connect('changed', self.check_pattern)
-		self.replace_buffer.connect('changed', self.update_replace_tab)
 		self.target_buffer.connect('changed', self.check_pattern)
-		self.wtree.get_object('button-replace-result-apply').connect('clicked', self.apply_replace)
 		self.wtree.get_object('checkbutton-option-g').connect('toggled', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-i').connect('toggled', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-l').connect('toggled', self.check_pattern)
@@ -85,32 +83,35 @@ class RegexTool:
 		self.wtree.get_object('checkbutton-option-s').connect('toggled', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-u').connect('toggled', self.check_pattern)
 		self.wtree.get_object('checkbutton-option-x').connect('toggled', self.check_pattern)
-		self.wtree.get_object('combobox-split-delimiter').connect('changed', self.update_split_tab)
 		self.wtree.get_object('menuitem-edit-pref').connect('activate', self.show_pref_dialog)
 		self.wtree.get_object('menuitem-file-export').connect('activate', self.export_to_file)
 		self.wtree.get_object('menuitem-file-import').connect('activate', self.import_from_file)
 		self.wtree.get_object('menuitem-file-quit').connect('activate', self.quit)
 		self.wtree.get_object('menuitem-help-about').connect('activate', self.show_about_dialog)
-		self.wtree.get_object('menuitem-view-advanced').connect('toggled', self.update_advanced_state)
+		self.wtree.get_object('menuitem-view-extension').connect('toggled', self.update_extension_state)
 		self.wtree.get_object('menuitem-view-statusbar').connect('toggled', self.update_statusbar_state)
-		self.wtree.get_object('spinbutton-group-index').connect('value-changed', self.update_group_tab)
 		self.wtree.get_object('textview-regex').connect('key-press-event', self.switch_focus)
-		self.wtree.get_object('textview-replace').connect('key-press-event', self.switch_focus)
 		self.wtree.get_object('textview-target').connect('key-press-event', self.switch_focus)
-		self.wtree.get_object('vbox-group').connect('map', self.check_pattern)
-		self.wtree.get_object('vbox-replace').connect('map', self.check_pattern)
-		self.wtree.get_object('vbox-split').connect('map', self.check_pattern)
 		self.wtree.get_object('window-main').connect('destroy', self.quit)
+		self.wtree.get_object('window-main').connect('map', self.check_pattern)
+
+		# Load and initialize additionnal modules
+		options = list()
+
+		for name in get_modules_list():
+			module = load_module(name, [ 'classname', 'options' ])
+			self.modules[name] = getattr(module, module.classname)(self)
+
+			if hasattr(module, 'options'):
+				options.append(module.options)
+
+		# Load configuration
+		self.config = RegexToolConfig(options)
+
+		# Register loaded modules
+		for name in self.modules:
+			self.modules[name].register()
 	
-	def apply_replace(self, source=None, event=None):
-		"""
-		Apply replacement to the target string
-			void apply_replace(event source: gtk.Object, event: gtk.gdk.Event)
-		"""
-
-		result_buffer = self.wtree.get_object('textview-replace-result').get_buffer()
-		self.target_buffer.set_text(result_buffer.get_text(result_buffer.get_start_iter(), result_buffer.get_end_iter()))
-
 	def check_pattern(self, source=None, event=None):
 		"""
 		Check for regular expression pattern
@@ -123,10 +124,6 @@ class RegexTool:
 
 		# Hide error message
 		self.wtree.get_object('statusbar').pop(1)
-
-		# Reset GtkTextBuffers texts
-		self.wtree.get_object('textview-replace-result').get_buffer().set_text('')
-		self.wtree.get_object('textview-split-result').get_buffer().set_text('')
 
 		# Check for regular expression flags
 		self.flags = 0
@@ -153,17 +150,6 @@ class RegexTool:
 
 			# Update target GtkTextBuffer highlighting
 			self.update_target_tags(source)
-
-			# Check for additional updates
-			if self.wtree.get_object('treeview-group').get_child_visible():
-				# Update group tab
-				self.update_group_tab(source, event)
-			if self.wtree.get_object('vbox-replace').get_child_visible():
-				# Update replace tab
-				self.update_replace_tab(source, event)
-			if self.wtree.get_object('vbox-split').get_child_visible():
-				# Update split tab
-				self.update_split_tab(source, event)
 		except ( IndexError, re.error ), e:
 			# Display error message in status bar
 			self.wtree.get_object('statusbar').push(1, _('Error: %s') % e.message)
@@ -260,24 +246,8 @@ class RegexTool:
 		# Set updating flag
 		self.updating = True
 
-		# Initialize group GtkTreeView
-		render = gtk.CellRendererText()
-
-		treeview = self.wtree.get_object('treeview-group')
-		treeview.get_column(0).pack_start(render, False)
-		treeview.get_column(0).add_attribute(render, 'text', 0)
-		treeview.get_column(1).pack_start(render, False)
-		treeview.get_column(1).add_attribute(render, 'text', 1)
-		treeview.get_column(2).pack_start(render, False)
-		treeview.get_column(2).add_attribute(render, 'text', 2)
-
-		# Initialize split delimiter GtkComboBox
-		for delim in [ '|', '#', '@', unichr(0xb6), unichr(0x25a0) ]:
-			self.wtree.get_object('combobox-split-delimiter').append_text(delim)
-
 		# Restore last state
 		self.regex_buffer.set_text(self.config.get('data', 'textview-regex'))
-		self.replace_buffer.set_text(self.config.get('data', 'textview-replace'))
 		self.target_buffer.set_text(self.config.get('data', 'textview-target'))
 		self.wtree.get_object('checkbutton-option-g').set_active(self.config.get('window', 'option-g-active'))
 		self.wtree.get_object('checkbutton-option-i').set_active(self.config.get('window', 'option-i-active'))
@@ -286,29 +256,35 @@ class RegexTool:
 		self.wtree.get_object('checkbutton-option-s').set_active(self.config.get('window', 'option-s-active'))
 		self.wtree.get_object('checkbutton-option-u').set_active(self.config.get('window', 'option-u-active'))
 		self.wtree.get_object('checkbutton-option-x').set_active(self.config.get('window', 'option-x-active'))
-		self.wtree.get_object('combobox-split-delimiter').set_active(self.config.get('window', 'split-delimiter'))
-		self.wtree.get_object('menuitem-view-advanced').set_active(self.config.get('window', 'show-advanced'))
+		self.wtree.get_object('menuitem-view-extension').set_active(self.config.get('window', 'show-extension'))
 		self.wtree.get_object('menuitem-view-statusbar').set_active(self.config.get('window', 'show-statusbar'))
-		self.wtree.get_object('notebook-advanced').set_current_page(self.config.get('window', 'notebook-page'))
+		self.wtree.get_object('notebook-extension').set_current_page(self.config.get('window', 'notebook-page'))
 		self.wtree.get_object('vpaned1').set_position(self.config.get('window', 'pane-position1'))
 		self.wtree.get_object('vpaned2').set_position(self.config.get('window', 'pane-position2'))
-		self.wtree.get_object('vpaned3').set_position(self.config.get('window', 'pane-position3'))
 		self.wtree.get_object('window-main').set_default_size(self.config.get('window', 'width'), self.config.get('window', 'height'))
 
 		# Initialize undo stacks
 		UndoStack(self.wtree.get_object('textview-regex'))
-		UndoStack(self.wtree.get_object('textview-replace'))
 		UndoStack(self.wtree.get_object('textview-target'))
 
 		# Update view states
-		self.update_advanced_state()
+		self.update_extension_state()
 		self.update_statusbar_state()
 
 		# Reset updating flag
 		self.updating = False
 
-		# Set main window visible and enter GTK main loop
+		# Initialize target tags
+		self.set_target_tags()
+
+		# Set main window visible
 		self.wtree.get_object('window-main').show()
+
+		# Update current tab if needed
+		if self.config.get('window', 'show-extension'):
+			self.wtree.get_object('notebook-extension').get_nth_page(self.wtree.get_object('notebook-extension').get_current_page()).emit('map')
+
+		# Enter GTK main loop
 		gtk.main()
 
 	def print_usage(self):
@@ -340,10 +316,9 @@ class RegexTool:
 		# Save state
 		if self.config.get('window', 'save-state'):
 			self.config.set('data', 'textview-regex', self.regex_buffer.get_text(self.regex_buffer.get_start_iter(), self.regex_buffer.get_end_iter()))
-			self.config.set('data', 'textview-replace', self.replace_buffer.get_text(self.replace_buffer.get_start_iter(), self.replace_buffer.get_end_iter()))
 			self.config.set('data', 'textview-target', self.target_buffer.get_text(self.target_buffer.get_start_iter(), self.target_buffer.get_end_iter()))
 			self.config.set('window', 'height', self.wtree.get_object('window-main').get_allocation().height)
-			self.config.set('window', 'notebook-page', self.wtree.get_object('notebook-advanced').get_current_page())
+			self.config.set('window', 'notebook-page', self.wtree.get_object('notebook-extension').get_current_page())
 			self.config.set('window', 'option-g-active', self.wtree.get_object('checkbutton-option-g').get_active())
 			self.config.set('window', 'option-i-active', self.wtree.get_object('checkbutton-option-i').get_active())
 			self.config.set('window', 'option-l-active', self.wtree.get_object('checkbutton-option-l').get_active())
@@ -353,11 +328,13 @@ class RegexTool:
 			self.config.set('window', 'option-x-active', self.wtree.get_object('checkbutton-option-x').get_active())
 			self.config.set('window', 'pane-position1', self.wtree.get_object('vpaned1').get_position())
 			self.config.set('window', 'pane-position2', self.wtree.get_object('vpaned2').get_position())
-			self.config.set('window', 'pane-position3', self.wtree.get_object('vpaned3').get_position())
-			self.config.set('window', 'show-advanced', self.wtree.get_object('menuitem-view-advanced').get_active())
+			self.config.set('window', 'show-extension', self.wtree.get_object('menuitem-view-extension').get_active())
 			self.config.set('window', 'show-statusbar', self.wtree.get_object('menuitem-view-statusbar').get_active())
-			self.config.set('window', 'split-delimiter', self.wtree.get_object('combobox-split-delimiter').get_active())
 			self.config.set('window', 'width', self.wtree.get_object('window-main').get_allocation().width)
+
+		# Unregister loaded modules
+		for name in self.modules:
+			self.modules[name].unregister()
 
 		# Save configuration options
 		self.config.save()
@@ -497,112 +474,29 @@ class RegexTool:
 
 			return True
 
-	def update_advanced_state(self, source=None, event=None):
+	def update_extension_state(self, source=None, event=None):
 		"""
-		Update advanced panel state according to option
-			void update_advanced_state(event source: gtk.Object, event: gtk.gdk.Event)
+		Update extension panel state according to option
+			void update_extension_state(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
 		# Get previous state
-		previous = self.config.get('window', 'show-advanced')
+		previous = self.config.get('window', 'show-extension')
 
 		# Update configuration option value
-		self.config.set('window', 'show-advanced', self.wtree.get_object('menuitem-view-advanced').get_active())
+		self.config.set('window', 'show-extension', self.wtree.get_object('menuitem-view-extension').get_active())
 
 		# Resize window when status change
-		if previous != self.config.get('window', 'show-advanced'):
+		if previous != self.config.get('window', 'show-extension'):
 			self.wtree.get_object('window-main').resize(
 				self.wtree.get_object('window-main').get_allocation().width,
 				(self.wtree.get_object('window-main').get_allocation().height
-				- self.wtree.get_object('notebook-advanced').get_allocation().height),
+				- self.wtree.get_object('notebook-extension').get_allocation().height),
 			)
 
 		# Update widgets visibility
-		self.wtree.get_object('notebook-advanced').set_visible(self.config.get('window', 'show-advanced'))
+		self.wtree.get_object('notebook-extension').set_visible(self.config.get('window', 'show-extension'))
 
-	def update_group_tab(self, source=None, event=None):
-		"""
-		Update group GtkNotebook tab
-			void update_group_tab(event source: gtk.Object, event: gtk.gdk.Event)
-		"""
-
-		# Stop if updating is active
-		if self.updating:
-			return
-
-		# Get GtkSpinButton
-		spinbutton = self.wtree.get_object('spinbutton-group-index')
-
-		# Update GtkSpinButton adjustment
-		if type(source) != gtk.SpinButton:
-			spinbutton.set_adjustment(gtk.Adjustment(1, 1, len(self.match), 1, 1, 0))
-
-		# Get GtkListStore
-		liststore = self.wtree.get_object('liststore-group')
-
-		# Clear previous entries
-		liststore.clear()
-
-		# Append new groups
-		count = 1
-		groups = dict(map(lambda a: (a[1], a[0]), self.regex.groupindex.items()))
-		index = int(spinbutton.get_value())-1
-
-		# Stop if no match or groups
-		if len(self.match) == 0 or not self.match[index].groups():
-			spinbutton.set_sensitive(False)
-			spinbutton.set_value(1)
-			return
-		else:
-			spinbutton.set_sensitive(True)
-
-		for g in self.match[index].groups():
-			liststore.append([ count, groups[count] if count in groups else '', g ])
-			count += 1
-
-	def update_replace_tab(self, source=None, event=None):
-		"""
-		Update replace GtkNotebook tab
-			void update_replace_tab(event source: gtk.Object, event: gtk.gdk.Event)
-		"""
-
-		# Stop if updating is active
-		if self.updating:
-			return
-
-		# Hide error message
-		self.wtree.get_object('statusbar').pop(1)
-
-		try:
-			self.wtree.get_object('textview-replace-result').get_buffer().set_text(self.regex.sub(
-				self.replace_buffer.get_text(self.replace_buffer.get_start_iter(), self.replace_buffer.get_end_iter()),
-				self.target,
-				self.limit,
-			))
-		except ( IndexError, re.error ), e:
-			# Display error message in status bar
-			self.wtree.get_object('statusbar').push(1, _('Error: %s') % e.message)
-	
-	def update_split_tab(self, source=None, event=None):
-		"""
-		Update split GtkNotebook tab
-			void update_split_tab(event source: gtk.Object, event: gtk.gdk.Event)
-		"""
-
-		# Stop if updating is active
-		if self.updating:
-			return
-
-		delimiter = self.wtree.get_object('combobox-split-delimiter').get_active_text()
-
-		try:
-			# Get split chunks
-			regex = re.compile(self.regex_buffer.get_text(self.regex_buffer.get_start_iter(), self.regex_buffer.get_end_iter()), self.flags)
-			self.wtree.get_object('textview-split-result').get_buffer().set_text(delimiter.join(regex.split(self.target, self.limit)))
-		except ( IndexError, re.error ), e:
-			# Display error message in status bar
-			self.wtree.get_object('statusbar').push(1, _('Error: %s') % e.message)
-	
 	def update_target_tags(self, source=None, event=None):
 		"""
 		Update target GtkTextBuffer highlighting

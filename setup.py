@@ -40,6 +40,8 @@ class clean(_clean):
 		'locale',
 		'MANIFEST',
 		'%s/*.pyc' % __shortname__,
+		'%s/module/*.pyc' % __shortname__,
+		'%s/ui/*.pyc' % __shortname__,
 	]
 
 	def run(self):

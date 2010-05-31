@@ -12,7 +12,7 @@ import gobject, gtk
 class UndoStack:
 	def __init__(self, textview, limit=256):
 		"""
-		Initialize UndoStack instance.
+		Initialize UndoStack instance
 			UndoStack __init__(textview instance: gtk.TextView)
 		"""
 
@@ -47,7 +47,7 @@ class UndoStack:
 
 	def _delete_range(self, source=None, start=None, end=None):
 		"""
-		Handle text range deletion.
+		Handle text range deletion
 			void _delete_range(event source: gtk.Object, start iter: gtk.TextIter, end iter: gtk.TextIter)
 		"""
 
@@ -73,7 +73,7 @@ class UndoStack:
 	
 	def _end_action(self, source=None, event=None):
 		"""
-		End an user action.
+		End an user action
 			void _end_action(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
@@ -103,7 +103,7 @@ class UndoStack:
 	
 	def _handle_keybinding(self, source=None, event=None):
 		"""
-		Register an user action.
+		Register an user action
 			void _handle_keybinding(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
@@ -116,7 +116,7 @@ class UndoStack:
 
 	def _insert_text(self, source=None, start=None, text=None, length=None):
 		"""
-		Handle text insertions.
+		Handle text insertions
 			void _insert_text(event source: gtk.Object, start iter: gtk.TextIter, inserted text: str, text length: int)
 		"""
 
@@ -136,7 +136,7 @@ class UndoStack:
 
 	def _redo(self, source=None, event=None):
 		"""
-		Redo last action.
+		Redo last action
 			void redo(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
@@ -160,7 +160,7 @@ class UndoStack:
 	
 	def _set_stack_lock(self, lock):
 		"""
-		Set undo stack lock.
+		Set undo stack lock
 			void set_stack_lock(lock flag: bool)
 		"""
 
@@ -169,7 +169,7 @@ class UndoStack:
 	
 	def _start_timeout(self, source=None, event=None):
 		"""
-		Start user action timeout.
+		Start user action timeout
 			void _start_timeout(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
@@ -181,7 +181,7 @@ class UndoStack:
 
 	def _stop_timeout(self, source=None, event=None):
 		"""
-		Stop user action timeout.
+		Stop user action timeout
 			void _stop_timeout(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
@@ -193,7 +193,7 @@ class UndoStack:
 
 	def _undo(self, source=None, event=None):
 		"""
-		Undo last action.
+		Undo last action
 			void undo(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 

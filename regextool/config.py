@@ -26,11 +26,9 @@ __OPTIONS__ = {
 		'option-x-active':	( bool, False ),
 		'pane-position1':	( int, -1 ),
 		'pane-position2':	( int, -1 ),
-		'pane-position3':	( int, -1 ),
 		'save-state':		( bool, True ),
-		'show-advanced':	( bool, False ),
+		'show-extension':	( bool, False ),
 		'show-statusbar':	( bool, True ),
-		'split-delimiter':	( int, 0 ),
 		'width':		( int, 1 ),
 	},
 	'color': {
@@ -39,44 +37,54 @@ __OPTIONS__ = {
 	},
 	'data': {
 		'textview-regex':	( str, ''),
-		'textview-replace':	( str, ''),
 		'textview-target':	( str, ''),
 	},
 }
 
 class RegexToolConfig:
-	def __init__(self):
+	def __init__(self, options=dict()):
 		"""
 		Initialize RegexToolConfig instance
-			RegexToolConfig __init__(void)
+			RegexToolConfig __init__(additionnal options: dict)
 		"""
 
 		# Set instance attributes
-		self.options = dict()
+		self.settings = dict()
 		self.filepath = os.path.join(CONF_DIR, __shortname__ + 'rc')
 
 		# Load options from file
 		parser = RawConfigParser()
 		parser.read(self.filepath)
 
-		for section in __OPTIONS__:
-			for option in __OPTIONS__[section]:
-				stype, default = __OPTIONS__[section][option]
+		# Get full options list
+		self.options = __OPTIONS__.copy()
+		
+		for opts in options:
+			for section in opts:
+				for option in opts[section]:
+					if not section in self.options:
+						self.options[section] = dict()
+
+					self.options[section][option] = opts[section][option]
+
+		for section in self.options:
+			for option in self.options[section]:
+				stype, default = self.options[section][option]
 
 				# Initialize option section if needed
-				if not section in self.options:
-					self.options[section] = dict()
+				if not section in self.settings:
+					self.settings[section] = dict()
 
 				if not parser.has_option(section, option):
-					self.options[section][option] = default
+					self.settings[section][option] = default
 				elif stype == bool:
-					self.options[section][option] = parser.getboolean(section, option)
+					self.settings[section][option] = parser.getboolean(section, option)
 				elif stype == float:
-					self.options[section][option] = parser.getfloat(section, option)
+					self.settings[section][option] = parser.getfloat(section, option)
 				elif stype == int:
-					self.options[section][option] = parser.getint(section, option)
+					self.settings[section][option] = parser.getint(section, option)
 				else:
-					self.options[section][option] = parser.get(section, option)
+					self.settings[section][option] = parser.get(section, option)
 
 		del parser
 
@@ -87,8 +95,8 @@ class RegexToolConfig:
 		"""
 
 		# Return option value
-		if section in self.options and option in self.options[section]:
-			return self.options[section][option]
+		if section in self.settings and option in self.settings[section]:
+			return self.settings[section][option]
 		else:
 			return None
 
@@ -99,8 +107,8 @@ class RegexToolConfig:
 		"""
 
 		# Return option value
-		if section in __OPTIONS__ and option in __OPTIONS__[section]:
-			return __OPTIONS__[section][option][1]
+		if section in self.options and option in self.options[section]:
+			return self.options[section][option][1]
 		else:
 			return None
 
@@ -114,13 +122,13 @@ class RegexToolConfig:
 			# Parse for options
 			parser = RawConfigParser()
 
-			for section in self.options:
+			for section in self.settings:
 				# Create new section
 				parser.add_section(section)
 
 				# Append options values
-				for option in self.options[section]:
-					parser.set(section, option, self.options[section][option])
+				for option in self.settings[section]:
+					parser.set(section, option, self.settings[section][option])
 
 
 			# Save options to file
@@ -143,8 +151,8 @@ class RegexToolConfig:
 		"""
 
 		# Initialize option section if needed
-		if not section in self.options:
-			self.options[section] = dict()
+		if not section in self.settings:
+			self.settings[section] = dict()
 
 		# Set option value
-		self.options[section][option] = value
+		self.settings[section][option] = value
