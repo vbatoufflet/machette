@@ -22,6 +22,7 @@ import gtk, pygtk
 import getopt, gettext, locale, os, re, sys
 from regextool.path import DATA_DIR, LOCALE_DIR
 from regextool.config import RegexToolConfig
+from regextool.ui.undostack import UndoStack
 
 pygtk.require('2.0')
 
@@ -293,6 +294,11 @@ class RegexTool:
 		self.wtree.get_object('vpaned2').set_position(self.config.get('window', 'pane-position2'))
 		self.wtree.get_object('vpaned3').set_position(self.config.get('window', 'pane-position3'))
 		self.wtree.get_object('window-main').set_default_size(self.config.get('window', 'width'), self.config.get('window', 'height'))
+
+		# Initialize undo stacks
+		UndoStack(self.wtree.get_object('textview-regex'))
+		UndoStack(self.wtree.get_object('textview-replace'))
+		UndoStack(self.wtree.get_object('textview-target'))
 
 		# Update view states
 		self.update_advanced_state()
@@ -603,8 +609,9 @@ class RegexTool:
 			void update_target_tags(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
-		# Set updating flag
+		# Set updating flag and undo stack lock
 		self.updating = True
+		self.target_buffer.set_stack_lock(True)
 
 		# Save selection or cursor position
 		if self.target_buffer.get_has_selection():
@@ -660,8 +667,9 @@ class RegexTool:
 		# Set statusbar matches count
 		self.wtree.get_object('statusbar').push(0, gettext.dngettext(__shortname__, '%d match found', '%d matches found', count) % count)
 
-		# Reset updating flag
+		# Reset updating flag and undo stack lock
 		self.updating = False
+		self.target_buffer.set_stack_lock(False)
 
 	def update_statusbar_state(self, source=None, event=None):
 		"""
