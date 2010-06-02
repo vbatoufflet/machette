@@ -374,9 +374,11 @@
   <object class="GtkImage" id="image-open">
     <property name="visible">True</property>
     <property name="stock">gtk-open</property>
+    <property name="icon-size">1</property>
   </object>
   <object class="GtkImage" id="image-save">
     <property name="visible">True</property>
     <property name="stock">gtk-save</property>
+    <property name="icon-size">1</property>
   </object>
 </interface>
