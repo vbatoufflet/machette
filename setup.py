@@ -36,7 +36,8 @@ class clean(_clean):
 
 	__targets = [
 		'ChangeLog',
-		'doc/%s.1' % __shortname__,
+		'dist',
+		'doc/*.[0-9]',
 		'locale',
 		'MANIFEST',
 		'%s/*.pyc' % __shortname__,
@@ -209,9 +210,12 @@ setup(
 	],
 	packages=[
 		'regextool',
+		'regextool.module',
+		'regextool.ui',
 	],
 	data_files=[
 		( 'share/' + __shortname__, [ 'AUTHORS', 'ChangeLog', 'LICENSE', 'README', 'TRANSLATORS' ] ),
 		( 'share/' + __shortname__ + '/ui', [ 'ui/main.ui', 'ui/pref.ui' ] ),
+		( 'share/' + __shortname__ + '/ui/module', [ 'ui/module/group.ui', 'ui/module/replace.ui', 'ui/module/split.ui' ] ),
 	],
 )
