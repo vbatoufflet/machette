@@ -99,4 +99,4 @@ class RegexToolModuleReplace(RegexToolModule):
 			))
 		except ( IndexError, re.error ), e:
 			# Display error message in status bar
-			self.parent.wtree.get_object('statusbar').push(1, _('Error: %s') % e.message)
+			self.parent.wtree.get_object('statusbar').push(1, _('Error: %s') % e)

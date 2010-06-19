@@ -86,4 +86,4 @@ class RegexToolModuleSplit(RegexToolModule):
 			self.parent.wtree.get_object('textview-split-result').get_buffer().set_text(delimiter.join(regex.split(self.parent.target, self.parent.limit)))
 		except ( IndexError, re.error ), e:
 			# Display error message in status bar
-			self.parent.wtree.get_object('statusbar').push(1, _('Error: %s') % e.message)
+			self.parent.wtree.get_object('statusbar').push(1, _('Error: %s') % e)

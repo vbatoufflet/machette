@@ -152,7 +152,7 @@ class RegexTool:
 			self.update_target_tags(source)
 		except ( IndexError, re.error ), e:
 			# Display error message in status bar
-			self.wtree.get_object('statusbar').push(1, _('Error: %s') % e.message)
+			self.wtree.get_object('statusbar').push(1, _('Error: %s') % e)
 
 	def export_to_file(self, source=None, event=None):
 		"""
