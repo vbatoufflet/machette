@@ -75,10 +75,6 @@ class RegexToolModuleSplit(RegexToolModule):
 		if self.parent.updating or not self.parent.regex:
 			return
 
-		# Hide error message
-		if hasattr(self, 'message_id'):
-			self.parent.wtree.get_object('statusbar').remove_message(1, self.message_id)
-
 		try:
 			delimiter = self.parent.wtree.get_object('combobox-split-delimiter').get_active_text()
 
@@ -86,5 +82,4 @@ class RegexToolModuleSplit(RegexToolModule):
 			regex = re.compile(self.parent.regex_buffer.get_text(self.parent.regex_buffer.get_start_iter(), self.parent.regex_buffer.get_end_iter()), self.parent.flags)
 			self.parent.wtree.get_object('textview-split-result').get_buffer().set_text(delimiter.join(regex.split(self.parent.target, self.parent.limit)))
 		except ( IndexError, re.error ), e:
-			# Display error message in status bar
-			self.message_id = self.parent.wtree.get_object('statusbar').push(1, _('Error: %s') % e)
+			pass

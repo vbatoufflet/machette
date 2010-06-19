@@ -123,8 +123,7 @@ class RegexTool:
 			return
 
 		# Hide error message
-		if hasattr(self, 'message_id'):
-			self.wtree.get_object('statusbar').remove_message(1, self.message_id)
+		self.wtree.get_object('label-regex-message').hide()
 
 		# Check for regular expression flags
 		self.flags = 0
@@ -152,8 +151,9 @@ class RegexTool:
 			# Update target GtkTextBuffer highlighting
 			self.update_target_tags(source)
 		except ( IndexError, re.error ), e:
-			# Display error message in status bar
-			self.message_id = self.wtree.get_object('statusbar').push(1, _('Error: %s') % e)
+			# Display error message
+			self.wtree.get_object('label-regex-message').set_label(_('Error: %s') % e)
+			self.wtree.get_object('label-regex-message').show()
 
 	def export_to_file(self, source=None, event=None):
 		"""
@@ -560,6 +560,7 @@ class RegexTool:
 			self.target_buffer.place_cursor(self.target_buffer.get_iter_at_offset(saved))
 
 		# Set statusbar matches count
+		self.wtree.get_object('statusbar').pop(0)
 		self.wtree.get_object('statusbar').push(0, gettext.dngettext(__shortname__, '%d match found', '%d matches found', count) % count)
 
 		# Reset updating flag and undo stack lock

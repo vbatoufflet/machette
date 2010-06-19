@@ -142,10 +142,33 @@
                     <property name="orientation">vertical</property>
                     <property name="spacing">4</property>
                     <child>
-                      <object class="GtkLabel" id="label-regex">
+                      <object class="GtkHBox" id="hbox-regex-label">
                         <property name="visible">True</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Regular expression:</property>
+                        <property name="spacing">8</property>
+                        <child>
+                          <object class="GtkLabel" id="label-regex">
+                            <property name="visible">True</property>
+                            <property name="xalign">0</property>
+                            <property name="label" translatable="yes">Regular expression:</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="label-regex-message">
+                            <property name="visible">True</property>
+                            <property name="xalign">1</property>
+                            <property name="label" translatable="yes">no message</property>
+                            <attributes>
+                              <attribute name="foreground" value="#eeee00000000"/>
+                            </attributes>
+                          </object>
+                          <packing>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
                       </object>
                       <packing>
                         <property name="expand">False</property>
