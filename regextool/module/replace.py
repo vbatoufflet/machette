@@ -89,7 +89,8 @@ class RegexToolModuleReplace(RegexToolModule):
 			return
 
 		# Hide error message
-		self.parent.wtree.get_object('statusbar').pop(1)
+		if hasattr(self, 'message_id'):
+			self.parent.wtree.get_object('statusbar').remove_message(1, self.message_id)
 
 		try:
 			self.parent.wtree.get_object('textview-replace-result').get_buffer().set_text(self.parent.regex.sub(
@@ -99,4 +100,4 @@ class RegexToolModuleReplace(RegexToolModule):
 			))
 		except ( IndexError, re.error ), e:
 			# Display error message in status bar
-			self.parent.wtree.get_object('statusbar').push(1, _('Error: %s') % e)
+			self.message_id = self.parent.wtree.get_object('statusbar').push(1, _('Error: %s') % e)

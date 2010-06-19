@@ -123,7 +123,8 @@ class RegexTool:
 			return
 
 		# Hide error message
-		self.wtree.get_object('statusbar').pop(1)
+		if hasattr(self, 'message_id'):
+			self.wtree.get_object('statusbar').remove_message(1, self.message_id)
 
 		# Check for regular expression flags
 		self.flags = 0
@@ -152,7 +153,7 @@ class RegexTool:
 			self.update_target_tags(source)
 		except ( IndexError, re.error ), e:
 			# Display error message in status bar
-			self.wtree.get_object('statusbar').push(1, _('Error: %s') % e)
+			self.message_id = self.wtree.get_object('statusbar').push(1, _('Error: %s') % e)
 
 	def export_to_file(self, source=None, event=None):
 		"""
