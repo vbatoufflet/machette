@@ -34,7 +34,7 @@ class clean(_clean):
 	Remove various created files.
 	"""
 
-	__targets = [
+	_targets = [
 		'ChangeLog',
 		'dist',
 		'doc/*.[0-9]',
@@ -49,7 +49,7 @@ class clean(_clean):
 		import glob, shutil
 
 		# Cleanup files
-		for target in clean.__targets:
+		for target in clean._targets:
 			for path in glob.glob(target):
 				if os.path.isdir(path):
 					print("removing '%s' directory" % path)
@@ -65,6 +65,10 @@ class gendoc(distutils.cmd.Command):
 	"""
 	Generate documentation files.
 	"""
+
+	_targets = [
+		( 'regextool', 1 ),
+	]
 
 	description = 'generate documentation files'
 	user_options = list()
@@ -82,18 +86,19 @@ class gendoc(distutils.cmd.Command):
 		# Generate ChangeLog file
 		print('generating ChangeLog file')
 		os.system('./update-changelog')
-		
+
 		# Generate manpage
 		from docutils.core import publish_file
 		from docutils.writers.manpage import Writer
 
 		print('generating manpages')
 
-		publish_file(
-			writer=Writer(),
-			source_path=os.path.join('doc', __shortname__ + '.1.rst'),
-			destination_path=os.path.join('doc', __shortname__ + '.1'),
-		)
+		for target in gendoc._targets:
+			publish_file(
+				writer=Writer(),
+				source_path='doc/%s.%d.rst' % target,
+				destination_path='doc/%s.%d' % target,
+			)
 
 class genlocale(distutils.cmd.Command):
 	"""
@@ -126,7 +131,7 @@ class genlocale(distutils.cmd.Command):
 
 			if not os.path.exists(os.path.dirname(mofile)):
 				os.makedirs(os.path.dirname(mofile))
-			
+
 			# Generate .mo file
 			print('generating ' + mofile)
 			os.system('msgfmt -o %s %s' % (mofile, os.path.join('po', '%s.po' % lang)))
@@ -142,7 +147,8 @@ class install_data(_install_data):
 			self.data_files.append(( 'share/locale/%s/LC_MESSAGES' % lang,  [ 'locale/%s/LC_MESSAGES/%s.mo' % (lang, __shortname__) ] ))
 
 		# Install manpage
-		self.data_files.append(( 'share/man/man1', [ 'doc/%s.1' % __shortname__ ] ))
+		for target in gendoc._targets:
+			self.data_files.append(( 'share/man/man%d' % target[1], [ 'doc/%s.%d' % target ] ))
 
 		# Continue with distutils built-in install_data command
 		return _install_data.run(self)
