@@ -142,7 +142,7 @@ class RegexTool:
 		try:
 			# Get regular expression iters
 			self.regex = re.compile(self.regex_buffer.get_text(self.regex_buffer.get_start_iter(), self.regex_buffer.get_end_iter()), self.flags)
-			self.target = self.target_buffer.get_text(self.target_buffer.get_start_iter(), self.target_buffer.get_end_iter())
+			self.target = self.target_buffer.get_text(self.target_buffer.get_start_iter(), self.target_buffer.get_end_iter()).decode('utf-8', 'ignore')
 
 			# Get MatchObject list
 			for i in self.regex.finditer(self.target):
