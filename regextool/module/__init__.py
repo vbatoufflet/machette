@@ -13,11 +13,6 @@ from regextool import __author__, __email__, __website__
 __MODULES__ = list()
 
 class RegexToolModule:
-	builtin = None
-	author = __author__
-	email = __email__
-	website = __website__
-
 	def __init__(self, parent):
 		"""
 		Initialize RegexToolModule instance

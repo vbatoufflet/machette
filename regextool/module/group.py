@@ -17,9 +17,10 @@ pygtk.require('2.0')
 # Set module class name
 classname = 'RegexToolModuleGroup'
 
-class RegexToolModuleGroup(RegexToolModule):
-	builtin = True
+# Set module information
+mandatory = True
 
+class RegexToolModuleGroup(RegexToolModule):
 	def register(self):
 		"""
 		Register RegexToolModuleGroup module

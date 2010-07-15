@@ -17,6 +17,9 @@ pygtk.require('2.0')
 # Set module class name
 classname = 'RegexToolModuleReplace'
 
+# Set module information
+mandatory = True
+
 # Set configuration options list
 options = {
 	'window': {
@@ -28,8 +31,6 @@ options = {
 }
 
 class RegexToolModuleReplace(RegexToolModule):
-	builtin = True
-
 	def register(self):
 		"""
 		Register RegexToolModuleReplace module

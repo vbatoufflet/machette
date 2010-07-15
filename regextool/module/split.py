@@ -17,6 +17,9 @@ pygtk.require('2.0')
 # Set module class name
 classname = 'RegexToolModuleSplit'
 
+# Set module information
+mandatory = True
+
 # Set configuration options list
 options = {
 	'window': {
@@ -25,8 +28,6 @@ options = {
 }
 
 class RegexToolModuleSplit(RegexToolModule):
-	builtin = True
-
 	def register(self):
 		"""
 		Register RegexToolModuleSplit module
@@ -80,6 +81,9 @@ class RegexToolModuleSplit(RegexToolModule):
 
 			# Get split chunks
 			regex = re.compile(self.parent.regex_buffer.get_text(self.parent.regex_buffer.get_start_iter(), self.parent.regex_buffer.get_end_iter()), self.parent.flags)
-			self.parent.wtree.get_object('textview-split-result').get_buffer().set_text(delimiter.join(regex.split(self.parent.target, self.parent.limit)))
+			chunks = regex.split(self.parent.target, self.parent.limit)
+			chunks = [ a if a else '' for a in chunks ]
+
+			self.parent.wtree.get_object('textview-split-result').get_buffer().set_text(delimiter.join(chunks))
 		except ( IndexError, re.error ), e:
 			pass
