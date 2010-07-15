@@ -238,6 +238,26 @@ class RegexTool:
 				self.target_buffer.set_text(fd.read())
 				fd.close()
 
+	def init_pref_dialog(self, source=None, event=None):
+		"""
+		Initialize preferences window
+			void init_pref_dialog(event source: gtk.Object, event: gtk.gdk.Event)
+		"""
+
+		if hasattr(self, 'pref_dialog'):
+			return
+
+		# Initialize window
+		self.wtree.add_from_file(os.path.join(DATA_DIR, 'ui/pref.ui'))
+		self.pref_dialog = self.wtree.get_object('dialog-pref')
+		self.pref_dialog.set_modal(True)
+		self.pref_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
+		self.pref_dialog.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
+
+		# Connect signals
+		self.wtree.get_object('notebook-pref').connect('switch-page', self.update_pref_dialog)
+		self.wtree.get_object('treeview-module').connect('cursor-changed', self.update_pref_dialog, None, 1)
+
 	def main(self):
 		"""
 		Run the GTK main loop
@@ -401,45 +421,72 @@ class RegexTool:
 		self.about_dialog.run()
 		self.about_dialog.hide()
 	
+	def toggle_module(self, source=None, path=None, model=None):
+		"""
+		"""
+
+		model[path][0] = not model[path][0]
+
 	def show_pref_dialog(self, source=None, event=None):
 		"""
 		Create and/or display preferences window
 			bool show_pref_dialog(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 
-		# Load window if needed
+		# Initialize window if needed
 		if not hasattr(self, 'pref_dialog'):
-			self.wtree.add_from_file(os.path.join(DATA_DIR, 'ui/pref.ui'))
-			self.pref_window = self.wtree.get_object('dialog-pref')
-			self.pref_window.set_modal(True)
-			self.pref_window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
-			self.pref_window.set_resizable(False)
-			self.pref_window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
+			self.init_pref_dialog()
 
 		# Update preferences window state
 		self.wtree.get_object('checkbutton-window-save-state').set_active(self.config.get('window', 'save-state'))
 		self.wtree.get_object('colorbutton-color-first').set_color(gtk.gdk.color_parse(self.config.get('color', 'match-first')))
 		self.wtree.get_object('colorbutton-color-next').set_color(gtk.gdk.color_parse(self.config.get('color', 'match-next')))
 
+		# Update modules list
+		treeview = self.wtree.get_object('treeview-module')
+
+		render_toggle = gtk.CellRendererToggle()
+		render_toggle.set_property('activatable', True)
+		render_toggle.connect('toggled', self.toggle_module, treeview.get_model())
+		render_text = gtk.CellRendererText()
+
+		treeview.get_column(0).pack_start(render_toggle, False)
+		treeview.get_column(0).add_attribute(render_toggle, 'active', 0)
+		treeview.get_column(1).pack_start(render_text, False)
+		treeview.get_column(1).add_attribute(render_text, 'markup', 2)
+
+		# Get GtkListStore
+		liststore = self.wtree.get_object('liststore-module')
+
+		# Clear previous entries
+		liststore.clear()
+
+		for name in self.modules:
+			module = load_module(name, [ 'classname', 'description', 'mandatory', 'name', 'version' ])
+
+			# Skip mandatory modules
+			if hasattr(module, 'mandatory') and module.mandatory:
+				continue
+
+			# Set version string if needed
+			if not hasattr(module, 'version'):
+				module.version = ''
+
+			# Append module
+			liststore.append([ False, name, '<b>%s</b> %s\n%s' % (
+				module.name if hasattr(module, 'name') else name,
+				module.version if module.version else __version__,
+				module.description if hasattr(module, 'description') else _('No description available.'),
+			) ])
+
 		# Set dialog visible and wait for action
 		action = None
 
 		while not action:
 			# Wait for action
-			action = self.pref_window.run()
+			action = self.pref_dialog.run()
 
-			if action == 1:
-				# Set new preferences values
-				self.config.set('color', 'match-first', self.wtree.get_object('colorbutton-color-first').get_color().to_string())
-				self.config.set('color', 'match-next', self.wtree.get_object('colorbutton-color-next').get_color().to_string())
-				self.config.set('window', 'save-state', self.wtree.get_object('checkbutton-window-save-state').get_active())
-
-				# Update target GtkTextBuffer tags
-				self.set_target_tags()
-			elif action == 2:
-				# Cancel preferences changes
-				pass
-			elif action == 3:
+			if action == 2:
 				# Update preferences window state with defaults
 				self.wtree.get_object('checkbutton-window-save-state').set_active(self.config.get_default('window', 'save-state'))
 				self.wtree.get_object('colorbutton-color-first').set_color(gtk.gdk.color_parse(self.config.get_default('color', 'match-first')))
@@ -447,10 +494,18 @@ class RegexTool:
 
 				# Cancel action value
 				action = None
+			else:
+				# Set new preferences values
+				self.config.set('color', 'match-first', self.wtree.get_object('colorbutton-color-first').get_color().to_string())
+				self.config.set('color', 'match-next', self.wtree.get_object('colorbutton-color-next').get_color().to_string())
+				self.config.set('window', 'save-state', self.wtree.get_object('checkbutton-window-save-state').get_active())
+
+				# Update target GtkTextBuffer tags
+				self.set_target_tags()
 
 			# Close preferences dialog
 			if action:
-				self.pref_window.hide()
+				self.pref_dialog.hide()
 
 	def switch_focus(self, source=None, event=None):
 		"""
@@ -497,6 +552,46 @@ class RegexTool:
 
 		# Update widgets visibility
 		self.wtree.get_object('notebook-extension').set_visible(self.config.get('window', 'show-extension'))
+
+	def update_pref_dialog(self, source=None, page=None, pagenum=None):
+		"""
+		Update preferences dialog widgets
+			void update_pref_dialog(event source: gtk.Object, page: gobject.GPointer, page index: int)
+		"""
+
+		# Update module tab
+		if pagenum == 1:
+			model, treeiter = self.wtree.get_object('treeview-module').get_selection().get_selected()
+			
+			if treeiter:
+				name = model.get_value(treeiter, 1)
+				module = load_module(name, [ 'authors', 'description', 'name', 'version', 'website' ])
+
+				# Set defaults if needed
+				if not hasattr(module, 'version'):
+					module.version = ''
+
+				if not hasattr(module, 'website') or not module.website:
+					module.website = __website__
+
+				# Update module information
+				self.wtree.get_object('label-module-info').set_label('<big><b>%s</b></big> %s\n%s' % (
+					module.name if hasattr(module, 'name') else name,
+					module.version if module.version else __version__,
+					module.description if hasattr(module, 'description') else _('No description available.'),
+				))
+
+				self.wtree.get_object('label-module-author-value').set_label('\n'.join(module.authors if hasattr(module, 'authors') else __authors__))
+				self.wtree.get_object('label-module-website-value').set_label('<a href="%s">%s</a>' % (module.website, module.website))
+
+				# Display module information
+				self.wtree.get_object('viewport-module').show()
+			else:
+				# Hide module information
+				self.wtree.get_object('viewport-module').hide()
+
+		# Set reset button sensitivity
+		self.wtree.get_object('button-pref-reset').set_sensitive(pagenum == 0)
 
 	def update_target_tags(self, source=None, event=None):
 		"""
