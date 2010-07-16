@@ -110,7 +110,10 @@ class RegexToolModuleHlSelect(RegexToolModule):
 			# Check for sub-pattern
 			s = re.match(regex, target)
 
-			if not s:
+			# Get sub-pattern
+			select = self.parent.regex_buffer.get_text(bounds[0], bounds[1])
+
+			if not s or select.startswith('(') and select.find(')') == -1 or select.endswith(')') and select.find('(') == -1:
 				return
 
 			# Update selection tag priority
