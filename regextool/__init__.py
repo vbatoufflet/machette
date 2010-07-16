@@ -254,6 +254,19 @@ class RegexTool:
 		self.pref_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 		self.pref_dialog.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
 
+		# Initialize GtkTreeView
+		treeview = self.wtree.get_object('treeview-module')
+
+		render_toggle = gtk.CellRendererToggle()
+		render_toggle.set_property('activatable', True)
+		render_toggle.connect('toggled', self.toggle_module, treeview.get_model())
+		render_text = gtk.CellRendererText()
+
+		treeview.get_column(0).pack_start(render_toggle, False)
+		treeview.get_column(0).add_attribute(render_toggle, 'active', 0)
+		treeview.get_column(1).pack_start(render_text, False)
+		treeview.get_column(1).add_attribute(render_text, 'markup', 2)
+
 		# Connect signals
 		self.wtree.get_object('notebook-pref').connect('switch-page', self.update_pref_dialog)
 		self.wtree.get_object('treeview-module').connect('cursor-changed', self.update_pref_dialog, None, 1)
@@ -442,20 +455,7 @@ class RegexTool:
 		self.wtree.get_object('colorbutton-color-first').set_color(gtk.gdk.color_parse(self.config.get('color', 'match-first')))
 		self.wtree.get_object('colorbutton-color-next').set_color(gtk.gdk.color_parse(self.config.get('color', 'match-next')))
 
-		# Update modules list
-		treeview = self.wtree.get_object('treeview-module')
-
-		render_toggle = gtk.CellRendererToggle()
-		render_toggle.set_property('activatable', True)
-		render_toggle.connect('toggled', self.toggle_module, treeview.get_model())
-		render_text = gtk.CellRendererText()
-
-		treeview.get_column(0).pack_start(render_toggle, False)
-		treeview.get_column(0).add_attribute(render_toggle, 'active', 0)
-		treeview.get_column(1).pack_start(render_text, False)
-		treeview.get_column(1).add_attribute(render_text, 'markup', 2)
-
-		# Get GtkListStore
+		# Update modules list GtkListStore
 		liststore = self.wtree.get_object('liststore-module')
 
 		# Clear previous entries
