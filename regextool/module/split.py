@@ -22,9 +22,7 @@ mandatory = True
 
 # Set configuration options list
 options = {
-	'window': {
-		'split-delimiter':	( int, 0 ),
-	},
+	'window.split-delimiter':	( int, 0 ),
 }
 
 class RegexToolModuleSplit(RegexToolModule):
@@ -42,7 +40,7 @@ class RegexToolModuleSplit(RegexToolModule):
 			self.parent.wtree.get_object('combobox-split-delimiter').append_text(delim)
 
 		# Restore last state
-		self.parent.wtree.get_object('combobox-split-delimiter').set_active(self.parent.config.get('window', 'split-delimiter'))
+		self.parent.wtree.get_object('combobox-split-delimiter').set_active(self.parent.config.get('window.split-delimiter'))
 
 		# Attach UI to the parent window
 		self.parent.wtree.get_object('notebook-extension').append_page(self.parent.wtree.get_object('vbox-split'), gtk.Label(_('Split')))
@@ -60,8 +58,8 @@ class RegexToolModuleSplit(RegexToolModule):
 		"""
 
 		# Save state
-		if self.parent.config.get('window', 'save-state'):
-			self.parent.config.set('window', 'split-delimiter', self.parent.wtree.get_object('combobox-split-delimiter').get_active())
+		if self.parent.config.get('window.save-state'):
+			self.parent.config.set('window.split-delimiter', self.parent.wtree.get_object('combobox-split-delimiter').get_active())
 	
 	def update_tab(self, source=None, event=None):
 		"""

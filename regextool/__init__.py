@@ -281,21 +281,21 @@ class RegexTool:
 		self.updating = True
 
 		# Restore last state
-		self.regex_buffer.set_text(self.config.get('data', 'textview-regex'))
-		self.target_buffer.set_text(self.config.get('data', 'textview-target'))
-		self.wtree.get_object('checkbutton-option-g').set_active(self.config.get('window', 'option-g-active'))
-		self.wtree.get_object('checkbutton-option-i').set_active(self.config.get('window', 'option-i-active'))
-		self.wtree.get_object('checkbutton-option-l').set_active(self.config.get('window', 'option-l-active'))
-		self.wtree.get_object('checkbutton-option-m').set_active(self.config.get('window', 'option-m-active'))
-		self.wtree.get_object('checkbutton-option-s').set_active(self.config.get('window', 'option-s-active'))
-		self.wtree.get_object('checkbutton-option-u').set_active(self.config.get('window', 'option-u-active'))
-		self.wtree.get_object('checkbutton-option-x').set_active(self.config.get('window', 'option-x-active'))
-		self.wtree.get_object('menuitem-view-extension').set_active(self.config.get('window', 'show-extension'))
-		self.wtree.get_object('menuitem-view-statusbar').set_active(self.config.get('window', 'show-statusbar'))
-		self.wtree.get_object('notebook-extension').set_current_page(self.config.get('window', 'notebook-page'))
-		self.wtree.get_object('vpaned1').set_position(self.config.get('window', 'pane-position1'))
-		self.wtree.get_object('vpaned2').set_position(self.config.get('window', 'pane-position2'))
-		self.wtree.get_object('window-main').set_default_size(self.config.get('window', 'width'), self.config.get('window', 'height'))
+		self.regex_buffer.set_text(self.config.get('data.textview-regex'))
+		self.target_buffer.set_text(self.config.get('data.textview-target'))
+		self.wtree.get_object('checkbutton-option-g').set_active(self.config.get('window.option-g-active'))
+		self.wtree.get_object('checkbutton-option-i').set_active(self.config.get('window.option-i-active'))
+		self.wtree.get_object('checkbutton-option-l').set_active(self.config.get('window.option-l-active'))
+		self.wtree.get_object('checkbutton-option-m').set_active(self.config.get('window.option-m-active'))
+		self.wtree.get_object('checkbutton-option-s').set_active(self.config.get('window.option-s-active'))
+		self.wtree.get_object('checkbutton-option-u').set_active(self.config.get('window.option-u-active'))
+		self.wtree.get_object('checkbutton-option-x').set_active(self.config.get('window.option-x-active'))
+		self.wtree.get_object('menuitem-view-extension').set_active(self.config.get('window.show-extension'))
+		self.wtree.get_object('menuitem-view-statusbar').set_active(self.config.get('window.show-statusbar'))
+		self.wtree.get_object('notebook-extension').set_current_page(self.config.get('window.notebook-page'))
+		self.wtree.get_object('vpaned1').set_position(self.config.get('window.pane-position1'))
+		self.wtree.get_object('vpaned2').set_position(self.config.get('window.pane-position2'))
+		self.wtree.get_object('window-main').set_default_size(self.config.get('window.width'), self.config.get('window.height'))
 
 		# Initialize undo stacks
 		UndoStack(self.wtree.get_object('textview-regex'))
@@ -315,7 +315,7 @@ class RegexTool:
 		self.wtree.get_object('window-main').show()
 
 		# Update current tab if needed
-		if self.config.get('window', 'show-extension'):
+		if self.config.get('window.show-extension'):
 			self.wtree.get_object('notebook-extension').get_nth_page(self.wtree.get_object('notebook-extension').get_current_page()).emit('map')
 
 		# Enter GTK main loop
@@ -348,23 +348,23 @@ class RegexTool:
 		"""
 
 		# Save state
-		if self.config.get('window', 'save-state'):
-			self.config.set('data', 'textview-regex', self.regex_buffer.get_text(self.regex_buffer.get_start_iter(), self.regex_buffer.get_end_iter()))
-			self.config.set('data', 'textview-target', self.target_buffer.get_text(self.target_buffer.get_start_iter(), self.target_buffer.get_end_iter()))
-			self.config.set('window', 'height', self.wtree.get_object('window-main').get_allocation().height)
-			self.config.set('window', 'notebook-page', self.wtree.get_object('notebook-extension').get_current_page())
-			self.config.set('window', 'option-g-active', self.wtree.get_object('checkbutton-option-g').get_active())
-			self.config.set('window', 'option-i-active', self.wtree.get_object('checkbutton-option-i').get_active())
-			self.config.set('window', 'option-l-active', self.wtree.get_object('checkbutton-option-l').get_active())
-			self.config.set('window', 'option-m-active', self.wtree.get_object('checkbutton-option-m').get_active())
-			self.config.set('window', 'option-s-active', self.wtree.get_object('checkbutton-option-s').get_active())
-			self.config.set('window', 'option-u-active', self.wtree.get_object('checkbutton-option-u').get_active())
-			self.config.set('window', 'option-x-active', self.wtree.get_object('checkbutton-option-x').get_active())
-			self.config.set('window', 'pane-position1', self.wtree.get_object('vpaned1').get_position())
-			self.config.set('window', 'pane-position2', self.wtree.get_object('vpaned2').get_position())
-			self.config.set('window', 'show-extension', self.wtree.get_object('menuitem-view-extension').get_active())
-			self.config.set('window', 'show-statusbar', self.wtree.get_object('menuitem-view-statusbar').get_active())
-			self.config.set('window', 'width', self.wtree.get_object('window-main').get_allocation().width)
+		if self.config.get('window.save-state'):
+			self.config.set('data.textview-regex', self.regex_buffer.get_text(self.regex_buffer.get_start_iter(), self.regex_buffer.get_end_iter()))
+			self.config.set('data.textview-target', self.target_buffer.get_text(self.target_buffer.get_start_iter(), self.target_buffer.get_end_iter()))
+			self.config.set('window.height', self.wtree.get_object('window-main').get_allocation().height)
+			self.config.set('window.notebook-page', self.wtree.get_object('notebook-extension').get_current_page())
+			self.config.set('window.option-g-active', self.wtree.get_object('checkbutton-option-g').get_active())
+			self.config.set('window.option-i-active', self.wtree.get_object('checkbutton-option-i').get_active())
+			self.config.set('window.option-l-active', self.wtree.get_object('checkbutton-option-l').get_active())
+			self.config.set('window.option-m-active', self.wtree.get_object('checkbutton-option-m').get_active())
+			self.config.set('window.option-s-active', self.wtree.get_object('checkbutton-option-s').get_active())
+			self.config.set('window.option-u-active', self.wtree.get_object('checkbutton-option-u').get_active())
+			self.config.set('window.option-x-active', self.wtree.get_object('checkbutton-option-x').get_active())
+			self.config.set('window.pane-position1', self.wtree.get_object('vpaned1').get_position())
+			self.config.set('window.pane-position2', self.wtree.get_object('vpaned2').get_position())
+			self.config.set('window.show-extension', self.wtree.get_object('menuitem-view-extension').get_active())
+			self.config.set('window.show-statusbar', self.wtree.get_object('menuitem-view-statusbar').get_active())
+			self.config.set('window.width', self.wtree.get_object('window-main').get_allocation().width)
 
 		# Unregister loaded modules
 		for name in self.modules:
@@ -388,7 +388,7 @@ class RegexTool:
 				self.target_buffer.create_tag(name)
 
 			# Set background property
-			self.target_buffer.get_tag_table().lookup(name).set_property('background', gtk.gdk.color_parse(self.config.get('color', name)))
+			self.target_buffer.get_tag_table().lookup(name).set_property('background', gtk.gdk.color_parse(self.config.get('color.' + name)))
 	
 	def show_about_dialog(self, source=None, event=None):
 		"""
@@ -451,9 +451,9 @@ class RegexTool:
 			self.init_pref_dialog()
 
 		# Update preferences window state
-		self.wtree.get_object('checkbutton-window-save-state').set_active(self.config.get('window', 'save-state'))
-		self.wtree.get_object('colorbutton-color-first').set_color(gtk.gdk.color_parse(self.config.get('color', 'match-first')))
-		self.wtree.get_object('colorbutton-color-next').set_color(gtk.gdk.color_parse(self.config.get('color', 'match-next')))
+		self.wtree.get_object('checkbutton-window-save-state').set_active(self.config.get('window.save-state'))
+		self.wtree.get_object('colorbutton-color-first').set_color(gtk.gdk.color_parse(self.config.get('color.match-first')))
+		self.wtree.get_object('colorbutton-color-next').set_color(gtk.gdk.color_parse(self.config.get('color.match-next')))
 
 		# Update modules list GtkListStore
 		liststore = self.wtree.get_object('liststore-module')
@@ -488,17 +488,17 @@ class RegexTool:
 
 			if action == 2:
 				# Update preferences window state with defaults
-				self.wtree.get_object('checkbutton-window-save-state').set_active(self.config.get_default('window', 'save-state'))
-				self.wtree.get_object('colorbutton-color-first').set_color(gtk.gdk.color_parse(self.config.get_default('color', 'match-first')))
-				self.wtree.get_object('colorbutton-color-next').set_color(gtk.gdk.color_parse(self.config.get_default('color', 'match-next')))
+				self.wtree.get_object('checkbutton-window-save-state').set_active(self.config.get_default('window.save-state'))
+				self.wtree.get_object('colorbutton-color-first').set_color(gtk.gdk.color_parse(self.config.get_default('color.match-first')))
+				self.wtree.get_object('colorbutton-color-next').set_color(gtk.gdk.color_parse(self.config.get_default('color.match-next')))
 
 				# Cancel action value
 				action = None
 			else:
 				# Set new preferences values
-				self.config.set('color', 'match-first', self.wtree.get_object('colorbutton-color-first').get_color().to_string())
-				self.config.set('color', 'match-next', self.wtree.get_object('colorbutton-color-next').get_color().to_string())
-				self.config.set('window', 'save-state', self.wtree.get_object('checkbutton-window-save-state').get_active())
+				self.config.set('color.match-first', self.wtree.get_object('colorbutton-color-first').get_color().to_string())
+				self.config.set('color.match-next', self.wtree.get_object('colorbutton-color-next').get_color().to_string())
+				self.config.set('window.save-state', self.wtree.get_object('checkbutton-window-save-state').get_active())
 
 				# Update target GtkTextBuffer tags
 				self.set_target_tags()
@@ -537,13 +537,13 @@ class RegexTool:
 		"""
 
 		# Get previous state
-		previous = self.config.get('window', 'show-extension')
+		previous = self.config.get('window.show-extension')
 
 		# Update configuration option value
-		self.config.set('window', 'show-extension', self.wtree.get_object('menuitem-view-extension').get_active())
+		self.config.set('window.show-extension', self.wtree.get_object('menuitem-view-extension').get_active())
 
 		# Resize window when status change
-		if previous != self.config.get('window', 'show-extension'):
+		if previous != self.config.get('window.show-extension'):
 			self.wtree.get_object('window-main').resize(
 				self.wtree.get_object('window-main').get_allocation().width,
 				(self.wtree.get_object('window-main').get_allocation().height
@@ -551,7 +551,7 @@ class RegexTool:
 			)
 
 		# Update widgets visibility
-		self.wtree.get_object('notebook-extension').set_visible(self.config.get('window', 'show-extension'))
+		self.wtree.get_object('notebook-extension').set_visible(self.config.get('window.show-extension'))
 
 	def update_pref_dialog(self, source=None, page=None, pagenum=None):
 		"""

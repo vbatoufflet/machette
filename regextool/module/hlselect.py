@@ -27,9 +27,7 @@ website = None
 
 # Set configuration options list
 options = {
-	'color': {
-		'match-select':	( str, '#ff9900' ),
-	},
+	'color.match-select':	( str, '#ff9900' ),
 }
 
 class RegexToolModuleHlSelect(RegexToolModule):
@@ -51,14 +49,14 @@ class RegexToolModuleHlSelect(RegexToolModule):
 		self.label.set_property('xalign', 0)
 		self.label.show()
 
-		self.colorbutton = gtk.ColorButton(gtk.gdk.color_parse(self.parent.config.get('color', 'match-select')))
+		self.colorbutton = gtk.ColorButton(gtk.gdk.color_parse(self.parent.config.get('color.match-select')))
 		self.colorbutton.show()
 
 		tablecolor.attach(self.label, 0, 1, 2, 3, gtk.FILL, gtk.FILL)
 		tablecolor.attach(self.colorbutton, 1, 2, 2, 3, gtk.FILL, gtk.FILL)
 
 		# Create selection tag
-		self.parent.target_buffer.create_tag('match-select', background=gtk.gdk.color_parse(self.parent.config.get('color', 'match-select')))
+		self.parent.target_buffer.create_tag('match-select', background=gtk.gdk.color_parse(self.parent.config.get('color.match-select')))
 
 		# Connect signals
 		self.parent.regex_buffer.connect('mark-set', self.check_sub_pattern)
@@ -148,7 +146,7 @@ class RegexToolModuleHlSelect(RegexToolModule):
 		"""
 
 		# Set color to default
-		self.colorbutton.set_color(gtk.gdk.color_parse(self.parent.config.get_default('color', 'match-select')))
+		self.colorbutton.set_color(gtk.gdk.color_parse(self.parent.config.get_default('color.match-select')))
 	
 	def set_color(self, source=None):
 		"""
@@ -157,10 +155,10 @@ class RegexToolModuleHlSelect(RegexToolModule):
 		"""
 
 		# Update color preference
-		self.parent.config.set('color', 'match-select', self.colorbutton.get_color().to_string())
+		self.parent.config.set('color.match-select', self.colorbutton.get_color().to_string())
 
 		# Update tag
 		self.parent.target_buffer.get_tag_table().lookup('match-select').set_property(
 			'background',
-			gtk.gdk.color_parse(self.parent.config.get('color', 'match-select')),
+			gtk.gdk.color_parse(self.parent.config.get('color.match-select')),
 		)

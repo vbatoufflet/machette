@@ -22,12 +22,8 @@ mandatory = True
 
 # Set configuration options list
 options = {
-	'window': {
-		'pane-position-replace':	( int, 0 ),
-	},
-	'data': {
-		'textview-replace':		( str, '' ),
-	},
+	'data.textview-replace':	( str, '' ),
+	'window.pane-position-replace':	( int, 0 ),
 }
 
 class RegexToolModuleReplace(RegexToolModule):
@@ -44,8 +40,8 @@ class RegexToolModuleReplace(RegexToolModule):
 		self.replace_buffer = self.parent.wtree.get_object('textview-replace').get_buffer()
 
 		# Restore last state
-		self.parent.wtree.get_object('vpaned-replace').set_position(self.parent.config.get('window', 'pane-position-replace'))
-		self.replace_buffer.set_text(self.parent.config.get('data', 'textview-replace'))
+		self.parent.wtree.get_object('vpaned-replace').set_position(self.parent.config.get('window.pane-position-replace'))
+		self.replace_buffer.set_text(self.parent.config.get('data.textview-replace'))
 
 		# Attach UI to the parent window
 		self.parent.wtree.get_object('notebook-extension').append_page(self.parent.wtree.get_object('vpaned-replace'), gtk.Label(_('Replace')))
@@ -65,9 +61,9 @@ class RegexToolModuleReplace(RegexToolModule):
 		"""
 
 		# Save state
-		if self.parent.config.get('window', 'save-state'):
-			self.parent.config.set('data', 'textview-replace', self.replace_buffer.get_text(self.replace_buffer.get_start_iter(), self.replace_buffer.get_end_iter()))
-			self.parent.config.set('window', 'pane-position-replace', self.parent.wtree.get_object('vpaned-replace').get_position())
+		if self.parent.config.get('window.save-state'):
+			self.parent.config.set('data.textview-replace', self.replace_buffer.get_text(self.replace_buffer.get_start_iter(), self.replace_buffer.get_end_iter()))
+			self.parent.config.set('window.pane-position-replace', self.parent.wtree.get_object('vpaned-replace').get_position())
 	
 	def apply_replace(self, source=None, event=None):
 		"""

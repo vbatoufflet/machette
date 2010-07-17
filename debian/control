@@ -10,6 +10,6 @@ Vcs-Browser: https://bitbucket.org/santx/regextool/
 
 Package: regextool
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends}, python-gtk2
+Depends: ${python:Depends}, ${misc:Depends}, python-configobj, python-gtk2
 Description: interactive regular expression tester
  Regex Tool is an interactive tool for testing Perl-style regular expressions.
