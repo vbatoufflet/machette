@@ -99,18 +99,22 @@ class RegexTool:
 		options = list()
 
 		for name in get_modules_list():
-			module = load_module(name, [ 'classname', 'options' ])
-			self.modules[name] = getattr(module, module.classname)(self)
+			self.modules[name] = load_module(name, [ 'classname', 'mandatory', 'options' ])
 
-			if hasattr(module, 'options'):
-				options.append(module.options)
+			if hasattr(self.modules[name], 'options'):
+				options.append(self.modules[name].options)
 
 		# Load configuration
 		self.config = RegexToolConfig(options)
 
-		# Register loaded modules
+		# Get enabled modules
 		for name in self.modules:
-			self.modules[name].register()
+			# Skip disabled modules
+			if (not hasattr(self.modules[name], 'mandatory') or not self.modules[name].mandatory) and not name in self.config.get('module.enabled'):
+				continue
+
+			# Load module
+			self.module_init(name)
 	
 	def check_pattern(self, source=None, event=None):
 		"""
@@ -320,6 +324,32 @@ class RegexTool:
 
 		# Enter GTK main loop
 		gtk.main()
+	
+	def module_destroy(self, name):
+		"""
+		Unload module by name
+			void module_destroy(module name: str)
+		"""
+
+		if not hasattr(self.modules[name], '__instance__'):
+			return
+
+		# Unregister and destroy requested module
+		self.modules[name].__instance__.unregister()
+		del self.modules[name].__instance__
+
+	def module_init(self, name):
+		"""
+		Load module by name
+			void module_init(module name: str)
+		"""
+
+		if hasattr(self.modules[name], '__instance__'):
+			return
+
+		# Load and register requested module
+		self.modules[name].__instance__ = getattr(self.modules[name], self.modules[name].classname)(self)
+		self.modules[name].__instance__.register()
 
 	def print_usage(self):
 		"""
@@ -368,7 +398,7 @@ class RegexTool:
 
 		# Unregister loaded modules
 		for name in self.modules:
-			self.modules[name].unregister()
+			self.module_destroy(name)
 
 		# Save configuration options
 		self.config.save()
@@ -473,7 +503,7 @@ class RegexTool:
 				module.version = ''
 
 			# Append module
-			liststore.append([ False, name, '<b>%s</b> %s\n%s' % (
+			liststore.append([ name in self.config.get('module.enabled'), name, '<b>%s</b> %s\n%s' % (
 				module.name if hasattr(module, 'name') else name,
 				module.version if module.version else __version__,
 				module.description if hasattr(module, 'description') else _('No description available.'),
@@ -500,12 +530,31 @@ class RegexTool:
 				self.config.set('color.match-next', self.wtree.get_object('colorbutton-color-next').get_color().to_string())
 				self.config.set('window.save-state', self.wtree.get_object('checkbutton-window-save-state').get_active())
 
+				# Set enabled modules list
+				enabled = list()
+
+				for item in self.wtree.get_object('liststore-module'):
+					if item[0]:
+						# Append to enabled modules list
+						enabled.append(item[1])
+
+						# Initialize module
+						self.module_init(item[1])
+					else:
+						# Destroy loaded module
+						self.module_destroy(item[1])
+
+				self.config.set('module.enabled', enabled)
+
 				# Update target GtkTextBuffer tags
 				self.set_target_tags()
 
-			# Close preferences dialog
 			if action:
+				# Close preferences dialog
 				self.pref_dialog.hide()
+
+				# Perform a pattern check
+				self.check_pattern()
 
 	def switch_focus(self, source=None, event=None):
 		"""

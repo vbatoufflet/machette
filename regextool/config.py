@@ -18,7 +18,7 @@ __OPTIONS__ = {
 	'color.match-next':		( str, '#66ff66' ),
 	'data.textview-regex':		( str, ''),
 	'data.textview-target':		( str, ''),
-	'module.enabled':		( str, ''),
+	'module.enabled':		( list, []),
 	'window.height':		( int, 1 ),
 	'window.notebook-page':		( int, 0 ),
 	'window.option-g-active':	( bool, False ),
