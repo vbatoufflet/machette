@@ -9,7 +9,7 @@
 
 __fullname__ = 'An interactive regular expression tester'
 __shortname__ = 'regextool'
-__version__ = '0.1'
+__version__ = '0.2'
 
 __author__ = 'Vincent Batoufflet'
 __email__ = 'vincent@batoufflet.info'

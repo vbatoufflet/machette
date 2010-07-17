@@ -1,3 +1,15 @@
+regextool (0.2) unstable; urgency=low
+
+  * Added modules support.
+  * Added undo/redo support for GtkTextView.
+  * Added import/export support for target string.
+  * Added selection highlighting support (through a new module).
+  * Made configuration handler use ConfigObj instead of ConfigParser.
+  * Made some GUI improvements.
+  * Fixed various bugs.
+
+ -- Vincent Batoufflet <vincent@batoufflet.info>  Sat, 17 Jul 2010 13:41:24 +0200
+
 regextool (0.1) unstable; urgency=low
 
   * Initial Release.
