@@ -19,8 +19,8 @@ pygtk.require('2.0')
 classname = 'RegexToolModuleHlSelect'
 
 # Set module information
-name = 'Highlight selection'
-description = 'Highlight sub-pattern according to regular expression current selection.'
+name = _('Highlight selection')
+description = _('Highlight target according to regular expression selection.')
 version = None
 authors = [ 'Vincent Batoufflet <vincent@batoufflet.info>' ]
 website = None
@@ -59,10 +59,11 @@ class RegexToolModuleHlSelect(RegexToolModule):
 		self.parent.target_buffer.create_tag('match-select', background=gtk.gdk.color_parse(self.parent.config.get('color.match-select')))
 
 		# Connect signals
-		self.parent.regex_buffer.connect('mark-set', self.check_sub_pattern)
-		self.parent.target_buffer.connect('changed', self.check_sub_pattern)
-		self.parent.wtree.get_object('button-pref-ok').connect('clicked', self.set_color)
-		self.parent.wtree.get_object('button-pref-reset').connect('clicked', self.reset_color)
+		self.handlers = dict()
+		self.handlers['regex_buffer.mark-set'] = self.parent.regex_buffer.connect('mark-set', self.check_sub_pattern)
+		self.handlers['target_buffer.changed'] = self.parent.target_buffer.connect('changed', self.check_sub_pattern)
+		self.handlers['button-pref-ok.clicked'] = self.parent.wtree.get_object('button-pref-ok').connect('clicked', self.set_color)
+		self.handlers['button-pref-reset.clicked'] = self.parent.wtree.get_object('button-pref-reset').connect('clicked', self.reset_color)
 	
 	def check_sub_pattern(self, source=None, step=None, count=None, extend=None):
 		"""
@@ -162,3 +163,23 @@ class RegexToolModuleHlSelect(RegexToolModule):
 			'background',
 			gtk.gdk.color_parse(self.parent.config.get('color.match-select')),
 		)
+
+	def unregister(self):
+		"""
+		Unregister RegexToolModuleHlSelect module
+			void unregister(void)
+		"""
+
+		# Update preference pane
+		tablecolor = self.parent.wtree.get_object('table-color')
+		tablecolor.remove(self.label)
+		tablecolor.remove(self.colorbutton)
+
+		# Remove selection tag
+		self.parent.target_buffer.get_tag_table().remove(self.parent.target_buffer.get_tag_table().lookup('match-select'))
+
+		# Disconnect signals
+		self.parent.regex_buffer.disconnect(self.handlers['regex_buffer.mark-set'])
+		self.parent.target_buffer.disconnect(self.handlers['target_buffer.changed'])
+		self.parent.wtree.get_object('button-pref-ok').disconnect(self.handlers['button-pref-ok.clicked'])
+		self.parent.wtree.get_object('button-pref-reset').disconnect(self.handlers['button-pref-reset.clicked'])
