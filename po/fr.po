@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Regex Tool\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-23 16:56+0200\n"
+"POT-Creation-Date: 2010-07-17 13:32+0200\n"
 "PO-Revision-Date: 2010-05-23 11:50+0200\n"
 "Last-Translator: Vincent Batoufflet <vincent@batoufflet.info>\n"
 "Language-Team: French <vincent@batoufflet.info>\n"
@@ -19,81 +19,106 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: regextool/__init__.py:643
+#: regextool/__init__.py:708
 #, python-format
 msgid "%d match found"
 msgid_plural "%d matches found"
 msgstr[0] "%d correspondance trouvée"
 msgstr[1] "%d correspondances trouvées"
 
-#: regextool/__init__.py:229
+#: ui/pref.ui:219
+msgid "<big><b>Name</b></big>   version x.x"
+msgstr "<big><b>Nom</b></big>   version x.x"
+
+#: regextool/__init__.py:221
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ui/main.ui:547
+#: ui/module/replace.ui:118
 msgid "Apply to target string"
 msgstr "Appliquer à la cible"
 
-#: ui/pref.ui:48
+#: ui/pref.ui:239
+msgid "Authors:"
+msgstr "Auteurs :"
+
+#: ui/pref.ui:68
 msgid "Color settings:"
 msgstr "Paramètres de couleur :"
 
-#: ui/main.ui:631
+#: ui/module/split.ui:49
 msgid "Delimiter:"
 msgstr "Délimiteur :"
 
-#: regextool/__init__.py:168 regextool/__init__.py:564
-#: regextool/__init__.py:580
+#: ui/pref.ui:189
+msgid "Enabled"
+msgstr "Actif"
+
+#: regextool/__init__.py:159 regextool/module/replace.py:99
 #, python-format
 msgid "Error: %s"
 msgstr "Erreur : %s"
 
-#: regextool/config.py:136 regextool/__init__.py:44
+#: regextool/__init__.py:46 regextool/config.py:135
 #, python-format
 msgid "Error: %s\n"
 msgstr "Erreur : %s\n"
 
-#: regextool/__init__.py:401
+#: regextool/__init__.py:454
 msgid "Error: unable to load AUTHORS file"
 msgstr "Erreur : impossible de lire le fichier AUTHORS"
 
-#: regextool/__init__.py:394
+#: regextool/__init__.py:447
 msgid "Error: unable to load LICENSE file"
 msgstr "Erreur : impossible de lire le fichier LICENSE"
 
-#: regextool/__init__.py:408
+#: regextool/__init__.py:461
 msgid "Error: unable to load TRANSLATORS file"
 msgstr "Erreur : impossible de lire le fichier TRANSLATORS"
 
-#: regextool/__init__.py:179 ui/main.ui:48
+#: regextool/__init__.py:171 ui/main.ui:32
 msgid "Export to file..."
 msgstr "Exporter vers un fichier..."
 
-#: ui/pref.ui:68
+#: ui/pref.ui:88
 msgid "First match:"
 msgstr "Première correspondance :"
 
-#: ui/main.ui:450
+#: regextool/module/group.py:45
 msgid "Group"
 msgstr "Groupe"
 
-#: ui/main.ui:387
+#: ui/module/group.ui:35
 msgid "Group name"
 msgstr "Nom du groupe"
 
-#: ui/main.ui:409
+#: ui/module/group.ui:57
 msgid "Group:"
 msgstr "Groupe :"
 
-#: ui/main.ui:382
+#: regextool/module/hlselect.py:22
+msgid "Highlight selection"
+msgstr "Highlight selection"
+
+#: regextool/module/hlselect.py:23
+msgid "Highlight target according to regular expression selection."
+msgstr ""
+"Mettre en surbrillance la cible en fonction de la sélection de l'expression "
+"relationelle."
+
+#: ui/module/group.ui:30
 msgid "Id"
 msgstr "Id"
 
-#: regextool/__init__.py:215 ui/main.ui:40
+#: regextool/__init__.py:207 ui/main.ui:24
 msgid "Import from file..."
 msgstr "Importer depuis un fichier..."
 
-#: ui/main.ui:293
+#: ui/pref.ui:194
+msgid "Information"
+msgstr "Informations"
+
+#: ui/main.ui:300
 msgid ""
 "Make \\w, \\W, \\b, \\B, \\d, \\D, \\s and \\S depends on Unicode character "
 "properties"
@@ -101,156 +126,180 @@ msgstr ""
 "Rendre \\w, \\W, \\b, \\B, \\d, \\D, \\s et \\S dépendant des propriétés "
 "Unicode"
 
-#: ui/main.ui:279
+#: ui/main.ui:286
 msgid "Make \\w, \\W, \\b, \\B, \\s and \\S depends on locale"
 msgstr "Rendre \\w, \\W, \\b, \\B, \\s et \\S dépendant paramètres régionaux"
 
-#: ui/main.ui:392
+#: ui/module/group.ui:40
 msgid "Match"
 msgstr "Correspondance"
 
-#: ui/pref.ui:78
+#: ui/pref.ui:99
 msgid "Next matches:"
 msgstr "Correspondances suivantes :"
 
-#: regextool/__init__.py:310
+#: regextool/__init__.py:509 regextool/__init__.py:630
+msgid "No description available."
+msgstr "Aucune description disponible."
+
+#: regextool/__init__.py:362
 msgid "Options:"
 msgstr "Options :"
 
-#: ui/main.ui:223
+#: ui/main.ui:230
 msgid "Perform case-insensitive matching"
 msgstr "Effectuer une recherche insensible à la casse"
 
-#: ui/main.ui:265
+#: ui/main.ui:272
 msgid "Permit whitespaces and comments"
 msgstr "Permettre les espaces et les commentaires"
 
-#: ui/pref.ui:7
+#: ui/pref.ui:18
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ui/main.ui:164
+#: ui/module/replace.ui:24 ui/main.ui:152
 msgid "Regular expression:"
 msgstr "Expression rationnelle :"
 
-#: ui/main.ui:579
+#: regextool/module/replace.py:47
 msgid "Replace"
 msgstr "Remplacer"
 
-#: ui/main.ui:514
+#: ui/module/replace.ui:85
 msgid "Replacement result:"
 msgstr "Résultat du remplacement :"
 
-#: ui/main.ui:472 ui/main.ui:597
+#: ui/module/split.ui:15
 msgid "Replacement string:"
 msgstr "Chaîne de remplacement :"
 
-#: ui/pref.ui:153
+#: ui/pref.ui:331
 msgid "Reset to defaults"
 msgstr "Valeurs par défaut"
 
-#: ui/pref.ui:32
+#: ui/pref.ui:52
 msgid "Save window state on exit"
 msgstr "Sauvergarder l'état de la fenêtre à la fermeture"
 
-#: ui/main.ui:209
+#: ui/main.ui:216
 msgid "Search for matches globally"
 msgstr "Rechercher de manière globale"
 
-#: ui/main.ui:679
+#: regextool/module/hlselect.py:48
+msgid "Selection match:"
+msgstr "Correspondance de sélection :"
+
+#: regextool/module/split.py:46
 msgid "Split"
 msgstr "Découper"
 
-#: ui/main.ui:324
+#: ui/main.ui:331
 msgid "Target string:"
 msgstr "Chaîne cible :"
 
-#: regextool/__init__.py:224
+#: regextool/__init__.py:216
 msgid "Text files"
 msgstr "Fichiers texte"
 
-#: regextool/__init__.py:194
+#: regextool/__init__.py:186
 msgid "The destination file already exists. Are you sure?"
 msgstr "Le fichier de destination existe déjà. Continuer ?"
 
-#: ui/main.ui:237
+#: ui/main.ui:244
 msgid "Treat string as multiple lines"
 msgstr "Traiter la chaîne comme étant multi-lignes"
 
-#: ui/main.ui:251
+#: ui/main.ui:258
 msgid "Treat string as single line"
 msgstr "Traiter la chaîne comme étant sur une seule ligne"
 
-#: regextool/__init__.py:308
+#: regextool/__init__.py:360
 #, python-format
 msgid "Usage: %s [OPTION]..."
 msgstr "Usage: %s [OPTION]..."
 
-#: ui/main.ui:102
-msgid "View advanced panel"
-msgstr "Afficher le panneau avancé"
+#: ui/main.ui:86
+msgid "View extension panel"
+msgstr "Afficher le panneau des extensions"
 
-#: ui/main.ui:109
+#: ui/main.ui:93
 msgid "View status bar"
 msgstr "Afficher la barre d'état"
 
-#: ui/pref.ui:20
+#: ui/pref.ui:254
+msgid "Website:"
+msgstr "Site web :"
+
+#: ui/pref.ui:40
 msgid "Window settings:"
 msgstr "Paramètres de fenêtre :"
 
-#: regextool/__init__.py:241
+#: regextool/__init__.py:233
 msgid "Your are about to replace the existing target string. Are you sure?"
 msgstr ""
 "Vous êtes sur le point de remplacer la chaîne cible courante. Continuer ?"
 
-#: ui/main.ui:74
+#: ui/main.ui:58
 msgid "_Edit"
 msgstr "Édit_er"
 
-#: ui/main.ui:33
+#: ui/main.ui:17
 msgid "_File"
 msgstr "_Fichier"
 
-#: ui/main.ui:120
+#: ui/pref.ui:160
+msgid "_General"
+msgstr "_Général"
+
+#: ui/main.ui:104
 msgid "_Help"
 msgstr "_Aide"
 
-#: ui/main.ui:94
+#: ui/pref.ui:313
+msgid "_Modules"
+msgstr "_Modules"
+
+#: ui/main.ui:78
 msgid "_View"
 msgstr "_Vue"
 
-#: regextool/__init__.py:312
+#: regextool/__init__.py:364
 msgid "display program version and exit"
 msgstr "afficher les informations de version et quitter"
 
-#: regextool/__init__.py:311
+#: regextool/__init__.py:363
 msgid "display this help and exit"
 msgstr "afficher l'aide et quitter"
 
-#: ui/main.ui:205
+#: ui/main.ui:212
 msgid "g"
 msgstr "g"
 
-#: ui/main.ui:219
+#: ui/main.ui:226
 msgid "i"
 msgstr "i"
 
-#: ui/main.ui:275
+#: ui/main.ui:282
 msgid "l"
 msgstr "l"
 
-#: ui/main.ui:233
+#: ui/main.ui:240
 msgid "m"
 msgstr "m"
 
-#: ui/main.ui:247
+#: ui/module/replace.ui:35 ui/main.ui:163
+msgid "no message"
+msgstr "pas de message"
+
+#: ui/main.ui:254
 msgid "s"
 msgstr "s"
 
-#: ui/main.ui:289
+#: ui/main.ui:296
 msgid "u"
 msgstr "u"
 
-#: ui/main.ui:261
+#: ui/main.ui:268
 msgid "x"
 msgstr "x"
