@@ -4,5 +4,6 @@
 ^doc/.*\.[0-9]$
 ^locale$
 ^MANIFEST$
+^.pc$
 \.pyc$
 \.swp$
