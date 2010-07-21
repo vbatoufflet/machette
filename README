@@ -1,17 +1,17 @@
-Regex Tool, an interactive regular expression tester.
-Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
+Machette, an interactive regular expression tester.
+Copyright (C) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 
 Introduction
 ------------
 
-Regex Tool is an interactive tool for testing Perl-style regular
-expressions written in Python.
+Machette is an interactive tool written in Python for testing Perl-style
+regular expressions.
 
 It uses Python GTK+ bindings for the GUI. The various .ui files has been
 generated with the Glade interface builder.
 
-Regex Tool is largely inspired by The Regex Coach which has been
-developped by Edi Weitz and discontinued under it's Unices forms.
+Machette is largely inspired by The Regex Coach which has been
+developped by Edi Weitz and discontinued under its Unices forms.
 
 Features:
 
@@ -43,8 +43,8 @@ a copy at the following address <http://www.gnu.org/licenses/gpl.html>.
 Links
 -----
 
-Regex Tool:
-   http://thonpy.com/regextool/
+Machette:
+   http://thonpy.com/machette/
 
 PyGTK:
    http://www.pygtk.org/

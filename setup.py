@@ -13,7 +13,7 @@ from distutils.command.clean import clean as _clean
 from distutils.command.install_data import install_data as _install_data
 from distutils.command.install_lib import install_lib as _install_lib
 from distutils.core import setup
-from regextool import __author__, __email__, __fullname__, __license__, __shortname__, __version__, __website__
+from machette import __author__, __cmdname__, __description__, __email__, __license__, __shortname__, __version__, __website__
 
 class build(_build):
 	"""
@@ -40,9 +40,9 @@ class clean(_clean):
 		'doc/*.[0-9]',
 		'locale',
 		'MANIFEST',
-		'%s/*.pyc' % __shortname__,
-		'%s/module/*.pyc' % __shortname__,
-		'%s/ui/*.pyc' % __shortname__,
+		'%s/*.pyc' % __cmdname__,
+		'%s/module/*.pyc' % __cmdname__,
+		'%s/ui/*.pyc' % __cmdname__,
 	]
 
 	def run(self):
@@ -67,7 +67,7 @@ class gendoc(distutils.cmd.Command):
 	"""
 
 	_targets = [
-		( 'regextool', 1 ),
+		( 'machette', 1 ),
 	]
 
 	description = 'generate documentation files'
@@ -127,7 +127,7 @@ class genlocale(distutils.cmd.Command):
 				continue
 
 			# Get .mo file path
-			mofile = os.path.join('locale', lang, 'LC_MESSAGES', __shortname__ + '.mo')
+			mofile = os.path.join('locale', lang, 'LC_MESSAGES', __cmdname__ + '.mo')
 
 			if not os.path.exists(os.path.dirname(mofile)):
 				os.makedirs(os.path.dirname(mofile))
@@ -144,7 +144,7 @@ class install_data(_install_data):
 	def run(self):
 		# Install locale .mo catalog files
 		for lang in os.listdir('locale'):
-			self.data_files.append(( 'share/locale/%s/LC_MESSAGES' % lang,  [ 'locale/%s/LC_MESSAGES/%s.mo' % (lang, __shortname__) ] ))
+			self.data_files.append(( 'share/locale/%s/LC_MESSAGES' % lang,  [ 'locale/%s/LC_MESSAGES/%s.mo' % (lang, __cmdname__) ] ))
 
 		# Install manpage
 		for target in gendoc._targets:
@@ -167,7 +167,7 @@ class install_lib(_install_lib):
 			prefix = os.path.abspath(prefix).replace(os.path.abspath(root), '')
 
 		# Update paths
-		pathfile = os.path.join(self.build_dir, __shortname__, 'path.py')
+		pathfile = os.path.join(self.build_dir, __cmdname__, 'path.py')
 
 		# Load file data
 		fd = open(pathfile, 'r')
@@ -178,7 +178,7 @@ class install_lib(_install_lib):
 
 		data = data.replace(
 			'DATA_DIR = get_source_directory()',
-			'DATA_DIR = %s' % repr(os.path.join(prefix, 'share', __shortname__)),
+			'DATA_DIR = %s' % repr(os.path.join(prefix, 'share', __cmdname__)),
 		)
 
 		data = data.replace(
@@ -198,7 +198,7 @@ class install_lib(_install_lib):
 setup(
 	name=__shortname__,
 	version=__version__,
-	description=__fullname__,
+	description=__description__,
 	author=__author__,
 	author_email=__email__,
 	url=__website__,
@@ -212,16 +212,16 @@ setup(
 		'install_lib': install_lib,
 	},
 	scripts=[
-		'bin/' + __shortname__,
+		'bin/' + __cmdname__,
 	],
 	packages=[
-		'regextool',
-		'regextool.module',
-		'regextool.ui',
+		'machette',
+		'machette.module',
+		'machette.ui',
 	],
 	data_files=[
-		( 'share/' + __shortname__, [ 'AUTHORS', 'ChangeLog', 'LICENSE', 'README', 'TRANSLATORS' ] ),
-		( 'share/' + __shortname__ + '/ui', [ 'ui/main.ui', 'ui/pref.ui' ] ),
-		( 'share/' + __shortname__ + '/ui/module', [ 'ui/module/group.ui', 'ui/module/replace.ui', 'ui/module/split.ui' ] ),
+		( 'share/' + __cmdname__, [ 'AUTHORS', 'ChangeLog', 'LICENSE', 'README', 'TRANSLATORS' ] ),
+		( 'share/' + __cmdname__ + '/ui', [ 'ui/main.ui', 'ui/pref.ui' ] ),
+		( 'share/' + __cmdname__ + '/ui/module', [ 'ui/module/group.ui', 'ui/module/replace.ui', 'ui/module/split.ui' ] ),
 	],
 )

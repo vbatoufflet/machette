@@ -1,5 +1,5 @@
 ===========
- regextool
+ machette
 ===========
 
 -------------------------------------
@@ -11,11 +11,11 @@ interactive regular expression tester
 
 SYNOPSIS
 --------
-**regextool** [*OPTION*]...
+**machette** [*OPTION*]...
 
 DESCRIPTION
 -----------
-**regextool** is a program that provides testing tools for regular expressions, with a interactive graphical interface.
+**machette** is a program that provides testing tools for regular expressions, with a interactive graphical interface.
 
 OPTIONS
 -------

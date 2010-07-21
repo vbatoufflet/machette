@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# This file is a part of Regex Tool.
+# This file is a part of Machette.
 #
 # Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # See LICENSE file for further details.
@@ -9,14 +9,14 @@
 
 import gtk, pygtk
 import os, random, re
-from regextool import __shortname__
-from regextool.module import RegexToolModule
-from regextool.path import DATA_DIR
+from machette import __cmdname__
+from machette.module import MachetteModule
+from machette.path import DATA_DIR
 
 pygtk.require('2.0')
 
 # Set module class name
-classname = 'RegexToolModuleHlSelect'
+classname = 'MachetteModuleHlSelect'
 
 # Set module information
 name = _('Highlight selection')
@@ -30,10 +30,10 @@ options = {
 	'color.match-select':	( str, '#ff9900' ),
 }
 
-class RegexToolModuleHlSelect(RegexToolModule):
+class MachetteModuleHlSelect(MachetteModule):
 	def register(self):
 		"""
-		Register RegexToolModuleHlSelect module
+		Register MachetteModuleHlSelect module
 			void register(void)
 		"""
 
@@ -138,7 +138,7 @@ class RegexToolModuleHlSelect(RegexToolModule):
 		while len(mid) < length:
 			mid += chr(random.randint(65, 90))
 
-		return '%s_%s' % (__shortname__, mid)
+		return '%s_%s' % (__cmdname__, mid)
 
 	def reset_color(self, source=None):
 		"""
@@ -166,7 +166,7 @@ class RegexToolModuleHlSelect(RegexToolModule):
 
 	def unregister(self):
 		"""
-		Unregister RegexToolModuleHlSelect module
+		Unregister MachetteModuleHlSelect module
 			void unregister(void)
 		"""
 

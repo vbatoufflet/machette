@@ -1,4 +1,4 @@
-regextool (0.2) unstable; urgency=low
+machette (0.2) unstable; urgency=low
 
   * Added modules support.
   * Added undo/redo support for GtkTextView.
@@ -10,7 +10,7 @@ regextool (0.2) unstable; urgency=low
 
  -- Vincent Batoufflet <vincent@batoufflet.info>  Sat, 17 Jul 2010 13:41:24 +0200
 
-regextool (0.1) unstable; urgency=low
+machette (0.1) unstable; urgency=low
 
   * Initial Release.
 

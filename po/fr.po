@@ -1,13 +1,13 @@
-# French translation of Regex Tool.
+# French translation of Machette.
 #
 # Copyright (C) 2010 Vincent Batoufflet <vincent@batoufflet.info>
-# This file is distributed under the same license as the Regex Tool package.
+# This file is distributed under the same license as the Machette package.
 #
 # Vincent Batoufflet <vincent@batoufflet.info>, 2010.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Regex Tool\n"
+"Project-Id-Version: Machette\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-07-17 13:32+0200\n"
 "PO-Revision-Date: 2010-05-23 11:50+0200\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: regextool/__init__.py:708
+#: machette/__init__.py:708
 #, python-format
 msgid "%d match found"
 msgid_plural "%d matches found"
@@ -30,7 +30,7 @@ msgstr[1] "%d correspondances trouvées"
 msgid "<big><b>Name</b></big>   version x.x"
 msgstr "<big><b>Nom</b></big>   version x.x"
 
-#: regextool/__init__.py:221
+#: machette/__init__.py:221
 msgid "All files"
 msgstr "Tous les fichiers"
 
@@ -54,29 +54,29 @@ msgstr "Délimiteur :"
 msgid "Enabled"
 msgstr "Actif"
 
-#: regextool/__init__.py:159 regextool/module/replace.py:99
+#: machette/__init__.py:159 machette/module/replace.py:99
 #, python-format
 msgid "Error: %s"
 msgstr "Erreur : %s"
 
-#: regextool/__init__.py:46 regextool/config.py:135
+#: machette/__init__.py:46 machette/config.py:135
 #, python-format
 msgid "Error: %s\n"
 msgstr "Erreur : %s\n"
 
-#: regextool/__init__.py:454
+#: machette/__init__.py:454
 msgid "Error: unable to load AUTHORS file"
 msgstr "Erreur : impossible de lire le fichier AUTHORS"
 
-#: regextool/__init__.py:447
+#: machette/__init__.py:447
 msgid "Error: unable to load LICENSE file"
 msgstr "Erreur : impossible de lire le fichier LICENSE"
 
-#: regextool/__init__.py:461
+#: machette/__init__.py:461
 msgid "Error: unable to load TRANSLATORS file"
 msgstr "Erreur : impossible de lire le fichier TRANSLATORS"
 
-#: regextool/__init__.py:171 ui/main.ui:32
+#: machette/__init__.py:171 ui/main.ui:32
 msgid "Export to file..."
 msgstr "Exporter vers un fichier..."
 
@@ -84,7 +84,7 @@ msgstr "Exporter vers un fichier..."
 msgid "First match:"
 msgstr "Première correspondance :"
 
-#: regextool/module/group.py:45
+#: machette/module/group.py:45
 msgid "Group"
 msgstr "Groupe"
 
@@ -96,11 +96,11 @@ msgstr "Nom du groupe"
 msgid "Group:"
 msgstr "Groupe :"
 
-#: regextool/module/hlselect.py:22
+#: machette/module/hlselect.py:22
 msgid "Highlight selection"
 msgstr "Highlight selection"
 
-#: regextool/module/hlselect.py:23
+#: machette/module/hlselect.py:23
 msgid "Highlight target according to regular expression selection."
 msgstr ""
 "Mettre en surbrillance la cible en fonction de la sélection de l'expression "
@@ -110,7 +110,7 @@ msgstr ""
 msgid "Id"
 msgstr "Id"
 
-#: regextool/__init__.py:207 ui/main.ui:24
+#: machette/__init__.py:207 ui/main.ui:24
 msgid "Import from file..."
 msgstr "Importer depuis un fichier..."
 
@@ -138,11 +138,11 @@ msgstr "Correspondance"
 msgid "Next matches:"
 msgstr "Correspondances suivantes :"
 
-#: regextool/__init__.py:509 regextool/__init__.py:630
+#: machette/__init__.py:509 machette/__init__.py:630
 msgid "No description available."
 msgstr "Aucune description disponible."
 
-#: regextool/__init__.py:362
+#: machette/__init__.py:362
 msgid "Options:"
 msgstr "Options :"
 
@@ -162,7 +162,7 @@ msgstr "Préférences"
 msgid "Regular expression:"
 msgstr "Expression rationnelle :"
 
-#: regextool/module/replace.py:47
+#: machette/module/replace.py:47
 msgid "Replace"
 msgstr "Remplacer"
 
@@ -186,11 +186,11 @@ msgstr "Sauvergarder l'état de la fenêtre à la fermeture"
 msgid "Search for matches globally"
 msgstr "Rechercher de manière globale"
 
-#: regextool/module/hlselect.py:48
+#: machette/module/hlselect.py:48
 msgid "Selection match:"
 msgstr "Correspondance de sélection :"
 
-#: regextool/module/split.py:46
+#: machette/module/split.py:46
 msgid "Split"
 msgstr "Découper"
 
@@ -198,11 +198,11 @@ msgstr "Découper"
 msgid "Target string:"
 msgstr "Chaîne cible :"
 
-#: regextool/__init__.py:216
+#: machette/__init__.py:216
 msgid "Text files"
 msgstr "Fichiers texte"
 
-#: regextool/__init__.py:186
+#: machette/__init__.py:186
 msgid "The destination file already exists. Are you sure?"
 msgstr "Le fichier de destination existe déjà. Continuer ?"
 
@@ -214,7 +214,7 @@ msgstr "Traiter la chaîne comme étant multi-lignes"
 msgid "Treat string as single line"
 msgstr "Traiter la chaîne comme étant sur une seule ligne"
 
-#: regextool/__init__.py:360
+#: machette/__init__.py:360
 #, python-format
 msgid "Usage: %s [OPTION]..."
 msgstr "Usage: %s [OPTION]..."
@@ -235,7 +235,7 @@ msgstr "Site web :"
 msgid "Window settings:"
 msgstr "Paramètres de fenêtre :"
 
-#: regextool/__init__.py:233
+#: machette/__init__.py:233
 msgid "Your are about to replace the existing target string. Are you sure?"
 msgstr ""
 "Vous êtes sur le point de remplacer la chaîne cible courante. Continuer ?"
@@ -264,11 +264,11 @@ msgstr "_Modules"
 msgid "_View"
 msgstr "_Vue"
 
-#: regextool/__init__.py:364
+#: machette/__init__.py:364
 msgid "display program version and exit"
 msgstr "afficher les informations de version et quitter"
 
-#: regextool/__init__.py:363
+#: machette/__init__.py:363
 msgid "display this help and exit"
 msgstr "afficher l'aide et quitter"
 

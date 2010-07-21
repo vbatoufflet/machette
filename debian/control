@@ -1,15 +1,15 @@
-Source: regextool
+Source: machette
 Section: devel
 Priority: optional
 Maintainer: Vincent Batoufflet <vincent@batoufflet.info>
 Build-Depends: debhelper (>= 7.0.50~), gettext, python-docutils (>= 0.6), python-gtk2, python-support (>= 0.8.4), quilt (>= 0.46-7~)
 Standards-Version: 3.8.4
-Homepage: http://thonpy.com/regextool/
-Vcs-Hg: https://bitbucket.org/santx/regextool/
-Vcs-Browser: https://bitbucket.org/santx/regextool/
+Homepage: http://thonpy.com/machette/
+Vcs-Hg: https://bitbucket.org/santx/machette/
+Vcs-Browser: https://bitbucket.org/santx/machette/
 
-Package: regextool
+Package: machette
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}, python-configobj, python-gtk2
 Description: interactive regular expression tester
- Regex Tool is an interactive tool for testing Perl-style regular expressions.
+ Machette is an interactive tool for testing Perl-style regular expressions.

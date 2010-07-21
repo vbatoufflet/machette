@@ -1,8 +1,8 @@
-Index: regextool/regextool/__init__.py
+Index: machette/machette/__init__.py
 ===================================================================
---- regextool.orig/regextool/__init__.py	2010-07-17 14:24:42.000000000 +0200
-+++ regextool/regextool/__init__.py	2010-07-17 14:24:54.000000000 +0200
-@@ -440,7 +440,7 @@
+--- machette.orig/machette/__init__.py	2010-07-17 14:24:42.000000000 +0200
++++ machette/machette/__init__.py	2010-07-17 14:24:54.000000000 +0200
+@@ -444,7 +444,7 @@
  
  			# Load information from external files
  			try:
@@ -11,16 +11,16 @@ Index: regextool/regextool/__init__.py
  				self.about_dialog.set_license(fd.read())
  				fd.close()
  			except IOError, e:
-Index: regextool/setup.py
+Index: machette/setup.py
 ===================================================================
---- regextool.orig/setup.py	2010-07-17 14:24:58.000000000 +0200
-+++ regextool/setup.py	2010-07-17 14:25:16.000000000 +0200
+--- machette.orig/setup.py	2010-07-17 14:24:58.000000000 +0200
++++ machette/setup.py	2010-07-17 14:25:16.000000000 +0200
 @@ -220,7 +220,7 @@
- 		'regextool.ui',
+ 		'machette.ui',
  	],
  	data_files=[
--		( 'share/' + __shortname__, [ 'AUTHORS', 'ChangeLog', 'LICENSE', 'README', 'TRANSLATORS' ] ),
-+		( 'share/' + __shortname__, [ 'AUTHORS', 'ChangeLog', 'README', 'TRANSLATORS' ] ),
- 		( 'share/' + __shortname__ + '/ui', [ 'ui/main.ui', 'ui/pref.ui' ] ),
- 		( 'share/' + __shortname__ + '/ui/module', [ 'ui/module/group.ui', 'ui/module/replace.ui', 'ui/module/split.ui' ] ),
+-		( 'share/' + __cmdname__, [ 'AUTHORS', 'ChangeLog', 'LICENSE', 'README', 'TRANSLATORS' ] ),
++		( 'share/' + __cmdname__, [ 'AUTHORS', 'ChangeLog', 'README', 'TRANSLATORS' ] ),
+ 		( 'share/' + __cmdname__ + '/ui', [ 'ui/main.ui', 'ui/pref.ui' ] ),
+ 		( 'share/' + __cmdname__ + '/ui/module', [ 'ui/module/group.ui', 'ui/module/replace.ui', 'ui/module/split.ui' ] ),
  	],

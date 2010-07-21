@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# This file is a part of Regex Tool.
+# This file is a part of Machette.
 #
 # Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # See LICENSE file for further details.
@@ -9,21 +9,21 @@
 
 import gtk, pygtk
 import os
-from regextool.module import RegexToolModule
-from regextool.path import DATA_DIR
+from machette.module import MachetteModule
+from machette.path import DATA_DIR
 
 pygtk.require('2.0')
 
 # Set module class name
-classname = 'RegexToolModuleGroup'
+classname = 'MachetteModuleGroup'
 
 # Set module information
 mandatory = True
 
-class RegexToolModuleGroup(RegexToolModule):
+class MachetteModuleGroup(MachetteModule):
 	def register(self):
 		"""
-		Register RegexToolModuleGroup module
+		Register MachetteModuleGroup module
 			void register(void)
 		"""
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# This file is a part of Regex Tool.
+# This file is a part of Machette.
 #
 # Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # See LICENSE file for further details.
@@ -8,7 +8,7 @@
 # $Id$
 
 import os, sys
-from regextool import __shortname__
+from machette import __cmdname__
 
 def get_source_directory(name=None):
 	"""
@@ -36,7 +36,7 @@ def get_config_directory():
 		basedir = os.environ.get('XDG_CONFIG_HOME', os.path.join(os.path.expanduser('~'), '.config'))
 
 	# Return configuration directory path
-	return os.path.abspath(os.path.join(basedir, __shortname__))
+	return os.path.abspath(os.path.join(basedir, __cmdname__))
 
 # Define paths
 CONF_DIR = get_config_directory()

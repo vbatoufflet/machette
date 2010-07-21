@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
-# regextool - Interactive regular expression tester
+# machette - Interactive regular expression tester
 #
 # Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # See LICENSE file for further details.
@@ -9,14 +9,14 @@
 # $Id$
 
 """
-Regex Tool is an interactive regular expression tester
+Machette is an interactive regular expression tester
 """
 
-from regextool import RegexTool
+from machette import Machette
 
 if __name__ == '__main__':
 	try:
-		app = RegexTool()
+		app = Machette()
 		app.main()
 	except KeyboardInterrupt:
 		pass

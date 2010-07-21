@@ -7,7 +7,7 @@ BASE_DIR=$(dirname $0)
 
 echo -n >$BASE_DIR/messages.po
 
-for file in $(find $BASE_DIR/regextool -iname '*.py') $(find $BASE_DIR/ui -iname '*.ui'); do
+for file in $(find $BASE_DIR/machette -iname '*.py') $(find $BASE_DIR/ui -iname '*.ui'); do
 	case "$file" in
 		*.py)
 			language='Python'

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# This file is a part of Regex Tool.
+# This file is a part of Machette.
 #
 # Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # See LICENSE file for further details.
@@ -9,13 +9,13 @@
 
 import gtk, pygtk
 import os, re
-from regextool.module import RegexToolModule
-from regextool.path import DATA_DIR
+from machette.module import MachetteModule
+from machette.path import DATA_DIR
 
 pygtk.require('2.0')
 
 # Set module class name
-classname = 'RegexToolModuleReplace'
+classname = 'MachetteModuleReplace'
 
 # Set module information
 mandatory = True
@@ -26,10 +26,10 @@ options = {
 	'window.pane-position-replace':	( int, 0 ),
 }
 
-class RegexToolModuleReplace(RegexToolModule):
+class MachetteModuleReplace(MachetteModule):
 	def register(self):
 		"""
-		Register RegexToolModuleReplace module
+		Register MachetteModuleReplace module
 			void register(void)
 		"""
 
@@ -56,7 +56,7 @@ class RegexToolModuleReplace(RegexToolModule):
 
 	def unregister(self):
 		"""
-		Unregister RegexToolModuleSplit module
+		Unregister MachetteModuleReplace module
 			void unregister(void)
 		"""
 
@@ -77,7 +77,7 @@ class RegexToolModuleReplace(RegexToolModule):
 	
 	def update_tab(self, source=None, event=None):
 		"""
-		Update split GtkNotebook tab
+		Update replace GtkNotebook tab
 			void update_tab(event source: gtk.Object, event: gtk.gdk.Event)
 		"""
 

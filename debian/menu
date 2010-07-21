@@ -1,6 +1,6 @@
-?package(regextool):\
+?package(machette):\
 	needs="X11"\
 	section="Applications/Programming"\
-	title="Regex Tool"\
+	title="Machette"\
 	longtitle="Interactive regular expression tester"\
-	command="/usr/bin/regextool"
+	command="/usr/bin/machette"

@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 #
-# This file is a part of Regex Tool.
+# This file is a part of Machette.
 #
 # Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # See LICENSE file for further details.
 #
 # $Id$
 
-__fullname__ = 'An interactive regular expression tester'
-__shortname__ = 'regextool'
+__shortname__ = 'Machette'
+__cmdname__ = 'machette'
+__description__ = 'An interactive regular expression tester'
 __version__ = '0.2'
 
 __author__ = 'Vincent Batoufflet'
@@ -16,28 +17,28 @@ __email__ = 'vincent@batoufflet.info'
 __copyright__ = 'Copyright © 2010 Vincent Batoufflet'
 __license__ = 'gpl3'
 
-__website__ = 'http://thonpy.com/regextool/'
+__website__ = 'http://thonpy.com/machette/'
 
 import gtk, pygtk
 import getopt, gettext, locale, os, re, sys
-from regextool.config import RegexToolConfig
-from regextool.module import *
-from regextool.path import DATA_DIR, LOCALE_DIR
-from regextool.ui.undostack import UndoStack
+from machette.config import MachetteConfig
+from machette.module import *
+from machette.path import DATA_DIR, LOCALE_DIR
+from machette.ui.undostack import UndoStack
 
 pygtk.require('2.0')
 
-class RegexTool:
+class Machette:
 	def __init__(self):
 		"""
-		Initialize RegexTool instance
-			RegexTool __init__(void)
+		Initialize Machette instance
+			Machette __init__(void)
 		"""
 
 		# Initialize i18n support
-		gettext.install(__shortname__, LOCALE_DIR)
-		gettext.bindtextdomain(__shortname__, LOCALE_DIR)
-		locale.bindtextdomain(__shortname__, LOCALE_DIR)
+		gettext.install(__cmdname__, LOCALE_DIR)
+		gettext.bindtextdomain(__cmdname__, LOCALE_DIR)
+		locale.bindtextdomain(__cmdname__, LOCALE_DIR)
 
 		# Parse command line arguments
 		try:
@@ -57,7 +58,7 @@ class RegexTool:
 
 		# Load widgets from UI file
 		self.wtree = gtk.Builder()
-		self.wtree.set_translation_domain(__shortname__)
+		self.wtree.set_translation_domain(__cmdname__)
 		self.wtree.add_from_file(os.path.join(DATA_DIR, 'ui/main.ui'))
 
 		# Set instance attributes
@@ -68,6 +69,9 @@ class RegexTool:
 		self.regex = None
 		self.target = ''
 		self.updating = False
+
+		# Set window title
+		self.wtree.get_object('window-main').set_title(__shortname__)
 
 		# Initialize GtkTextBuffer buffers
 		self.regex_buffer = self.wtree.get_object('textview-regex').get_buffer()
@@ -105,7 +109,7 @@ class RegexTool:
 				options.append(self.modules[name].options)
 
 		# Load configuration
-		self.config = RegexToolConfig(options)
+		self.config = MachetteConfig(options)
 
 		# Get enabled modules
 		for name in self.modules:
@@ -357,7 +361,7 @@ class RegexTool:
 			void print_usage(void)
 		"""
 
-		print(_('Usage: %s [OPTION]...') % __shortname__)
+		print(_('Usage: %s [OPTION]...') % __cmdname__)
 		print('')
 		print(_('Options:'))
 		print('   -h, --help     ' + _('display this help and exit'))
@@ -369,7 +373,7 @@ class RegexTool:
 			void print_version(void)
 		"""
 
-		print('regextool ' + __version__)
+		print('machette ' + __version__)
 
 	def quit(self, source=None, event=None):
 		"""
@@ -434,7 +438,7 @@ class RegexTool:
 			# Set base information
 			self.about_dialog.set_name(__shortname__)
 			self.about_dialog.set_version(__version__)
-			self.about_dialog.set_comments(__fullname__)
+			self.about_dialog.set_comments(__description__)
 			self.about_dialog.set_copyright(__copyright__)
 			self.about_dialog.set_website(__website__)
 
@@ -705,7 +709,7 @@ class RegexTool:
 
 		# Set statusbar matches count
 		self.wtree.get_object('statusbar').pop(0)
-		self.wtree.get_object('statusbar').push(0, gettext.dngettext(__shortname__, '%d match found', '%d matches found', count) % count)
+		self.wtree.get_object('statusbar').push(0, gettext.dngettext(__cmdname__, '%d match found', '%d matches found', count) % count)
 
 		# Reset updating flag and undo stack lock
 		self.updating = False

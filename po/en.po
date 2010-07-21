@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 #
 # Copyright (C) 2010 Vincent Batoufflet <vincent@batoufflet.info>
-# This file is distributed under the same license as the Regex Tool package.
+# This file is distributed under the same license as the Machette package.
 #
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Regex Tool\n"
+"Project-Id-Version: Machette\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-07-17 13:32+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: regextool/__init__.py:708
+#: machette/__init__.py:708
 #, python-format
 msgid "%d match found"
 msgid_plural "%d matches found"
@@ -30,7 +30,7 @@ msgstr[1] ""
 msgid "<big><b>Name</b></big>   version x.x"
 msgstr ""
 
-#: regextool/__init__.py:221
+#: machette/__init__.py:221
 msgid "All files"
 msgstr ""
 
@@ -54,29 +54,29 @@ msgstr ""
 msgid "Enabled"
 msgstr ""
 
-#: regextool/__init__.py:159 regextool/module/replace.py:99
+#: machette/__init__.py:159 machette/module/replace.py:99
 #, python-format
 msgid "Error: %s"
 msgstr ""
 
-#: regextool/__init__.py:46 regextool/config.py:135
+#: machette/__init__.py:46 machette/config.py:135
 #, python-format
 msgid "Error: %s\n"
 msgstr ""
 
-#: regextool/__init__.py:454
+#: machette/__init__.py:454
 msgid "Error: unable to load AUTHORS file"
 msgstr ""
 
-#: regextool/__init__.py:447
+#: machette/__init__.py:447
 msgid "Error: unable to load LICENSE file"
 msgstr ""
 
-#: regextool/__init__.py:461
+#: machette/__init__.py:461
 msgid "Error: unable to load TRANSLATORS file"
 msgstr ""
 
-#: regextool/__init__.py:171 ui/main.ui:32
+#: machette/__init__.py:171 ui/main.ui:32
 msgid "Export to file..."
 msgstr ""
 
@@ -84,7 +84,7 @@ msgstr ""
 msgid "First match:"
 msgstr ""
 
-#: regextool/module/group.py:45
+#: machette/module/group.py:45
 msgid "Group"
 msgstr ""
 
@@ -96,11 +96,11 @@ msgstr ""
 msgid "Group:"
 msgstr ""
 
-#: regextool/module/hlselect.py:22
+#: machette/module/hlselect.py:22
 msgid "Highlight selection"
 msgstr ""
 
-#: regextool/module/hlselect.py:23
+#: machette/module/hlselect.py:23
 msgid "Highlight target according to regular expression selection."
 msgstr ""
 
@@ -108,7 +108,7 @@ msgstr ""
 msgid "Id"
 msgstr ""
 
-#: regextool/__init__.py:207 ui/main.ui:24
+#: machette/__init__.py:207 ui/main.ui:24
 msgid "Import from file..."
 msgstr ""
 
@@ -134,11 +134,11 @@ msgstr ""
 msgid "Next matches:"
 msgstr ""
 
-#: regextool/__init__.py:509 regextool/__init__.py:630
+#: machette/__init__.py:509 machette/__init__.py:630
 msgid "No description available."
 msgstr ""
 
-#: regextool/__init__.py:362
+#: machette/__init__.py:362
 msgid "Options:"
 msgstr ""
 
@@ -158,7 +158,7 @@ msgstr ""
 msgid "Regular expression:"
 msgstr ""
 
-#: regextool/module/replace.py:47
+#: machette/module/replace.py:47
 msgid "Replace"
 msgstr ""
 
@@ -182,11 +182,11 @@ msgstr ""
 msgid "Search for matches globally"
 msgstr ""
 
-#: regextool/module/hlselect.py:48
+#: machette/module/hlselect.py:48
 msgid "Selection match:"
 msgstr ""
 
-#: regextool/module/split.py:46
+#: machette/module/split.py:46
 msgid "Split"
 msgstr ""
 
@@ -194,11 +194,11 @@ msgstr ""
 msgid "Target string:"
 msgstr ""
 
-#: regextool/__init__.py:216
+#: machette/__init__.py:216
 msgid "Text files"
 msgstr ""
 
-#: regextool/__init__.py:186
+#: machette/__init__.py:186
 msgid "The destination file already exists. Are you sure?"
 msgstr ""
 
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Treat string as single line"
 msgstr ""
 
-#: regextool/__init__.py:360
+#: machette/__init__.py:360
 #, python-format
 msgid "Usage: %s [OPTION]..."
 msgstr ""
@@ -231,7 +231,7 @@ msgstr ""
 msgid "Window settings:"
 msgstr ""
 
-#: regextool/__init__.py:233
+#: machette/__init__.py:233
 msgid "Your are about to replace the existing target string. Are you sure?"
 msgstr ""
 
@@ -259,11 +259,11 @@ msgstr ""
 msgid "_View"
 msgstr ""
 
-#: regextool/__init__.py:364
+#: machette/__init__.py:364
 msgid "display program version and exit"
 msgstr ""
 
-#: regextool/__init__.py:363
+#: machette/__init__.py:363
 msgid "display this help and exit"
 msgstr ""
 

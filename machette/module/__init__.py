@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# This file is a part of Regex Tool.
+# This file is a part of Machette.
 #
 # Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # See LICENSE file for further details.
@@ -8,15 +8,15 @@
 # $Id$
 
 import os
-from regextool import __author__, __email__, __website__
+from machette import __author__, __email__, __website__
 
 __MODULES__ = list()
 
-class RegexToolModule:
+class MachetteModule:
 	def __init__(self, parent):
 		"""
-		Initialize RegexToolModule instance
-			RegexToolModule __init__(parent instance: RegexTool)
+		Initialize MachetteModule instance
+			MachetteModule __init__(parent instance: Machette)
 		"""
 
 		# Set instance attributes
@@ -24,7 +24,7 @@ class RegexToolModule:
 
 	def register(self):
 		"""
-		Register RegexToolModule module
+		Register MachetteModule module
 			void register(void)
 		"""
 
@@ -32,7 +32,7 @@ class RegexToolModule:
 
 	def unregister(self):
 		"""
-		Unregister RegexToolModule module
+		Unregister MachetteModule module
 			void unregister(void)
 		"""
 
@@ -64,7 +64,7 @@ def load_module(name, fromlist=[]):
 
 	try:
 		# Try to import the module
-		return __import__('regextool.module.%s' % name, globals(), locals(), fromlist)
+		return __import__('machette.module.%s' % name, globals(), locals(), fromlist)
 	except ImportError:
 		# Return None on failure
 		return None

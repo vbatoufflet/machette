@@ -12,7 +12,7 @@ sys.path.insert(0, BASE_DIR)
 from docutils.core import publish_file
 from docutils.writers.manpage import Writer
 
-for manpage in [ 'regextool.1' ]:
+for manpage in [ 'machette.1' ]:
 	publish_file(
 		writer=Writer(),
 		source_path='%s/doc/%s.rst' % (BASE_DIR, manpage),

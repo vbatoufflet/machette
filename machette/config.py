@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# This file is a part of Regex Tool.
+# This file is a part of Machette.
 #
 # Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
 # See LICENSE file for further details.
@@ -8,8 +8,8 @@
 # $Id$
 
 import configobj, os, sys
-from regextool import __shortname__
-from regextool.path import CONF_DIR
+from machette import __cmdname__, __shortname__
+from machette.path import CONF_DIR
 
 # Set configuration options list
 __OPTIONS__ = {
@@ -35,22 +35,22 @@ __OPTIONS__ = {
 	'window.width':			( int, 1 ),
 }
 
-class RegexToolConfig:
+class MachetteConfig:
 	def __init__(self, options=dict()):
 		"""
-		Initialize RegexToolConfig instance
-			RegexToolConfig __init__(additionnal options: dict)
+		Initialize MachetteConfig instance
+			MachetteConfig __init__(additionnal options: dict)
 		"""
 
 		# Set instance attributes
 		self.settings = dict()
-		self.filepath = os.path.join(CONF_DIR, __shortname__ + 'rc')
+		self.filepath = os.path.join(CONF_DIR, __cmdname__ + 'rc')
 
 		# Load options from file
 		try:
 			parser = configobj.ConfigObj(self.filepath)
 		except configobj.ConfigObjError, e:
-			sys.stderr.write('Error: unable to read configuration file, please remove the file and relaunch %s.\n' % __shortname__)
+			sys.stderr.write('Error: unable to read configuration file, please remove the file and relaunch %s.\n' % __cmdname__)
 			sys.exit(1)
 
 		# Get full options list
