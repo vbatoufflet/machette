@@ -7,8 +7,7 @@
 #
 # $Id$
 
-import os, sys
-from configobj import ConfigObj
+import configobj, os, sys
 from regextool import __shortname__
 from regextool.path import CONF_DIR
 
@@ -48,7 +47,11 @@ class RegexToolConfig:
 		self.filepath = os.path.join(CONF_DIR, __shortname__ + 'rc')
 
 		# Load options from file
-		parser = ConfigObj(self.filepath)
+		try:
+			parser = configobj.ConfigObj(self.filepath)
+		except configobj.ConfigObjError, e:
+			sys.stderr.write('Error: unable to read configuration file, please remove the file and relaunch %s.\n' % __shortname__)
+			sys.exit(1)
 
 		# Get full options list
 		self.options = __OPTIONS__.copy()
@@ -110,7 +113,7 @@ class RegexToolConfig:
 
 		try:
 			# Parse for options
-			parser = ConfigObj(self.filepath)
+			parser = configobj.ConfigObj(self.filepath)
 
 			# Set file comments
 			parser.initial_comment = [
