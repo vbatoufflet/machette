@@ -2,8 +2,10 @@
 #
 # This file is a part of Machette.
 #
-# Copyright (c) 2010 Vincent Batoufflet <vincent@batoufflet.info>
-# See LICENSE file for further details.
+# Copyright (C) 2010 Vincent Batoufflet <vincent@batoufflet.info>
+#
+# This software is released under the terms of the GNU General Public License
+# version 3 or any later version. See LICENSE file for further details.
 #
 # $Id$
 
