@@ -9,142 +9,147 @@
 #
 # $Id$
 
-import configobj, os, sys
+import configobj
+import os
+import sys
 from machette import __cmdname__, __shortname__
 from machette.path import CONF_DIR
 
 # Set configuration options list
 __OPTIONS__ = {
-	'color.match-first':		( str, '#ffff00' ),
-	'color.match-next':		( str, '#66ff66' ),
-	'data.textview-regex':		( str, ''),
-	'data.textview-target':		( str, ''),
-	'module.enabled':		( list, []),
-	'window.height':		( int, 1 ),
-	'window.notebook-page':		( int, 0 ),
-	'window.option-g-active':	( bool, False ),
-	'window.option-i-active':	( bool, False ),
-	'window.option-l-active':	( bool, False ),
-	'window.option-m-active':	( bool, False ),
-	'window.option-s-active':	( bool, False ),
-	'window.option-u-active':	( bool, False ),
-	'window.option-x-active':	( bool, False ),
-	'window.pane-position1':	( int, -1 ),
-	'window.pane-position2':	( int, -1 ),
-	'window.save-state':		( bool, True ),
-	'window.show-extension':	( bool, False ),
-	'window.show-statusbar':	( bool, True ),
-	'window.width':			( int, 1 ),
+    'color.match-first': (str, '#ffff00'),
+    'color.match-next': (str, '#66ff66'),
+    'data.textview-regex': (str, ''),
+    'data.textview-target': (str, ''),
+    'module.enabled': (list, []),
+    'window.height': (int, 1),
+    'window.notebook-page': (int, 0),
+    'window.option-g-active': (bool, False),
+    'window.option-i-active': (bool, False),
+    'window.option-l-active': (bool, False),
+    'window.option-m-active': (bool, False),
+    'window.option-s-active': (bool, False),
+    'window.option-u-active': (bool, False),
+    'window.option-x-active': (bool, False),
+    'window.pane-position1': (int, -1),
+    'window.pane-position2': (int, -1),
+    'window.save-state': (bool, True),
+    'window.show-extension': (bool, False),
+    'window.show-statusbar': (bool, True),
+    'window.width': (int, 1),
 }
 
+
 class MachetteConfig:
-	def __init__(self, options=dict()):
-		"""
-		Initialize MachetteConfig instance
-			MachetteConfig __init__(additionnal options: dict)
-		"""
+    def __init__(self, options=dict()):
+        """
+        Initialize MachetteConfig instance
+            MachetteConfig __init__(additionnal options: dict)
+        """
 
-		# Set instance attributes
-		self.settings = dict()
-		self.filepath = os.path.join(CONF_DIR, __cmdname__ + 'rc')
+        # Set instance attributes
+        self.settings = dict()
+        self.filepath = os.path.join(CONF_DIR, __cmdname__ + 'rc')
 
-		# Load options from file
-		try:
-			parser = configobj.ConfigObj(self.filepath)
-		except configobj.ConfigObjError, e:
-			sys.stderr.write('Error: unable to read configuration file, please remove the file and relaunch %s.\n' % __cmdname__)
-			sys.exit(1)
+        # Load options from file
+        try:
+            parser = configobj.ConfigObj(self.filepath)
+        except configobj.ConfigObjError, e:
+            sys.stderr.write(_('Error: unable to read configuration file, '
+                               'please remove the file and relaunch %s.\n')
+                               % __cmdname__)
+            sys.exit(1)
 
-		# Get full options list
-		self.options = __OPTIONS__.copy()
+        # Get full options list
+        self.options = __OPTIONS__.copy()
 
-		for opts in options:
-			for option in opts:
-				self.options[option] = opts[option]
+        for opts in options:
+            for option in opts:
+                self.options[option] = opts[option]
 
-		for name in self.options:
-			stype, default = self.options[name]
+        for name in self.options:
+            stype, default = self.options[name]
 
-			try:
-				if not name in parser:
-					self.settings[name] = default
-				elif stype == bool:
-					self.settings[name] = parser.as_bool(name)
-				elif stype == float:
-					self.settings[name] = parser.as_float(name)
-				elif stype == int:
-					self.settings[name] = parser.as_int(name)
-				elif stype == list:
-					self.settings[name] = parser.as_list(name)
-				else:
-					self.settings[name] = parser.get(name)
-			except ValueError:
-				self.settings[name] = default
+            try:
+                if not name in parser:
+                    self.settings[name] = default
+                elif stype == bool:
+                    self.settings[name] = parser.as_bool(name)
+                elif stype == float:
+                    self.settings[name] = parser.as_float(name)
+                elif stype == int:
+                    self.settings[name] = parser.as_int(name)
+                elif stype == list:
+                    self.settings[name] = parser.as_list(name)
+                else:
+                    self.settings[name] = parser.get(name)
+            except ValueError:
+                self.settings[name] = default
 
-		del parser
+        del parser
 
-	def get(self, name):
-		"""
-		Get an option value by name
-			mixed get(option name: str)
-		"""
+    def get(self, name):
+        """
+        Get an option value by name
+            mixed get(option name: str)
+        """
 
-		# Return option value
-		if name in self.settings:
-			return self.settings[name]
-		else:
-			return None
+        # Return option value
+        if name in self.settings:
+            return self.settings[name]
+        else:
+            return None
 
-	def get_default(self, name):
-		"""
-		Get a default option value by name
-			mixed get_default(option name: str)
-		"""
+    def get_default(self, name):
+        """
+        Get a default option value by name
+            mixed get_default(option name: str)
+        """
 
-		# Return default option value
-		if name in self.options:
-			return self.options[name][1]
-		else:
-			return None
+        # Return default option value
+        if name in self.options:
+            return self.options[name][1]
+        else:
+            return None
 
-	def save(self):
-		"""
-		Save options to file
-			bool save(void)
-		"""
+    def save(self):
+        """
+        Save options to file
+            bool save(void)
+        """
 
-		try:
-			# Parse for options
-			parser = configobj.ConfigObj(self.filepath)
+        try:
+            # Parse for options
+            parser = configobj.ConfigObj(self.filepath)
 
-			# Set file comments
-			parser.initial_comment = [
-				'%s configuration file' % __shortname__,
-				'Do not edit this file while the application is running.',
-				'',
-			]
+            # Set file comments
+            parser.initial_comment = [
+                '%s configuration file' % __shortname__,
+                'Do not edit this file while the application is running.',
+                '',
+            ]
 
-			# Append settings to parser
-			for name in self.settings:
-				parser[name] = self.settings[name]
+            # Append settings to parser
+            for name in self.settings:
+                parser[name] = self.settings[name]
 
-			# Save options to file
-			if not os.path.exists(os.path.dirname(self.filepath)):
-				os.makedirs(os.path.dirname(self.filepath))
+            # Save options to file
+            if not os.path.exists(os.path.dirname(self.filepath)):
+                os.makedirs(os.path.dirname(self.filepath))
 
-			# Save configuration file
-			parser.write()
+            # Save configuration file
+            parser.write()
 
-			return True
-		except Exception, e:
-			sys.stderr.write(_('Error: %s\n') % e)
-			return False
+            return True
+        except Exception, e:
+            sys.stderr.write(_('Error: %s\n') % e)
+            return False
 
-	def set(self, name, value):
-		"""
-		Set an option value by name
-			void set(option name: str, option value: mixed)
-		"""
+    def set(self, name, value):
+        """
+        Set an option value by name
+            void set(option name: str, option value: mixed)
+        """
 
-		# Set option value
-		self.settings[name] = value
+        # Set option value
+        self.settings[name] = value

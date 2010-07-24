@@ -9,8 +9,10 @@
 #
 # $Id$
 
-import gtk, pygtk
-import os, re
+import gtk
+import pygtk
+import os
+import re
 from machette.module import MachetteModule
 from machette.path import DATA_DIR
 
@@ -24,79 +26,96 @@ mandatory = True
 
 # Set configuration options list
 options = {
-	'data.textview-replace':	( str, '' ),
-	'window.pane-position-replace':	( int, 0 ),
+    'data.textview-replace': (str, ''),
+    'window.pane-position-replace': (int, 0),
 }
 
+
 class MachetteModuleReplace(MachetteModule):
-	def register(self):
-		"""
-		Register MachetteModuleReplace module
-			void register(void)
-		"""
+    def register(self):
+        """
+        Register MachetteModuleReplace module
+            void register(void)
+        """
 
-		# Load module UI file
-		self.parent.wtree.add_from_file(os.path.join(DATA_DIR, 'ui/module/replace.ui'))
+        # Load module UI file
+        self.parent.wtree.add_from_file(os.path.join(DATA_DIR,
+                                                     'ui/module/replace.ui'))
 
-		# Initialize GtkTextBuffer
-		self.replace_buffer = self.parent.wtree.get_object('textview-replace').get_buffer()
+        # Initialize GtkTextBuffer
+        self.rpbuffer = self.parent.wtree.get_object('textview-replace').\
+            get_buffer()
 
-		# Restore last state
-		self.parent.wtree.get_object('vpaned-replace').set_position(self.parent.config.get('window.pane-position-replace'))
-		self.replace_buffer.set_text(self.parent.config.get('data.textview-replace'))
+        # Restore last state
+        self.parent.wtree.get_object('vpaned-replace').set_position(
+            self.parent.config.get('window.pane-position-replace'))
+        self.rpbuffer.set_text(
+            self.parent.config.get('data.textview-replace'))
 
-		# Attach UI to the parent window
-		self.parent.wtree.get_object('notebook-extension').append_page(self.parent.wtree.get_object('vpaned-replace'), gtk.Label(_('Replace')))
+        # Attach UI to the parent window
+        self.parent.wtree.get_object('notebook-extension').append_page(
+            self.parent.wtree.get_object('vpaned-replace'),
+            gtk.Label(_('Replace')))
 
-		# Connect signals
-		self.parent.regex_buffer.connect('changed', self.update_tab)
-		self.parent.target_buffer.connect('changed', self.update_tab)
-		self.parent.wtree.get_object('button-replace-result-apply').connect('clicked', self.apply_replace)
-		self.parent.wtree.get_object('textview-replace').connect('key-press-event', self.parent.switch_focus)
-		self.parent.wtree.get_object('vpaned-replace').connect('map', self.update_tab)
-		self.replace_buffer.connect('changed', self.update_tab)
+        # Connect signals
+        self.parent.rbuffer.connect('changed', self.update_tab)
+        self.parent.tbuffer.connect('changed', self.update_tab)
+        self.parent.wtree.get_object('button-replace-result-apply').\
+            connect('clicked', self.apply_replace)
+        self.parent.wtree.get_object('textview-replace').\
+            connect('key-press-event', self.parent.switch_focus)
+        self.parent.wtree.get_object('vpaned-replace').\
+            connect('map', self.update_tab)
+        self.rpbuffer.connect('changed', self.update_tab)
 
-	def unregister(self):
-		"""
-		Unregister MachetteModuleReplace module
-			void unregister(void)
-		"""
+    def unregister(self):
+        """
+        Unregister MachetteModuleReplace module
+            void unregister(void)
+        """
 
-		# Save state
-		if self.parent.config.get('window.save-state'):
-			self.parent.config.set('data.textview-replace', self.replace_buffer.get_text(self.replace_buffer.get_start_iter(), self.replace_buffer.get_end_iter()))
-			self.parent.config.set('window.pane-position-replace', self.parent.wtree.get_object('vpaned-replace').get_position())
-	
-	def apply_replace(self, source=None, event=None):
-		"""
-		Apply replacement to the target string
-			void apply_replace(event source: gtk.Object, event: gtk.gdk.Event)
-		"""
+        # Save state
+        if self.parent.config.get('window.save-state'):
+            self.parent.config.set('data.textview-replace', self.rpbuffer.\
+                get_text(self.rpbuffer.get_start_iter(),
+                         self.rpbuffer.get_end_iter()))
+            self.parent.config.set('window.pane-position-replace', self.\
+                parent.wtree.get_object('vpaned-replace').get_position())
 
-		# Update target string
-		result_buffer = self.parent.wtree.get_object('textview-replace-result').get_buffer()
-		self.parent.target_buffer.set_text(result_buffer.get_text(result_buffer.get_start_iter(), result_buffer.get_end_iter()))
-	
-	def update_tab(self, source=None, event=None):
-		"""
-		Update replace GtkNotebook tab
-			void update_tab(event source: gtk.Object, event: gtk.gdk.Event)
-		"""
+    def apply_replace(self, source=None, event=None):
+        """
+        Apply replacement to the target string
+            void apply_replace(event source: gtk.Object, event: gtk.gdk.Event)
+        """
 
-		# Stop if updating is active or regex not available
-		if self.parent.updating or not self.parent.regex:
-			return
+        # Update target string
+        rsbuffer = self.parent.wtree.get_object('textview-replace-result').\
+            get_buffer()
+        self.parent.tbuffer.set_text(rsbuffer.get_text(
+            rsbuffer.get_start_iter(), rsbuffer.get_end_iter()))
 
-		# Hide error message
-                self.parent.wtree.get_object('label-replace-message').hide()
+    def update_tab(self, source=None, event=None):
+        """
+        Update replace GtkNotebook tab
+            void update_tab(event source: gtk.Object, event: gtk.gdk.Event)
+        """
 
-		try:
-			self.parent.wtree.get_object('textview-replace-result').get_buffer().set_text(self.parent.regex.sub(
-				self.replace_buffer.get_text(self.replace_buffer.get_start_iter(), self.replace_buffer.get_end_iter()),
-				self.parent.target,
-				self.parent.limit,
-			))
-		except ( IndexError, re.error ), e:
-			 # Display error message
-			self.parent.wtree.get_object('label-replace-message').set_label(_('Error: %s') % e)
-			self.parent.wtree.get_object('label-replace-message').show()
+        # Stop if updating is active or regex not available
+        if self.parent.updating or not self.parent.regex:
+            return
+
+        # Hide error message
+        self.parent.wtree.get_object('label-replace-message').hide()
+
+        try:
+            self.parent.wtree.get_object('textview-replace-result').\
+                get_buffer().set_text(self.parent.regex.sub(
+                    self.rpbuffer.get_text(self.rpbuffer.get_start_iter(),
+                                           self.rpbuffer.get_end_iter()),
+                    self.parent.target,
+                    self.parent.limit))
+        except (IndexError, re.error), e:
+             # Display error message
+            self.parent.wtree.get_object('label-replace-message').set_label(
+                _('Error: %s') % e)
+            self.parent.wtree.get_object('label-replace-message').show()

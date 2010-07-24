@@ -17,8 +17,8 @@ Machette is an interactive regular expression tester
 from machette import Machette
 
 if __name__ == '__main__':
-	try:
-		app = Machette()
-		app.main()
-	except KeyboardInterrupt:
-		pass
+    try:
+        app = Machette()
+        app.main()
+    except KeyboardInterrupt:
+        pass

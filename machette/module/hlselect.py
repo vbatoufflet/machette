@@ -9,8 +9,11 @@
 #
 # $Id$
 
-import gtk, pygtk
-import os, random, re
+import gtk
+import pygtk
+import os
+import random
+import re
 from machette import __cmdname__
 from machette.module import MachetteModule
 from machette.path import DATA_DIR
@@ -24,164 +27,195 @@ classname = 'MachetteModuleHlSelect'
 name = _('Highlight selection')
 description = _('Highlight target according to regular expression selection.')
 version = None
-authors = [ 'Vincent Batoufflet <vincent@batoufflet.info>' ]
+authors = ['Vincent Batoufflet <vincent@batoufflet.info>']
 website = None
 
 # Set configuration options list
 options = {
-	'color.match-select':	( str, '#ff9900' ),
+    'color.match-select': (str, '#ff9900'),
 }
 
+
 class MachetteModuleHlSelect(MachetteModule):
-	def register(self):
-		"""
-		Register MachetteModuleHlSelect module
-			void register(void)
-		"""
+    def register(self):
+        """
+        Register MachetteModuleHlSelect module
+            void register(void)
+        """
 
-		# Initialize window if needed
-		if not hasattr(self.parent, 'pref_dialog'):
-			self.parent.init_pref_dialog()
+        # Initialize window if needed
+        if not hasattr(self.parent, 'pref_dialog'):
+            self.parent.init_pref_dialog()
 
-		# Update preference pane
-		tablecolor = self.parent.wtree.get_object('table-color')
-		tablecolor.resize(tablecolor.get_property('n-rows') + 1, tablecolor.get_property('n-columns'))
+        # Update preference pane
+        tablecolor = self.parent.wtree.get_object('table-color')
+        tablecolor.resize(tablecolor.get_property('n-rows') + 1,
+                          tablecolor.get_property('n-columns'))
 
-		self.label = gtk.Label(_('Selection match:'))
-		self.label.set_property('xalign', 0)
-		self.label.show()
+        self.label = gtk.Label(_('Selection match:'))
+        self.label.set_property('xalign', 0)
+        self.label.show()
 
-		self.colorbutton = gtk.ColorButton(gtk.gdk.color_parse(self.parent.config.get('color.match-select')))
-		self.colorbutton.show()
+        self.colorbutton = gtk.ColorButton(
+            gtk.gdk.color_parse(self.parent.config.get('color.match-select')))
+        self.colorbutton.show()
 
-		tablecolor.attach(self.label, 0, 1, 2, 3, gtk.FILL, gtk.FILL)
-		tablecolor.attach(self.colorbutton, 1, 2, 2, 3, gtk.FILL, gtk.FILL)
+        tablecolor.attach(self.label, 0, 1, 2, 3, gtk.FILL, gtk.FILL)
+        tablecolor.attach(self.colorbutton, 1, 2, 2, 3, gtk.FILL, gtk.FILL)
 
-		# Create selection tag
-		self.parent.target_buffer.create_tag('match-select', background=gtk.gdk.color_parse(self.parent.config.get('color.match-select')))
+        # Create selection tag
+        self.parent.tbuffer.create_tag('match-select',
+            background=gtk.gdk.color_parse(
+                self.parent.config.get('color.match-select')))
 
-		# Connect signals
-		self.handlers = dict()
-		self.handlers['regex_buffer.mark-set'] = self.parent.regex_buffer.connect('mark-set', self.check_sub_pattern)
-		self.handlers['target_buffer.changed'] = self.parent.target_buffer.connect('changed', self.check_sub_pattern)
-		self.handlers['button-pref-ok.clicked'] = self.parent.wtree.get_object('button-pref-ok').connect('clicked', self.set_color)
-		self.handlers['button-pref-reset.clicked'] = self.parent.wtree.get_object('button-pref-reset').connect('clicked', self.reset_color)
-	
-	def check_sub_pattern(self, source=None, step=None, count=None, extend=None):
-		"""
-		Check for regular expression sub-pattern
-			void check_sub_pattern(event source: gtk.Object, step: gtk.MovementStep, step count: int, selection extension flag: bool)
-		"""
+        # Connect signals
+        self.handlers = dict()
+        self.handlers['regex_buffer.mark-set'] = self.parent.rbuffer.connect(
+            'mark-set', self.check_sub_pattern)
+        self.handlers['target_buffer.changed'] = self.parent.tbuffer.connect(
+            'changed', self.check_sub_pattern)
+        self.handlers['button-pref-ok.clicked'] = self.parent.wtree.\
+            get_object('button-pref-ok').connect('clicked', self.set_color)
+        self.handlers['button-pref-reset.clicked'] = self.parent.wtree.\
+            get_object('button-pref-reset').connect('clicked',
+                                                    self.reset_color)
 
-		# Remove previous selection
-		self.parent.target_buffer.remove_tag_by_name('match-select', self.parent.target_buffer.get_start_iter(), self.parent.target_buffer.get_end_iter())
+    def check_sub_pattern(self, source=None, step=None, count=None,
+                          extend=None):
+        """
+        Check for regular expression sub-pattern
+            void check_sub_pattern(event source: gtk.Object,
+                                   step: gtk.MovementStep, step count: int,
+                                   selection extension flag: bool)
+        """
 
-		# Get regular expression selection bounds
-		bounds = self.parent.regex_buffer.get_selection_bounds()
+        # Remove previous selection
+        self.parent.tbuffer.remove_tag_by_name('match-select',
+            self.parent.tbuffer.get_start_iter(),
+            self.parent.tbuffer.get_end_iter())
 
-		# Stop if no selection or match
-		if len(bounds) == 0 or len(self.parent.match) == 0:
-			return
+        # Get regular expression selection bounds
+        bounds = self.parent.rbuffer.get_selection_bounds()
 
-		# Get regular expression and sub-target
-		regex = self.parent.regex_buffer.get_text(
-			self.parent.regex_buffer.get_start_iter(),
-			self.parent.regex_buffer.get_end_iter(),
-		)
+        # Stop if no selection or match
+        if len(bounds) == 0 or len(self.parent.match) == 0:
+            return
 
-		target = self.parent.target_buffer.get_text(
-			self.parent.target_buffer.get_iter_at_offset(self.parent.match[0].start()),
-			self.parent.target_buffer.get_iter_at_offset(self.parent.match[0].end()),
-		)
+        # Get regular expression and sub-target
+        regex = self.parent.rbuffer.get_text(
+            self.parent.rbuffer.get_start_iter(),
+            self.parent.rbuffer.get_end_iter(),
+        )
 
-		try:
-			# Generate match id
-			mid = self.generate_match_id()
+        target = self.parent.tbuffer.get_text(
+            self.parent.tbuffer.get_iter_at_offset(
+                self.parent.match[0].start()),
+            self.parent.tbuffer.get_iter_at_offset(
+                self.parent.match[0].end()),
+        )
 
-			while target.find(mid) != -1:
-				mid = self.generate_match_id()
+        try:
+            # Generate match id
+            mid = self.generate_match_id()
 
-			# Update regex for sub-pattern match
-			mstart = bounds[0].get_offset()
-			mend = bounds[1].get_offset()
+            while target.find(mid) != -1:
+                mid = self.generate_match_id()
 
-			regex = regex[:mend] + ')' + regex[mend:]
-			regex = regex[:mstart] + '(?P<%s>' % mid + regex[mstart:]
+            # Update regex for sub-pattern match
+            mstart = bounds[0].get_offset()
+            mend = bounds[1].get_offset()
 
-			# Check for sub-pattern
-			s = re.match(regex, target)
+            regex = regex[:mend] + ')' + regex[mend:]
+            regex = regex[:mstart] + '(?P<%s>' % mid + regex[mstart:]
 
-			# Get sub-pattern
-			select = self.parent.regex_buffer.get_text(bounds[0], bounds[1])
+            # Check for sub-pattern
+            s = re.match(regex, target)
 
-			if not s or select.startswith('(') and select.find(')') == -1 or select.endswith(')') and select.find('(') == -1:
-				return
+            # Get sub-pattern
+            select = self.parent.rbuffer.get_text(bounds[0], bounds[1])
 
-			# Update selection tag priority
-			self.parent.target_buffer.get_tag_table().lookup('match-select').set_priority(self.parent.target_buffer.get_tag_table().get_size()-1)
+            if not s \
+              or select.startswith('(') \
+              and select.find(')') == -1 \
+              or select.endswith(')') \
+              and select.find('(') == -1:
+                return
 
-			# Apply selection tag
-			self.parent.target_buffer.apply_tag_by_name(
-				'match-select',
-				self.parent.target_buffer.get_iter_at_offset(self.parent.match[0].start() + s.start(mid)),
-				self.parent.target_buffer.get_iter_at_offset(self.parent.match[0].start() + s.end(mid)),
-			)
-		except re.error:
-			pass
+            # Update selection tag priority
+            self.parent.tbuffer.get_tag_table().lookup('match-select').\
+                set_priority(self.parent.tbuffer.get_tag_table().\
+                    get_size() - 1)
 
-	def generate_match_id(self, length=8):
-		"""
-		Generate an unique match id
-			str generate_match_id(identifier length: int)
-		"""
+            # Apply selection tag
+            self.parent.tbuffer.apply_tag_by_name(
+                'match-select',
+                self.parent.tbuffer.get_iter_at_offset(
+                    self.parent.match[0].start() + s.start(mid)),
+                self.parent.tbuffer.get_iter_at_offset(
+                    self.parent.match[0].start() + s.end(mid)),
+            )
+        except re.error:
+            pass
 
-		mid = ''
+    def generate_match_id(self, length=8):
+        """
+        Generate an unique match id
+            str generate_match_id(identifier length: int)
+        """
 
-		while len(mid) < length:
-			mid += chr(random.randint(65, 90))
+        mid = ''
 
-		return '%s_%s' % (__cmdname__, mid)
+        while len(mid) < length:
+            mid += chr(random.randint(65, 90))
 
-	def reset_color(self, source=None):
-		"""
-		Reset selection highlight color
-			void reset_color(event source: gtk.Object)
-		"""
+        return '%s_%s' % (__cmdname__, mid)
 
-		# Set color to default
-		self.colorbutton.set_color(gtk.gdk.color_parse(self.parent.config.get_default('color.match-select')))
-	
-	def set_color(self, source=None):
-		"""
-		Set selection highlight color
-			void set_color(event source: gtk.Object)
-		"""
+    def reset_color(self, source=None):
+        """
+        Reset selection highlight color
+            void reset_color(event source: gtk.Object)
+        """
 
-		# Update color preference
-		self.parent.config.set('color.match-select', self.colorbutton.get_color().to_string())
+        # Set color to default
+        self.colorbutton.set_color(gtk.gdk.color_parse(
+            self.parent.config.get_default('color.match-select')))
 
-		# Update tag
-		self.parent.target_buffer.get_tag_table().lookup('match-select').set_property(
-			'background',
-			gtk.gdk.color_parse(self.parent.config.get('color.match-select')),
-		)
+    def set_color(self, source=None):
+        """
+        Set selection highlight color
+            void set_color(event source: gtk.Object)
+        """
 
-	def unregister(self):
-		"""
-		Unregister MachetteModuleHlSelect module
-			void unregister(void)
-		"""
+        # Update color preference
+        self.parent.config.set('color.match-select',
+            self.colorbutton.get_color().to_string())
 
-		# Update preference pane
-		tablecolor = self.parent.wtree.get_object('table-color')
-		tablecolor.remove(self.label)
-		tablecolor.remove(self.colorbutton)
+        # Update tag
+        self.parent.tbuffer.get_tag_table().lookup('match-select').\
+            set_property('background',
+                gtk.gdk.color_parse(self.parent.config.\
+                    get('color.match-select')),
+        )
 
-		# Remove selection tag
-		self.parent.target_buffer.get_tag_table().remove(self.parent.target_buffer.get_tag_table().lookup('match-select'))
+    def unregister(self):
+        """
+        Unregister MachetteModuleHlSelect module
+            void unregister(void)
+        """
 
-		# Disconnect signals
-		self.parent.regex_buffer.disconnect(self.handlers['regex_buffer.mark-set'])
-		self.parent.target_buffer.disconnect(self.handlers['target_buffer.changed'])
-		self.parent.wtree.get_object('button-pref-ok').disconnect(self.handlers['button-pref-ok.clicked'])
-		self.parent.wtree.get_object('button-pref-reset').disconnect(self.handlers['button-pref-reset.clicked'])
+        # Update preference pane
+        tablecolor = self.parent.wtree.get_object('table-color')
+        tablecolor.remove(self.label)
+        tablecolor.remove(self.colorbutton)
+
+        # Remove selection tag
+        self.parent.tbuffer.get_tag_table().remove(
+            self.parent.tbuffer.get_tag_table().lookup('match-select'))
+
+        # Disconnect signals
+        self.parent.rbuffer.disconnect(self.handlers['regex_buffer.mark-set'])
+        self.parent.tbuffer.disconnect(self.handlers['target_buffer.changed'])
+        self.parent.wtree.get_object('button-pref-ok').disconnect(
+            self.handlers['button-pref-ok.clicked'])
+        self.parent.wtree.get_object('button-pref-reset').disconnect(
+            self.handlers['button-pref-reset.clicked'])
