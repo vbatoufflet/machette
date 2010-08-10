@@ -40,7 +40,7 @@ class MachetteModuleReplace(MachetteModule):
 
         # Load module UI file
         self.parent.wtree.add_from_file(os.path.join(DATA_DIR,
-                                                     'ui/module/replace.ui'))
+            'ui/module/replace.ui'))
 
         # Initialize GtkTextBuffer
         self.rpbuffer = self.parent.wtree.get_object('textview-replace').\
@@ -78,7 +78,7 @@ class MachetteModuleReplace(MachetteModule):
         if self.parent.config.get('window.save-state'):
             self.parent.config.set('data.textview-replace', self.rpbuffer.\
                 get_text(self.rpbuffer.get_start_iter(),
-                         self.rpbuffer.get_end_iter()))
+                    self.rpbuffer.get_end_iter()))
             self.parent.config.set('window.pane-position-replace', self.\
                 parent.wtree.get_object('vpaned-replace').get_position())
 
@@ -111,7 +111,7 @@ class MachetteModuleReplace(MachetteModule):
             self.parent.wtree.get_object('textview-replace-result').\
                 get_buffer().set_text(self.parent.regex.sub(
                     self.rpbuffer.get_text(self.rpbuffer.get_start_iter(),
-                                           self.rpbuffer.get_end_iter()),
+                        self.rpbuffer.get_end_iter()),
                     self.parent.target,
                     self.parent.limit))
         except (IndexError, re.error), e:

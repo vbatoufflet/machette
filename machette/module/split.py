@@ -39,7 +39,7 @@ class MachetteModuleSplit(MachetteModule):
 
         # Load module UI file
         self.parent.wtree.add_from_file(os.path.join(DATA_DIR,
-                                                     'ui/module/split.ui'))
+            'ui/module/split.ui'))
 
         # Initialize split delimiter GtkComboBox
         for delim in ['|', '#', '@', unichr(0xb6), unichr(0x25a0)]:

@@ -72,7 +72,7 @@ def load_module(name, fromlist=[]):
     try:
         # Try to import the module
         return __import__('machette.module.%s' % name, globals(), locals(),
-                          fromlist)
+            fromlist)
     except ImportError:
         # Return None on failure
         return None

@@ -6,3 +6,7 @@
 
 %:
 	dh --with quilt $@
+
+override_dh_auto_clean:
+	quilt pop -a -R || test $$? = 2
+	dh_auto_clean

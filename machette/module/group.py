@@ -33,7 +33,7 @@ class MachetteModuleGroup(MachetteModule):
 
         # Load module UI file
         self.parent.wtree.add_from_file(os.path.join(DATA_DIR,
-                                        'ui/module/group.ui'))
+            'ui/module/group.ui'))
 
         # Initialize group GtkTreeView
         render = gtk.CellRendererText()
@@ -75,8 +75,7 @@ class MachetteModuleGroup(MachetteModule):
         # Update GtkSpinButton adjustment
         if type(source) != gtk.SpinButton:
             spinbutton.set_adjustment(gtk.Adjustment(1, 1,
-                                                     len(self.parent.match), 1,
-                                                     1, 0))
+                len(self.parent.match), 1, 1, 0))
 
         # Get GtkListStore
         liststore = self.parent.wtree.get_object('liststore-group')
@@ -87,7 +86,7 @@ class MachetteModuleGroup(MachetteModule):
         # Append new groups
         count = 1
         groups = dict(map(lambda a: (a[1], a[0]),
-                          self.parent.regex.groupindex.items()))
+            self.parent.regex.groupindex.items()))
         index = int(spinbutton.get_value()) - 1
 
         # Stop if no match or groups

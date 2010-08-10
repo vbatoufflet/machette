@@ -50,7 +50,7 @@ class MachetteModuleHlSelect(MachetteModule):
         # Update preference pane
         tablecolor = self.parent.wtree.get_object('table-color')
         tablecolor.resize(tablecolor.get_property('n-rows') + 1,
-                          tablecolor.get_property('n-columns'))
+            tablecolor.get_property('n-columns'))
 
         self.label = gtk.Label(_('Selection match:'))
         self.label.set_property('xalign', 0)
@@ -78,7 +78,7 @@ class MachetteModuleHlSelect(MachetteModule):
             get_object('button-pref-ok').connect('clicked', self.set_color)
         self.handlers['button-pref-reset.clicked'] = self.parent.wtree.\
             get_object('button-pref-reset').connect('clicked',
-                                                    self.reset_color)
+                self.reset_color)
 
     def check_sub_pattern(self, source=None, step=None, count=None,
                           extend=None):

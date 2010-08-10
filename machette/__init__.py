@@ -228,9 +228,9 @@ class Machette:
             # Confirm if file already exists
             if os.path.exists(filepath):
                 message = gtk.MessageDialog(None, 0, gtk.MESSAGE_WARNING,
-                                            gtk.BUTTONS_YES_NO)
+                    gtk.BUTTONS_YES_NO)
                 message.set_markup(_('The destination file already exists. '
-                                     'Are you sure?'))
+                    'Are you sure?'))
 
                 action = message.run()
                 if action == gtk.RESPONSE_NO:
@@ -284,7 +284,7 @@ class Machette:
                 message = gtk.MessageDialog(None, 0, gtk.MESSAGE_QUESTION,
                     gtk.BUTTONS_YES_NO)
                 message.set_markup(_('Your are about to replace the existing '
-                                     'target string. Are you sure?'))
+                    'target string. Are you sure?'))
 
                 action = message.run()
                 if action == gtk.RESPONSE_NO:
@@ -510,7 +510,7 @@ class Machette:
             # Set background property
             self.tbuffer.get_tag_table().lookup(name).set_property(
                 'background', gtk.gdk.color_parse(self.config.get('color.' +
-                                                                  name)))
+                    name)))
 
     def show_about_dialog(self, source=None, event=None):
         """
@@ -802,14 +802,14 @@ class Machette:
             # Append begin chunk if needed
             if self.tbuffer.get_char_count() == 0 and m.start() != 0:
                 self.tbuffer.insert(self.tbuffer.get_end_iter(),
-                                    self.target[:m.start()])
+                    self.target[:m.start()])
 
             # Append chunk present between two matches
             if m.start() == last:
                 pass
             elif last:
                 self.tbuffer.insert(self.tbuffer.get_end_iter(),
-                                    self.target[last:m.start()])
+                    self.target[last:m.start()])
 
             # Append chunk with tags
             self.tbuffer.insert_with_tags_by_name(self.tbuffer.get_end_iter(),
@@ -829,7 +829,7 @@ class Machette:
         # Append end chunk if needed
         if last != len(self.target):
             self.tbuffer.insert(self.tbuffer.get_end_iter(),
-                                self.target[last:])
+                self.target[last:])
 
         # Restore selection or cursor position
         if type(saved) == tuple:
