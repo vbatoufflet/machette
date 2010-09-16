@@ -50,8 +50,11 @@ class Machette:
         locale.bindtextdomain(__cmdname__, LOCALE_DIR)
 
         # Parse command line arguments
+        self.opt_safemode = False
+
         try:
-            opts, args = getopt.getopt(sys.argv[1:], 'hv', ['help', 'version'])
+            opts, args = getopt.getopt(sys.argv[1:], 'hsv',
+                ['help', 'safe-mode', 'version'])
         except Exception, e:
             sys.stderr.write(_('Error: %s\n') % e)
             self.print_usage()
@@ -64,6 +67,8 @@ class Machette:
             elif opt in ['-v', '--version']:
                 self.print_version()
                 sys.exit(0)
+            elif opt in ['-s', '--safe-mode']:
+                self.opt_safemode = True
 
         # Load widgets from UI file
         self.wtree = gtk.Builder()
@@ -142,7 +147,8 @@ class Machette:
             # Skip disabled modules
             if (not hasattr(self.modules[name], 'mandatory') \
               or not self.modules[name].mandatory) \
-              and not name in self.config.get('module.enabled'):
+              and (not name in self.config.get('module.enabled') \
+              or self.opt_safemode):
                 continue
 
             # Load module
@@ -434,8 +440,9 @@ class Machette:
         print(_('Usage: %s [OPTION]...') % __cmdname__)
         print('')
         print(_('Options:'))
-        print('   -h, --help     ' + _('display this help and exit'))
-        print('   -v, --version  ' + _('display program version and exit'))
+        print('   -h, --help       ' + _('display this help and exit'))
+        print('   -s, --safe-mode  ' + _('disable modules load at startup'))
+        print('   -v, --version    ' + _('display program version and exit'))
 
     def print_version(self):
         """
@@ -650,10 +657,21 @@ class Machette:
                         enabled.append(item[1])
 
                         # Initialize module
-                        self.module_init(item[1])
+                        if not self.opt_safemode:
+                            self.module_init(item[1])
                     else:
                         # Destroy loaded module
                         self.module_destroy(item[1])
+
+                # Display safe-mode warning if needed
+                if self.opt_safemode and enabled != self.config.get('module.enabled'):
+                    message = gtk.MessageDialog(None, 0,
+                        gtk.MESSAGE_WARNING, gtk.BUTTONS_OK)
+                    message.set_markup(_('Safe mode is currently '
+                        'active. Please restart to validate changes.'))
+
+                    message.run()
+                    message.destroy()
 
                 self.config.set('module.enabled', enabled)
 
