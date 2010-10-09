@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Machette\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-07-17 13:32+0200\n"
+"POT-Creation-Date: 2010-10-09 17:48+0200\n"
 "PO-Revision-Date: 2010-05-23 11:50+0200\n"
 "Last-Translator: Vincent Batoufflet <vincent@batoufflet.info>\n"
 "Language-Team: French <vincent@batoufflet.info>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
 
-#: machette/__init__.py:708
+#: machette/__init__.py:864
 #, python-format
 msgid "%d match found"
 msgid_plural "%d matches found"
@@ -30,7 +30,7 @@ msgstr[1] "%d correspondances trouvées"
 msgid "<big><b>Name</b></big>   version x.x"
 msgstr "<big><b>Nom</b></big>   version x.x"
 
-#: machette/__init__.py:221
+#: machette/__init__.py:278
 msgid "All files"
 msgstr "Tous les fichiers"
 
@@ -42,6 +42,10 @@ msgstr "Appliquer à la cible"
 msgid "Authors:"
 msgstr "Auteurs :"
 
+#: ui/module/refguide.ui:66
+msgid "Characters"
+msgstr "Caractères"
+
 #: ui/pref.ui:68
 msgid "Color settings:"
 msgstr "Paramètres de couleur :"
@@ -50,33 +54,46 @@ msgstr "Paramètres de couleur :"
 msgid "Delimiter:"
 msgstr "Délimiteur :"
 
+#: ui/module/refguide.ui:71
+msgid "Description"
+msgstr "Description"
+
 #: ui/pref.ui:189
 msgid "Enabled"
 msgstr "Actif"
 
-#: machette/__init__.py:159 machette/module/replace.py:99
+#: machette/__init__.py:208 machette/module/replace.py:120
 #, python-format
 msgid "Error: %s"
 msgstr "Erreur : %s"
 
-#: machette/__init__.py:46 machette/config.py:135
+#: machette/__init__.py:59 machette/config.py:145
 #, python-format
 msgid "Error: %s\n"
 msgstr "Erreur : %s\n"
 
-#: machette/__init__.py:454
+#: machette/__init__.py:556
 msgid "Error: unable to load AUTHORS file"
 msgstr "Erreur : impossible de lire le fichier AUTHORS"
 
-#: machette/__init__.py:447
+#: machette/__init__.py:548
 msgid "Error: unable to load LICENSE file"
 msgstr "Erreur : impossible de lire le fichier LICENSE"
 
-#: machette/__init__.py:461
+#: machette/__init__.py:564
 msgid "Error: unable to load TRANSLATORS file"
 msgstr "Erreur : impossible de lire le fichier TRANSLATORS"
 
-#: machette/__init__.py:171 ui/main.ui:32
+#: machette/config.py:58
+#, python-format
+msgid ""
+"Error: unable to read configuration file, please remove the file and "
+"relaunch %s.\n"
+msgstr ""
+"Erreur: impossible de lire le fichier de configuration, veuillez le "
+"supprimer et relancer %s"
+
+#: machette/__init__.py:220 ui/main.ui:32
 msgid "Export to file..."
 msgstr "Exporter vers un fichier..."
 
@@ -84,7 +101,7 @@ msgstr "Exporter vers un fichier..."
 msgid "First match:"
 msgstr "Première correspondance :"
 
-#: machette/module/group.py:45
+#: machette/module/group.py:52
 msgid "Group"
 msgstr "Groupe"
 
@@ -96,11 +113,11 @@ msgstr "Nom du groupe"
 msgid "Group:"
 msgstr "Groupe :"
 
-#: machette/module/hlselect.py:22
+#: machette/module/hlselect.py:27
 msgid "Highlight selection"
 msgstr "Highlight selection"
 
-#: machette/module/hlselect.py:23
+#: machette/module/hlselect.py:28
 msgid "Highlight target according to regular expression selection."
 msgstr ""
 "Mettre en surbrillance la cible en fonction de la sélection de l'expression "
@@ -110,7 +127,7 @@ msgstr ""
 msgid "Id"
 msgstr "Id"
 
-#: machette/__init__.py:207 ui/main.ui:24
+#: machette/__init__.py:263 ui/main.ui:24
 msgid "Import from file..."
 msgstr "Importer depuis un fichier..."
 
@@ -138,11 +155,11 @@ msgstr "Correspondance"
 msgid "Next matches:"
 msgstr "Correspondances suivantes :"
 
-#: machette/__init__.py:509 machette/__init__.py:630
+#: machette/__init__.py:619 machette/__init__.py:772
 msgid "No description available."
 msgstr "Aucune description disponible."
 
-#: machette/__init__.py:362
+#: machette/__init__.py:442
 msgid "Options:"
 msgstr "Options :"
 
@@ -158,11 +175,19 @@ msgstr "Permettre les espaces et les commentaires"
 msgid "Preferences"
 msgstr "Préférences"
 
+#: machette/module/refguide.py:27
+msgid "Python regular expression reference guide."
+msgstr "Guide de référence des expressions relationelles de Python."
+
+#: machette/module/refguide.py:26 machette/module/refguide.py:81
+msgid "Reference guide"
+msgstr "Guide de référence"
+
 #: ui/module/replace.ui:24 ui/main.ui:152
 msgid "Regular expression:"
 msgstr "Expression rationnelle :"
 
-#: machette/module/replace.py:47
+#: machette/module/replace.py:58
 msgid "Replace"
 msgstr "Remplacer"
 
@@ -178,6 +203,13 @@ msgstr "Chaîne de remplacement :"
 msgid "Reset to defaults"
 msgstr "Valeurs par défaut"
 
+#: machette/__init__.py:671
+#, python-format
+msgid "Safe mode is currently active. Please relaunch %s to validate changes."
+msgstr ""
+"Le mode sans échec est actuellement actif. Veuillez relancer %s pour valider "
+"les changements."
+
 #: ui/pref.ui:52
 msgid "Save window state on exit"
 msgstr "Sauvergarder l'état de la fenêtre à la fermeture"
@@ -186,11 +218,11 @@ msgstr "Sauvergarder l'état de la fenêtre à la fermeture"
 msgid "Search for matches globally"
 msgstr "Rechercher de manière globale"
 
-#: machette/module/hlselect.py:48
+#: machette/module/hlselect.py:55
 msgid "Selection match:"
 msgstr "Correspondance de sélection :"
 
-#: machette/module/split.py:46
+#: machette/module/split.py:55
 msgid "Split"
 msgstr "Découper"
 
@@ -198,11 +230,11 @@ msgstr "Découper"
 msgid "Target string:"
 msgstr "Chaîne cible :"
 
-#: machette/__init__.py:216
+#: machette/__init__.py:273
 msgid "Text files"
 msgstr "Fichiers texte"
 
-#: machette/__init__.py:186
+#: machette/__init__.py:238
 msgid "The destination file already exists. Are you sure?"
 msgstr "Le fichier de destination existe déjà. Continuer ?"
 
@@ -214,7 +246,7 @@ msgstr "Traiter la chaîne comme étant multi-lignes"
 msgid "Treat string as single line"
 msgstr "Traiter la chaîne comme étant sur une seule ligne"
 
-#: machette/__init__.py:360
+#: machette/__init__.py:440
 #, python-format
 msgid "Usage: %s [OPTION]..."
 msgstr "Usage: %s [OPTION]..."
@@ -235,7 +267,7 @@ msgstr "Site web :"
 msgid "Window settings:"
 msgstr "Paramètres de fenêtre :"
 
-#: machette/__init__.py:233
+#: machette/__init__.py:292
 msgid "Your are about to replace the existing target string. Are you sure?"
 msgstr ""
 "Vous êtes sur le point de remplacer la chaîne cible courante. Continuer ?"
@@ -244,7 +276,7 @@ msgstr ""
 msgid "_Edit"
 msgstr "Édit_er"
 
-#: ui/main.ui:17
+#: ui/module/refguide.ui:26 ui/main.ui:17
 msgid "_File"
 msgstr "_Fichier"
 
@@ -260,15 +292,23 @@ msgstr "_Aide"
 msgid "_Modules"
 msgstr "_Modules"
 
+#: machette/module/refguide.py:95
+msgid "_Reference guide"
+msgstr "Guide de _référence"
+
 #: ui/main.ui:78
 msgid "_View"
 msgstr "_Vue"
 
-#: machette/__init__.py:364
+#: machette/__init__.py:444
+msgid "disable modules load at startup"
+msgstr "désactiver le chargement des modules au démarrage"
+
+#: machette/__init__.py:445
 msgid "display program version and exit"
 msgstr "afficher les informations de version et quitter"
 
-#: machette/__init__.py:363
+#: machette/__init__.py:443
 msgid "display this help and exit"
 msgstr "afficher l'aide et quitter"
 

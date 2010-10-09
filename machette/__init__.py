@@ -664,11 +664,13 @@ class Machette:
                         self.module_destroy(item[1])
 
                 # Display safe-mode warning if needed
-                if self.opt_safemode and enabled != self.config.get('module.enabled'):
+                if self.opt_safemode \
+                  and enabled != self.config.get('module.enabled'):
                     message = gtk.MessageDialog(None, 0,
                         gtk.MESSAGE_WARNING, gtk.BUTTONS_OK)
                     message.set_markup(_('Safe mode is currently '
-                        'active. Please restart to validate changes.'))
+                        'active. Please relaunch %s to validate changes.')
+                            % __cmdname__)
 
                     message.run()
                     message.destroy()
