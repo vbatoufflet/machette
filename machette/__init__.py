@@ -12,7 +12,7 @@
 __shortname__ = 'Machette'
 __cmdname__ = 'machette'
 __description__ = 'An interactive regular expression tester'
-__version__ = '0.2'
+__version__ = '0.3'
 
 __author__ = 'Vincent Batoufflet'
 __email__ = 'vincent@batoufflet.info'

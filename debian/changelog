@@ -1,3 +1,13 @@
+machette (0.3) unstable; urgency=low
+
+  * Renamed project from Regex Tool to Machette.
+  * Added safe-mode support.
+  * Added 'Reference guide' module.
+  * Made source code PEP-8 compliant.
+  * Made some code cleanup and improvements.
+
+ -- Vincent Batoufflet <vincent@batoufflet.info>  Sat, 09 Oct 2010 17:55:11 +0200
+
 machette (0.2) unstable; urgency=low
 
   * Added modules support.
