@@ -7,7 +7,7 @@ interactive regular expression tester
 -------------------------------------
 
 :Manual section:	1
-:Manual group:		Rexgex Tool
+:Manual group:		Machette
 
 SYNOPSIS
 --------
@@ -22,6 +22,9 @@ OPTIONS
 
 -h, --help
 	Display this help and exit.
+
+-s, --safe-mode
+        Disable modules load at startup.
 
 -V, --version
 	Display program version and exit.
