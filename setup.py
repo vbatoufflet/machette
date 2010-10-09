@@ -238,6 +238,7 @@ setup(
                                   'TRANSLATORS']),
         ('share/' + __cmdname__ + '/ui', ['ui/main.ui', 'ui/pref.ui']),
         ('share/' + __cmdname__ + '/ui/module', ['ui/module/group.ui',
+                                                 'ui/module/refguide.ui',
                                                  'ui/module/replace.ui',
                                                  'ui/module/split.ui']),
     ],
