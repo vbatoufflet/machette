@@ -60,7 +60,7 @@
                 <property name="model">liststore-refguide</property>
                 <property name="headers_clickable">False</property>
                 <property name="rules_hint">True</property>
-                <property name="search_column">0</property>
+                <property name="enable_search">False</property>
                 <child>
                   <object class="GtkTreeViewColumn" id="treeviewcolumn-refguide-char">
                     <property name="title" translatable="yes">Characters</property>
