@@ -41,12 +41,12 @@ class clean(_clean):
     _targets = [
         'ChangeLog',
         'dist',
-        'doc/*.[0-9]',
+        os.path.join('doc', '*.[0-9]'),
         'locale',
         'MANIFEST',
-        '%s/*.pyc' % __cmdname__,
-        '%s/module/*.pyc' % __cmdname__,
-        '%s/ui/*.pyc' % __cmdname__,
+        os.path.join(__cmdname__, '*.pyc'),
+        os.path.join(__cmdname__, 'module', '*.pyc'),
+        os.path.join(__cmdname__, 'ui', '*.pyc'),
     ]
 
     def run(self):
@@ -102,8 +102,8 @@ class gendoc(distutils.cmd.Command):
         for target in gendoc._targets:
             publish_file(
                 writer=Writer(),
-                source_path='doc/%s.%d.rst' % target,
-                destination_path='doc/%s.%d' % target,
+                source_path=os.path.join('doc', '%s.%d.rst' % target),
+                destination_path=os.path.join('doc', '%s.%d' % target),
             )
 
 
@@ -154,14 +154,14 @@ class install_data(_install_data):
     def run(self):
         # Install locale .mo catalog files
         for lang in os.listdir('locale'):
-            self.data_files.append(('share/locale/%s/LC_MESSAGES' % lang,
-                                    ['locale/%s/LC_MESSAGES/%s.mo'
-                                     % (lang, __cmdname__)]))
+            self.data_files.append((os.path.join('share', 'locale', lang,
+                'LC_MESSAGES'), [os.path.join('locale', lang, 'LC_MESSAGES',
+                    '%s.mo' % __cmdname__)]))
 
         # Install manpage
         for target in gendoc._targets:
-            self.data_files.append(('share/man/man%d' % target[1], ['doc/%s.%d'
-                                                                    % target]))
+            self.data_files.append((os.path.join('share', 'man', 'man%d' %
+                target[1]), [os.path.join('doc', '%s.%d' % target)]))
 
         # Continue with distutils built-in install_data command
         return _install_data.run(self)
@@ -226,7 +226,7 @@ setup(
         'install_lib': install_lib,
     },
     scripts=[
-        'bin/' + __cmdname__,
+        os.path.join('bin', __cmdname__),
     ],
     packages=[
         'machette',
@@ -234,12 +234,22 @@ setup(
         'machette.ui',
     ],
     data_files=[
-        ('share/' + __cmdname__, ['AUTHORS', 'ChangeLog', 'LICENSE', 'README',
-                                  'TRANSLATORS']),
-        ('share/' + __cmdname__ + '/ui', ['ui/main.ui', 'ui/pref.ui']),
-        ('share/' + __cmdname__ + '/ui/module', ['ui/module/group.ui',
-                                                 'ui/module/refguide.ui',
-                                                 'ui/module/replace.ui',
-                                                 'ui/module/split.ui']),
+        (os.path.join('share', __cmdname__), [
+            'AUTHORS',
+            'ChangeLog',
+            'LICENSE',
+            'README',
+            'TRANSLATORS',
+        ]),
+        (os.path.join('share', __cmdname__, 'ui'), [
+            os.path.join('ui', 'main.ui'),
+            os.path.join('ui', 'pref.ui'),
+        ]),
+        (os.path.join('share', __cmdname__, 'ui', 'module'), [
+            os.path.join('ui', 'module', 'group.ui'),
+            os.path.join('ui', 'module', 'refguide.ui'),
+            os.path.join('ui', 'module', 'replace.ui'),
+            os.path.join('ui', 'module', 'split.ui'),
+        ]),
     ],
 )
