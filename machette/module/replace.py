@@ -39,8 +39,8 @@ class MachetteModuleReplace(MachetteModule):
         """
 
         # Load module UI file
-        self.parent.wtree.add_from_file(os.path.join(DATA_DIR,
-            'ui/module/replace.ui'))
+        self.parent.wtree.add_from_file(os.path.join(DATA_DIR, 'ui', 'module',
+            'replace.ui'))
 
         # Initialize GtkTextBuffer
         self.rpbuffer = self.parent.wtree.get_object('textview-replace').\

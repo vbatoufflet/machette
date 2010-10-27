@@ -32,8 +32,8 @@ class MachetteModuleGroup(MachetteModule):
         """
 
         # Load module UI file
-        self.parent.wtree.add_from_file(os.path.join(DATA_DIR,
-            'ui/module/group.ui'))
+        self.parent.wtree.add_from_file(os.path.join(DATA_DIR, 'ui', 'module',
+            'group.ui'))
 
         # Initialize group GtkTreeView
         render = gtk.CellRendererText()

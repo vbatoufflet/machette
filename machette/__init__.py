@@ -73,7 +73,7 @@ class Machette:
         # Load widgets from UI file
         self.wtree = gtk.Builder()
         self.wtree.set_translation_domain(__cmdname__)
-        self.wtree.add_from_file(os.path.join(DATA_DIR, 'ui/main.ui'))
+        self.wtree.add_from_file(os.path.join(DATA_DIR, 'ui', 'main.ui'))
 
         # Set instance attributes
         self.flags = 0
@@ -314,7 +314,7 @@ class Machette:
             return
 
         # Initialize window
-        self.wtree.add_from_file(os.path.join(DATA_DIR, 'ui/pref.ui'))
+        self.wtree.add_from_file(os.path.join(DATA_DIR, 'ui', 'pref.ui'))
         self.pref_dialog = self.wtree.get_object('dialog-pref')
         self.pref_dialog.set_modal(True)
         self.pref_dialog.set_position(gtk.WIN_POS_CENTER_ON_PARENT)

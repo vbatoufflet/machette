@@ -74,8 +74,8 @@ class MachetteModuleRefGuide(MachetteModule):
         """
 
         # Load module UI file
-        self.parent.wtree.add_from_file(os.path.join(DATA_DIR,
-            'ui/module/refguide.ui'))
+        self.parent.wtree.add_from_file(os.path.join(DATA_DIR, 'ui', 'module',
+            'refguide.ui'))
 
         self.window = self.parent.wtree.get_object('window-refguide')
         self.window.set_title(__shortname__ + ' - ' + _('Reference guide'))
