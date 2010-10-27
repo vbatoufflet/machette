@@ -2,7 +2,7 @@ Index: machette/machette/__init__.py
 ===================================================================
 --- machette.orig/machette/__init__.py	2010-07-24 12:07:55.000000000 +0200
 +++ machette/machette/__init__.py	2010-07-24 12:08:23.000000000 +0200
-@@ -533,7 +533,7 @@
+@@ -540,7 +540,7 @@
  
              # Load information from external files
              try:
@@ -15,12 +15,11 @@ Index: machette/setup.py
 ===================================================================
 --- machette.orig/setup.py	2010-07-24 12:07:24.000000000 +0200
 +++ machette/setup.py	2010-07-24 12:07:45.000000000 +0200
-@@ -234,7 +234,7 @@
-         'machette.ui',
-     ],
-     data_files=[
--        ('share/' + __cmdname__, ['AUTHORS', 'ChangeLog', 'LICENSE', 'README',
-+        ('share/' + __cmdname__, ['AUTHORS', 'ChangeLog', 'README',
-                                   'TRANSLATORS']),
-         ('share/' + __cmdname__ + '/ui', ['ui/main.ui', 'ui/pref.ui']),
-         ('share/' + __cmdname__ + '/ui/module', ['ui/module/group.ui',
+@@ -237,7 +237,6 @@
+         (os.path.join('share', __cmdname__), [
+             'AUTHORS',
+             'CHANGELOG',
+-            'LICENSE',
+             'README',
+             'TRANSLATORS',
+         ]),

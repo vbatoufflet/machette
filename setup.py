@@ -39,7 +39,7 @@ class clean(_clean):
     """
 
     _targets = [
-        'ChangeLog',
+        'CHANGELOG',
         'dist',
         os.path.join('doc', '*.[0-9]'),
         'locale',
@@ -89,8 +89,8 @@ class gendoc(distutils.cmd.Command):
         if self and self.dry_run:
             return
 
-        # Generate ChangeLog file
-        print('generating ChangeLog file')
+        # Generate CHANGELOG file
+        print('generating CHANGELOG file')
         os.system('./update-changelog')
 
         # Generate manpage
@@ -236,8 +236,7 @@ setup(
     data_files=[
         (os.path.join('share', __cmdname__), [
             'AUTHORS',
-            'ChangeLog',
-            'LICENSE',
+            'CHANGELOG',
             'README',
             'TRANSLATORS',
         ]),

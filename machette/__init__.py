@@ -540,7 +540,7 @@ class Machette:
 
             # Load information from external files
             try:
-                fd = open(os.path.join(DATA_DIR, 'LICENSE'))
+                fd = open('/usr/share/common-licenses/GPL-3')
                 self.about_dialog.set_license(fd.read())
                 fd.close()
             except IOError, e:
