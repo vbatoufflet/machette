@@ -1,10 +1,27 @@
-#!/bin/bash
-# $Id$
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-set -e
+import os
 
-BASE_DIR=$(dirname $0)
+log = os.popen('git log --date=short --no-merges --pretty="%ad%x00%an%x00<%ae>%x00%s"')
 
-hg log -M -X .hgtags --style changelog | sed -e "s/\t \*/\t-/g" >$BASE_DIR/CHANGELOG
+last = None
 
-exit
+changelog = open('CHANGELOG', 'w')
+
+for line in log:
+    date, author, mail, message = line.strip().split('\x00')
+
+    if last != date:
+        if last:
+            changelog.write('\n')
+
+        changelog.write('%s  %s  %s\n\n' % (date, author, mail))
+
+        last = date
+
+    changelog.write('\t* %s\n' % message)
+
+changelog.close()
+
+log.close()

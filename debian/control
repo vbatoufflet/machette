@@ -5,8 +5,8 @@ Maintainer: Vincent Batoufflet <vincent@batoufflet.info>
 Build-Depends: debhelper (>= 7.0.50~), gettext, python-docutils (>= 0.6), python-gtk2, python-support (>= 0.8.4), quilt (>= 0.46-7~)
 Standards-Version: 3.8.4
 Homepage: http://thonpy.com/machette/
-Vcs-Hg: https://bitbucket.org/santx/machette/
 Vcs-Browser: https://bitbucket.org/santx/machette/
+Vcs-Git: git://github.com/santx/machette.git
 
 Package: machette
 Architecture: all

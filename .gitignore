@@ -1,0 +1,10 @@
+*.~
+*.pyc
+*.swp
+.pc
+build
+CHANGELOG
+dist
+doc/*.[0-9]
+locale
+MANIFEST
